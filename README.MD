@@ -9,7 +9,7 @@ It includes configuration for `Code - OSS` (a.k.a. `vscode`), as well as scripts
 To use this repository, add it as a submodule to your project.
 
 ```
-git submodule add https://github.com/Reloaded-Project/reloaded-project-configurations-rust.git ./src/reloaded-project-configurations
+git submodule add https://github.com/Reloaded-Project/reloaded-project-configurations-rust.git ./submodules/reloaded-project-configurations
 ```
 
 Periodically update the submodule to the latest version.
@@ -27,12 +27,75 @@ Rust projects in Reloaded use the default code style of `rustfmt`.
 The following is the expected file layout for your project:
 
 ```
-- docs/
-- src/
+.vscode/
+.cargo/
+docs/
+src/
+submodules/reloaded-project-configurations
+Cargo.toml
 ```
 
-The `docs` folder should contain all documentation for your project (if present).  
-The `src` folder should contain all source code for your project. Inside here is `Cargo.toml`.
+The `docs` folder should contain all mkdocs documentation for your project (if present).  
+The `src` folder should contain all source code for your project.  
+
+`Cargo.toml` should be in the root of the repository.  
+`.cargo` is optional, use if need to override settings.  
+
+## Cross Platform Targeting
+
+To work with cross-platform code, where you need to access OS specific APIs, some helper scripts are provided.
+
+### Including All Code Paths
+
+To include all code paths for local builds, consider editing `.cargo/config.toml`.
+
+```toml
+[build]
+# Note: This breaks IntelliJ Rust. Remove this line temporarily if working from that IDE.
+target = ['x86_64-unknown-linux-gnu','x86_64-apple-darwin','x86_64-pc-windows-gnu']
+```
+
+You might need to install the targets first:
+
+```bash
+rustup target add x86_64-unknown-linux-gnu
+rustup target add x86_64-apple-darwin
+rustup target add x86_64-pc-windows-gnu
+```
+
+Now when you run `cargo build`, it will build code for all platforms; and you'll get your compiler errors, warnings etc.
+
+### Cross Testing on Local Machine
+
+#### Prerequisites (Windows)
+
+- Install [Docker Desktop](https://www.docker.com/products/docker-desktop/).  
+- Disable WSL 2 (Docker Desktop -> Settings -> General -> Use the WSL 2 based engine).  
+
+#### Prerequisites (Linux)
+
+- Install [Podman](https://podman.io) from your package manager.  
+
+#### Prerequisites (Common)
+
+Install cross
+
+```
+cargo install cross
+```
+
+#### Running Cross-Platform Tests
+
+Use the provided scripts in `submodules/reloaded-project-configurations`.
+
+- `./test-wine-x86.ps1`: Tests your code in Wine on x86.
+- `./test-wine-x64.ps1`: Tests your code in Wine on x86_64.
+- `./test-linux-x64.ps1`: Tests your code in Linux on x86_64.
+- `./test-linux-x86.ps1`: Tests your code in Linux on x86.
+
+These scripts can be used on any platform given the prerequisites are met.  
+
+For Apple platforms, you'll need either Apple hardware, or suffer with an extremely slow Virtual Machine following *a lot* of awful hacks. Would not recommend.
 
 ## CI/CD Runs
 
@@ -41,129 +104,7 @@ The `src` folder should contain all source code for your project. Inside here is
 For CI runs, you can use the following composite steps to set up the required tools and SDKs:
 
 ```yaml
-- name: "Setup Reloaded Library SDKs & Components"
-- uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/setup-sdks-components@main
-```
-
-```yaml
-# Showing default values, not all inputs are mandatory.
-# Refer to actual upload-coverage-packages file for descriptions.
-- name: "Upload Codecov Coverage, Changelog & NuGet Packages"
-- uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/upload-coverage-packages@main
-  with:
-    code-coverage-path: './Coverage.xml'
-    changelog-path: './Changelog.md'
-    nupkg-glob: './src/*.nupkg'
-    nuget-key: ${{ secrets.NUGET_KEY }}
-    changelog-template: 'keepachangelog'
-    is-release: ${{ startsWith(github.ref, 'refs/tags/') }} # if 'true' publishes to GitHub Actions and NuGet
-```
-
-Replace `@main` with appropriate version tag if you want to pin to a specific version.
-
-### Cross Targeting CI/CD Runs
-
-[INCOMPLETE]
-
-Use the following template to run CI/CD for multiple target frameworks:
-
-```yaml
-name: Build, Test and Publish
-on:
-  push:
-    branches: [ main ]
-    tags:
-      - '*'
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
-
-jobs:
-  build:
-    strategy:
-      matrix:
-        os:
-          - windows-latest
-          - ubuntu-latest
-          - macos-latest
-        targetFramework:
-          - net7.0
-          - net6.0
-          - net5.0
-          - netcoreapp3.1
-        platform:
-          - x64
-        include:
-          - os: windows-latest
-            targetFramework: net48
-            platform: x64
-          - os: windows-latest
-            targetFramework: net48
-            platform: x86
-          - os: windows-latest
-            targetFramework: net7.0
-            platform: x86
-          - os: windows-latest
-            targetFramework: net6.0
-            platform: x86
-          - os: windows-latest
-            targetFramework: net5.0
-            platform: x86
-          - os: windows-latest
-            targetFramework: netcoreapp3.1
-            platform: x86
-            
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          submodules: 'recursive'
-      - name: Setup Reloaded Library SDKs & Components
-        uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/setup-sdks-components@main
-      - name: Build Library
-        run: dotnet build -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj
-      - name: Run Tests
-        run: dotnet test -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover;" --results-directory "Coverage"
-      - name: "Upload Coverage"
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-${{ matrix.os }}-${{ matrix.targetFramework }}
-          path: Coverage/*/coverage.cobertura.xml
-  upload:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout Code"
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          submodules: 'recursive'
-      - name: "Setup Reloaded Library SDKs & Components"
-        uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/setup-sdks-components@main
-      - name: Build Library
-        run: dotnet build -c Release ./src
-      - name: "Install ReportGenerator"
-        run: dotnet tool install --global dotnet-reportgenerator-globaltool
-      - name: "Download Coverage Artifacts"
-        uses: actions/download-artifact@v3
-        with:
-            path: artifacts
-      - name: "Merge Coverage Files"
-        run: |
-            dotnet tool install --global dotnet-coverage
-            dotnet-coverage merge ./artifacts/*.cobertura.xml --recursive --output ./Cobertura.xml --output-format xml
-      - name: "Upload Coverage & Packages"
-        uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/upload-coverage-packages@main
-        with:
-          code-coverage-path: './Cobertura.xml'
-          changelog-path: './Changelog.md'
-          nupkg-glob: './src/*.nupkg'
-          nuget-key: ${{ secrets.NUGET_KEY }}
-          changelog-template: 'keepachangelog'
-          is-release: ${{ startsWith(github.ref, 'refs/tags/') }}
-          release-tag: ${{ github.ref_name }}
+# TBD
 ```
 
 ## Documentation
