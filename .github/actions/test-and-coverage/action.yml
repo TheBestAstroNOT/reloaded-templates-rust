@@ -1,5 +1,5 @@
 name: 'Rust Run Test and Upload Coverage'
-description: 'Runs cargo test and collects code coverage'
+description: 'Runs cargo test and collects code coverage, uploading it to Codecov'
 
 inputs:
   rust_project_path:
@@ -8,6 +8,10 @@ inputs:
     default: '.'
   install_rust:
     description: 'Flag indicating if Rust should be installed'
+    required: false
+    default: 'true'
+  upload_coverage:
+    description: 'Flag indicating if coverage should be uploaded to codecov'
     required: false
     default: 'true'
 
@@ -32,6 +36,7 @@ runs:
         cargo tarpaulin --all --release --out Xml --engine llvm
 
     - name: Upload Coverage to Codecov
+      if: ${{ inputs.upload_coverage == 'true' }}
       uses: codecov/codecov-action@v2
       with:
         files: ${{ inputs.rust_project_path }}/cobertura.xml
