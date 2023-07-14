@@ -1,30 +1,22 @@
 # Reloaded Project Configurations
 
-This page hosts the common configurations for various parts of the Reloaded project that are written in Rust.
+This page hosts the common configurations for various parts of the Reloaded project that are written in Rust.  
 
-It includes configuration for `Code - OSS` (a.k.a. `vscode`), as well as scripts for debugging under different platforms.
+It includes configuration for `Code - OSS` (a.k.a. `VSCode`), as well as scripts for debugging under different platforms.  
 
-## Usage
+## VSCode Configuration
 
-To use this repository, add it as a submodule to your project.
+If using code, the following extensions are recommended:
+- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) for Rust support.  
+- [coverage-gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters) for Coverage support.  
+- [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) for debugging.  
+- [crates](https://marketplace.visualstudio.com/items?itemName=serayuzgur.crates) easier dependency management.  
 
-```
-git submodule add https://github.com/Reloaded-Project/reloaded-project-configurations-rust.git ./submodules/reloaded-project-configurations
-```
+Copy the `.vscode` folder to your new project. This contains configuration to run Rust linter (clippy),
+and format your code to meet style requirements on save.
 
-Periodically update the submodule to the latest version.
-
-```
-git submodule update --remote
-```
-
-## Debugging
-
-If using code, you'll need [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) extension.
-
-## Code Style
-
-Rust projects in Reloaded use the default code style of `rustfmt`.
+Rust projects in Reloaded use the default code style of `rustfmt`.  
+Unfamiliar with code? Try command palette (`Ctrl+Shift+P`).  
 
 ## File Layout
 
@@ -35,7 +27,6 @@ The following is the expected file layout for your project:
 .cargo/
 docs/
 src/
-submodules/reloaded-project-configurations
 Cargo.toml
 ```
 
@@ -100,6 +91,22 @@ Use the provided scripts in `submodules/reloaded-project-configurations-rust/scr
 These scripts can be used on any platform given the prerequisites are met.  
 
 For Apple platforms, you'll need either Apple hardware, or suffer with an extremely slow Virtual Machine following *a lot* of awful hacks. Would not recommend.
+
+## Test Coverage (VSCode)
+
+To run Coverage, run task (`Ctrl+Shift+P -> Run Task`), you should see: 
+
+| Task                   | Description                                                                |
+| ---------------------- | -------------------------------------------------------------------------- |
+| Cargo Watch Tarpaulin  | Automatically runs tests and updates coverage on save.                     |
+| Generate Code Coverage | Manually generate code coverage (`cobertura.xml`, `tarpaulin-report.html`) |
+
+The `tarpaulin-report.html` file can be opened in VSCode (`Show Preview`) for a live view.
+
+### GUI Integration
+
+For automatic integration with code, install [coverage-gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters),
+and run action `Coverage Gutter: Watch` (in `Ctrl+Shift+P` actions menu).
 
 ## CI/CD
 
