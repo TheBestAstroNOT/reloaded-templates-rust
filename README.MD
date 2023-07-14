@@ -83,10 +83,9 @@ cargo install cross
 
 Use the provided scripts in `submodules/reloaded-project-configurations-rust/scripts`.
 
-- `./test-wine-x86.ps1`: Tests your code in Wine on x86.
-- `./test-wine-x64.ps1`: Tests your code in Wine on x86_64.
-- `./test-linux-x64.ps1`: Tests your code in Linux on x86_64.
-- `./test-linux-x86.ps1`: Tests your code in Linux on x86.
+- `./test-wine-x64.ps1`: Tests your code in Wine on x86_64.  
+- `./test-linux-x64.ps1`: Tests your code in Linux on x86_64.  
+- `./test-linux-x86.ps1`: Tests your code in Linux on x86.  
 
 These scripts can be used on any platform given the prerequisites are met.  
 
