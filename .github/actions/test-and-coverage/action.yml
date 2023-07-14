@@ -1,0 +1,38 @@
+name: 'Rust Run Test and Upload Coverage'
+description: 'Runs cargo test and collects code coverage'
+
+inputs:
+  rust_project_path:
+    description: 'Path to the Rust project'
+    required: false
+    default: '.'
+  install_rust:
+    description: 'Flag indicating if Rust should be installed'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+      if: ${{ inputs.install_rust == 'true' }}
+
+    - name: Run Tests
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        echo "Running Cargo Tests"
+        cargo test --all --verbose --release
+
+    - name: Run Tarpaulin
+      shell: bash
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        cargo install cargo-tarpaulin
+        cargo tarpaulin --all --release --out Xml --engine llvm
+
+    - name: Upload Coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        files: ${{ inputs.rust_project_path }}/cobertura.xml
+        fail_ci_if_error: true

@@ -1,0 +1,32 @@
+name: 'Run Tests in Wine'
+description: 'Run Rust tests in Wine environment'
+inputs:
+  rust_project_path:
+    description: 'Path to the Rust project'
+    required: false
+    default: '.'
+  install_rust:
+    description: 'Flag indicating if Rust should be installed'
+    required: false
+    default: 'true'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+      if: ${{ inputs.install_rust == 'true' }}
+
+    - name: Run (Wine x86)
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        Invoke-WebRequest -Uri https://raw.githubusercontent.com/Reloaded-Project/reloaded-project-configurations-rust/main/scripts/test-wine-x86.ps1 -OutFile test-wine.ps1
+        ./test-wine.ps1
+      shell: pwsh
+
+    - name: Run (Wine x64)
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        Invoke-WebRequest -Uri https://raw.githubusercontent.com/Reloaded-Project/reloaded-project-configurations-rust/main/scripts/test-wine-x64.ps1 -OutFile test-wine.ps1
+        ./test-wine.ps1
+      shell: pwsh

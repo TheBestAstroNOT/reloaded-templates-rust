@@ -18,6 +18,10 @@ Periodically update the submodule to the latest version.
 git submodule update --remote
 ```
 
+## Debugging
+
+If using code, you'll need [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) extension.
+
 ## Code Style
 
 Rust projects in Reloaded use the default code style of `rustfmt`.
@@ -86,7 +90,7 @@ cargo install cross
 
 #### Running Cross-Platform Tests
 
-Use the provided scripts in `submodules/reloaded-project-configurations`.
+Use the provided scripts in `submodules/reloaded-project-configurations-rust/scripts`.
 
 - `./test-wine-x86.ps1`: Tests your code in Wine on x86.
 - `./test-wine-x64.ps1`: Tests your code in Wine on x86_64.
@@ -97,15 +101,14 @@ These scripts can be used on any platform given the prerequisites are met.
 
 For Apple platforms, you'll need either Apple hardware, or suffer with an extremely slow Virtual Machine following *a lot* of awful hacks. Would not recommend.
 
-## CI/CD Runs
+## CI/CD
 
-[INCOMPLETE]
+This repo includes a number of useful CI/CD actions for usage from within your GitHub actions.
+Paste them to your repo as required.
 
-For CI runs, you can use the following composite steps to set up the required tools and SDKs:
-
-```yaml
-# TBD
-```
+See `.github/example-workflows` for examples; here are them listed:  
+- `test-and-upload-coverage.yml`: Test the cargo project and upload relevant coverage.  
+- `test-on-wine.yml`: Runs tests against Wine, to validate compatibility with Wine users.  
 
 ## Documentation
 
