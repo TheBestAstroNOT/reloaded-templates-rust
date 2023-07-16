@@ -84,11 +84,41 @@ The `tarpaulin-report.html` file can be opened in VSCode (`Show Preview`) for a 
 
 For GUI integration, run action `Coverage Gutter: Watch` (in `Ctrl+Shift+P` actions menu).
 
-{% if xplat -%}
+{% if bench -%}
 ## Debugging Benchmarks
 
 If you wish to debug benchmarks in VSCode, go to `Run and Debug` Menu and generate the launch 
 profiles, you should get one for debugging benchmarks.
+
+## Profiling Benchmarks
+
+### Linux/OSX
+
+Execute the following:
+
+```
+cargo bench --bench my_benchmark --profile profile -- --profile-time 10
+```
+
+This should give you a flamegraph in `target/criterion/<method_name>/profile`. You can open that flamegraph in a web browser.
+
+### Windows
+
+Execute the following:
+
+```
+cargo bench --bench my_benchmark --no-run --profile profile
+```
+
+Navigate to the executable listed in the commandline:
+
+```
+target/profile/deps/my_benchmark-eced832ac8f31257.exe
+```
+
+And run with command `my_benchmark-eced832ac8f31257.exe --bench --profile-time 10` under an external profiler, such as Visual Studio.  
+
+![example](./assets/profile_example.png)
 
 {% endif -%}
 {% endif -%}

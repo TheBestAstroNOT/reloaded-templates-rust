@@ -10,7 +10,18 @@ license-file = "LICENSE"
 
 [dependencies]
 {%- if bench %}
-criterion = "0.5.1"{%- endif %}
+criterion = "0.5.1"
+
+[target.'cfg(unix)'.dependencies]
+pprof = { version = "0.12", features = ["flamegraph", "criterion"] }{%- endif %}
+
+# Profile Build
+[profile.profile]
+inherits = "release"
+debug = true
+codegen-units = 1
+lto = true
+strip = false  # No stripping!!
 
 # Optimized Release Build
 [profile.release]
