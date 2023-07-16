@@ -1,127 +1,86 @@
-# Reloaded Project Configurations
+<div align="center">
+  <a href="https://github.com/Reloaded-Project/reloaded-templates-rust" target="_blank">
+    <img src="./assets/reloaded-logo.png" alt="reloaded Logo" width="100"/>
+  </a>
 
-This page hosts the common configurations for various parts of the Reloaded project that are written in Rust.  
+  <h1 align="center">Reloaded Rust Templates</h1>
 
-It includes configuration for `Code - OSS` (a.k.a. `VSCode`), as well as scripts for debugging under different platforms.  
+  <p>
+<!-- TODO: Add CI/CD for Templates 
+    <a href="https://github.com/Reloaded-Project/reloaded-templates-rustactions?query=">
+      <img src="https://github.com/Reloaded-Project/reloaded-templates-rust/actions/workflows/build.yml/badge.svg" alt="Build Status">
+    </a>
+-->
+    <a href="./LICENSE-MIT">
+      <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License-MIT">
+    </a>
+  </p>
+</div>
 
-## VSCode Configuration
+##
 
-If using code, the following extensions are recommended:
-- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) for Rust support.  
-- [coverage-gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters) for Coverage support.  
-- [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) for debugging.  
-- [crates](https://marketplace.visualstudio.com/items?itemName=serayuzgur.crates) easier dependency management.  
+This template repository is [Sewer's][sewer56] opinionated [Rust][rust], library and other Reloaded 
+project generators, which use the [cargo-generate][cargo-generate] tool.  
 
-Copy the `.vscode` folder to your new project. This contains configuration to run Rust linter (clippy),
-and format your code to meet style requirements on save.
+These templates provide various features for getting-up and running with cross platform Rust library 
+or Reloaded3 mod development.  
 
-Rust projects in Reloaded use the default code style of `rustfmt`.  
-Unfamiliar with code? Try command palette (`Ctrl+Shift+P`).  
+- Standardized README, Contributing Guidelines & Project Layout.  
+- GitHub Issue and Pull Request templates.  
+- VSCode Workflow & Integration.  
+- Test, lint, audit, and code coverage (via [Codecov][codecov] GitHub Action workflows.  
+- A choice of an [Apache][apache], [MIT][mit], [LGPLv3][lgplv3] or [GPLv3][gplv3] licenses.  
+- [`cargo-bench`](https://doc.rust-lang.org/cargo/commands/cargo-bench.html) integration 
+  (*optional*).  
+- Cross-compilation & testing; including testing for Wine on Linux (*optional*).  
+- Native C exports (*optional*).  
 
-## File Layout
+## Outline
 
-The following is the expected file layout for your project:
+- [Project Templates](#project-templates)
+- [Getting Started](#getting-started)
+- [Thanks](#thanks)
+- [License](#license)
 
-```
-.vscode/
-.cargo/
-docs/
-src/
-Cargo.toml
-```
+## Project Templates
 
-The `docs` folder should contain all mkdocs documentation for your project (if present).  
-The `src` folder should contain all source code for your project.  
+This repository contains two sub-templates:
 
-`Cargo.toml` should be in the root of the repository.  
-`.cargo` is optional, use if need to override settings.  
+- `library`: for generating a rust library, webserver, or binary/executable
+  project.  
 
-## Cross Platform Targeting
+- `reloaded3` for generating a [Reloaded-III](https://reloaded-project.github.io/Reloaded-III/)
+  mod written in Rust. Coming 2024.  
 
-To work with cross-platform code, where you need to access OS specific APIs, some helper scripts are provided.
+## Getting Started
 
-### Including All Code Paths
+Install [cargo-generate][cargo-generate] via `cargo install cargo-generate`. More installation 
+options are available [here][cargo-generate-install].
 
-To include all code paths for local builds, consider editing `.cargo/config.toml`.
+The experience running through the experience should look something like this:
 
-```toml
-[build]
-# Note: This breaks IntelliJ Rust. Remove this line temporarily if working from that IDE.
-target = ['x86_64-unknown-linux-gnu','x86_64-apple-darwin','x86_64-pc-windows-gnu']
-```
+<!-- TODO: Update This -->
+![cargo-generate Rust Binary Application Screenshot](./assets/screenshot.png)
 
-You might need to install the targets first:
+Once you generate a template, further instructions might await in your project's README file 😉.
 
-```bash
-rustup target add x86_64-unknown-linux-gnu
-rustup target add x86_64-apple-darwin
-rustup target add x86_64-pc-windows-gnu
-```
+## Thanks
 
-Now when you run `cargo build`, it will build code for all platforms; and you'll get your compiler errors, warnings etc.
+These templates are inspired by [fission-codes/rust-template][rust-template] and [rust-github/template][rust-github-template]; and their contributors. I'd like to extend my personal token of gratitude.
 
-### Cross Testing on Local Machine
+# License
 
-#### Prerequisites (Windows)
+This repository is licensed under the MIT license; however note, most Reloaded components themselves 
+are licensed LGPL or GPLv3.
 
-- Install [Docker Desktop](https://www.docker.com/products/docker-desktop/).  
-- Disable WSL 2 (Docker Desktop -> Settings -> General -> Use the WSL 2 based engine).  
-
-#### Prerequisites (Linux)
-
-- Install [Podman](https://podman.io) from your package manager.  
-
-#### Prerequisites (Common)
-
-Install cross
-
-```
-cargo install cross
-```
-
-#### Running Cross-Platform Tests
-
-Use the provided scripts in `submodules/reloaded-project-configurations-rust/scripts`.
-
-- `./test-wine-x64.ps1`: Tests your code in Wine on x86_64.  
-- `./test-linux-x64.ps1`: Tests your code in Linux on x86_64.  
-- `./test-linux-x86.ps1`: Tests your code in Linux on x86.  
-
-These scripts can be used on any platform given the prerequisites are met.  
-
-For Apple platforms, you'll need either Apple hardware, or suffer with an extremely slow Virtual Machine following *a lot* of awful hacks. Would not recommend.
-
-## Test Coverage (VSCode)
-
-To run Coverage, run task (`Ctrl+Shift+P -> Run Task`), you should see: 
-
-| Task                   | Description                                                                |
-| ---------------------- | -------------------------------------------------------------------------- |
-| Cargo Watch Tarpaulin  | Automatically runs tests and updates coverage on save.                     |
-| Generate Code Coverage | Manually generate code coverage (`cobertura.xml`, `tarpaulin-report.html`) |
-
-The `tarpaulin-report.html` file can be opened in VSCode (`Show Preview`) for a live view.
-
-### GUI Integration
-
-For automatic integration with code, install [coverage-gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters),
-and run action `Coverage Gutter: Watch` (in `Ctrl+Shift+P` actions menu).
-
-## CI/CD
-
-This repo includes a number of useful CI/CD actions for usage from within your GitHub actions.
-Paste them to your repo as required.
-
-See `.github/example-workflows` for examples; here are them listed:  
-- `test-and-upload-coverage.yml`: Test the cargo project and upload relevant coverage.  
-- `test-on-wine.yml`: Runs tests against Wine, to validate compatibility with Wine users.  
-
-## Documentation
-
-If documentation is required, please follow the guidelines
-for [Reloaded MkDocs Theme](https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/)
-on how to set up documentation.
-
-## License
-
-This repository is licensed under the GPLv3 license; as per all Reloaded components since June 2023.
+[apache]: https://www.apache.org/licenses/LICENSE-2.0
+[cargo-generate]: https://github.com/cargo-generate/cargo-generate
+[cargo-generate-install]: https://github.com/cargo-generate/cargo-generate#installation
+[codecov]: https://about.codecov.io/
+[lgplv3]: https://www.gnu.org/licenses/lgpl-3.0.en.html#license-text
+[gplv3]: https://www.gnu.org/licenses/gpl-3.0.en.html#license-text
+[mit]: http://opensource.org/licenses/MIT
+[rust]: https://www.rust-lang.org/
+[rust-github-template]: https://github.com/rust-github/template
+[rust-template]: https://github.com/fission-codes/rust-template
+[sewer56]: https://github.com/Sewer56

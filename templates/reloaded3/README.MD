@@ -1,0 +1,1 @@
+This is a template for [Reloaded-III](https://reloaded-project.github.io/Reloaded-III/) mods; see you in 2023!

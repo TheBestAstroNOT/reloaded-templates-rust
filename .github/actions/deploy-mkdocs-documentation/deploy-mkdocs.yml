@@ -1,0 +1,27 @@
+name: "Deploy MkDocs Documentation"
+description: "Composite Action to checkout and deploy MkDocs"
+
+inputs:
+  GITHUB_TOKEN:
+    description: "GitHub token for authenticating with the repository"
+    required: true
+  REQUIREMENTS:
+    description: "Path to the requirements.txt file"
+    required: true
+    default: "./docs/requirements.txt"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Branch
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+      shell: bash
+
+    - name: Deploy MkDocs
+      uses: mhausenblas/mkdocs-deploy-gh-pages@master
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        REQUIREMENTS: ${{ inputs.REQUIREMENTS }}
+      shell: bash

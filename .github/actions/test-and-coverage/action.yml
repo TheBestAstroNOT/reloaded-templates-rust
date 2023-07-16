@@ -22,6 +22,9 @@ runs:
       uses: dtolnay/rust-toolchain@stable
       if: ${{ inputs.install_rust == 'true' }}
 
+    - name: Cache dependencies
+      uses: Swatinem/rust-cache@v2.2.1
+
     - name: Run Tarpaulin
       shell: bash
       working-directory: ${{ inputs.rust_project_path }}

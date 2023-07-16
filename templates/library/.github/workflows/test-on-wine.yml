@@ -18,6 +18,3 @@ jobs:
 
       - id: test-rust
         uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/test-in-wine@v1 # upgrade if needed
-        #with:
-        #  rust_project_path: src-rust
-        #  install_rust: false

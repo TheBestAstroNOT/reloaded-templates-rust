@@ -1,0 +1,58 @@
+[template]
+cargo_generate_version = ">=0.18.3"
+ignore = ["pre-script.rhai"]
+
+[hooks]
+pre = ["pre-script.rhai"]
+post = ["final-msg.rhai"]
+
+[placeholders.gh_username]
+type = "string"
+prompt = "GitHub username (or organization)"
+# The username cannot end with a hyphen, too, but
+# this requirement is not captured by the regex at the moment.
+regex = "^[A-Za-z0-9][A-Za-z0-9-]{0,38}$"
+
+[placeholders.gh_reponame]
+type = "string"
+prompt = "Repository name"
+
+[placeholders.project_description]
+type = "string"
+prompt = "Project description"
+
+## External Documentation
+[placeholders.mkdocs]
+type = "bool"
+prompt = "Include external documentation (mkdocs)"
+default = true
+
+[conditional.'mkdocs == false']
+ignore = ["mkdocs.yml", "docs", ".github/workflows/deploy-mkdocs.yml"]
+
+## VSCode Integration
+[placeholders.vscode]
+type = "bool"
+prompt = "Include VSCode Configurations & IDE Setup Guide"
+default = true
+
+[conditional.'vscode == false']
+ignore = [".vscode"]
+
+## Cross Platform
+[placeholders.xplat]
+type = "bool"
+prompt = "Include Cross Platform Testing Instructions & GitHub Actions"
+default = true
+
+[conditional.'xplat == false']
+ignore = ["scripts"]
+
+## Wine
+[placeholders.wine]
+type = "bool"
+prompt = "Run Automated Tests against Wine (x86 and x64)"
+default = true
+
+[conditional.'wine == false']
+ignore = [".github/workflows/test-on-wine.yml"]
