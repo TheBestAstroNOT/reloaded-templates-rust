@@ -84,6 +84,13 @@ The `tarpaulin-report.html` file can be opened in VSCode (`Show Preview`) for a 
 
 For GUI integration, run action `Coverage Gutter: Watch` (in `Ctrl+Shift+P` actions menu).
 
+{% if xplat -%}
+## Debugging Benchmarks
+
+If you wish to debug benchmarks in VSCode, go to `Run and Debug` Menu and generate the launch 
+profiles, you should get one for debugging benchmarks.
+
+{% endif -%}
 {% endif -%}
 ## File Layout
 
