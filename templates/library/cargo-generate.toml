@@ -56,3 +56,12 @@ default = true
 
 [conditional.'wine == false']
 ignore = [".github/workflows/test-on-wine.yml"]
+
+## Benchmark
+[placeholders.bench]
+type = "bool"
+prompt = "Include Benchmark Configuration"
+default = true
+
+[conditional.'bench == false']
+ignore = ["benches"]

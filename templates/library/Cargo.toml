@@ -9,3 +9,19 @@ license-file = "LICENSE"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+{%- if bench %}
+criterion = "0.5.1"{%- endif %}
+
+# Optimized Release Build
+[profile.release]
+codegen-units = 1
+lto = true
+strip = true  # Automatically strip symbols from the binary.
+
+{%- if bench %}
+
+# Benchmark Stuff
+[[bench]]
+name = "my_benchmark"
+harness = false
+{%- endif %}
