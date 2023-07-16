@@ -1,2 +1,2 @@
 [template]
-sub_templates = ["templates/reloaded-library"]
+sub_templates = ["templates/library"]

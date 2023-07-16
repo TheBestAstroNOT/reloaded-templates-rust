@@ -54,8 +54,15 @@ This repository contains two sub-templates:
 
 ## Getting Started
 
-Install [cargo-generate][cargo-generate] via `cargo install cargo-generate`. More installation 
-options are available [here][cargo-generate-install].
+Install [cargo-generate][cargo-generate] via `cargo install cargo-generate`, and create project from template:
+
+```bash
+# This might take a while
+cargo install cargo-generate
+cargo generate --git https://github.com/Reloaded-Project/reloaded-templates-rust.git
+```
+
+More installation options are available [here][cargo-generate-install].
 
 The experience running through the experience should look something like this:
 
