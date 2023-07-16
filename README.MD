@@ -60,7 +60,7 @@ options are available [here][cargo-generate-install].
 The experience running through the experience should look something like this:
 
 <!-- TODO: Update This -->
-![cargo-generate Rust Binary Application Screenshot](./assets/screenshot.png)
+![cargo-generate Rust Binary Application Screenshot](./assets/example-create.png)
 
 Once you generate a template, further instructions might await in your project's README file 😉.
 
