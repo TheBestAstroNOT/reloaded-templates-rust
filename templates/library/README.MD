@@ -122,6 +122,35 @@ And run with command `my_benchmark-eced832ac8f31257.exe --bench --profile-time 1
 
 {% endif -%}
 {% endif -%}
+
+{% if bench -%}
+## Optimizing for Size when Creating C Libraries
+
+1. Add `"cdylib"` crate type to `Cargo.toml` (if not already present)
+
+```
+[lib]
+crate-type = ["cdylib"]
+```
+
+Install `cargo-bloat`, `nightly toolchain` and `build-std`:
+
+```
+cargo install cargo-bloat
+rustup toolchain install nightly
+rustup component add rust-src --toolchain nightly
+```
+
+Run `cargo-bloat` the following command to calculate package size:
+
+```
+cargo +nightly bloat --profile profile -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu -n 100
+```
+
+Change `--target` if needed for your platform.  
+This should produce binaries more appropriate for dynamic linking from C.  
+
+{% endif -%}
 ## File Layout
 
 The following is the expected file layout for your project:
