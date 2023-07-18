@@ -24,6 +24,8 @@ runs:
 
     - name: Cache dependencies
       uses: Swatinem/rust-cache@v2.2.1
+      with:
+        workspaces: ${{ inputs.rust_project_path }}
 
     - name: Run Tarpaulin
       shell: bash
