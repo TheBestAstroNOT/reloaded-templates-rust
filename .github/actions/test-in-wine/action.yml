@@ -1,5 +1,6 @@
 name: 'Run Tests in Wine'
 description: 'Run Rust tests in Wine environment'
+
 inputs:
   rust_project_path:
     description: 'Path to the Rust project'
@@ -9,29 +10,58 @@ inputs:
     description: 'Flag indicating if Rust should be installed'
     required: false
     default: 'true'
+  rust_branch:
+    description: 'Rust branch to use (nightly, stable, beta)'
+    required: true
+    default: 'stable'
 
 runs:
   using: "composite"
   steps:
-    - name: Install Rust
+    - name: Install Stable Rust
+      if: ${{ inputs.install_rust == 'true' && inputs.rust_branch == 'stable' }}
       uses: dtolnay/rust-toolchain@stable
-      if: ${{ inputs.install_rust == 'true' }}
+
+    - name: Install Beta Rust
+      if: ${{ inputs.install_rust == 'true' && inputs.rust_branch == 'beta' }}
+      uses: dtolnay/rust-toolchain@beta
+
+    - name: Install Nightly Rust
+      if: ${{ inputs.install_rust == 'true' && inputs.rust_branch == 'nightly' }}
+      uses: dtolnay/rust-toolchain@nightly
 
     - name: Cache dependencies
       uses: Swatinem/rust-cache@v2.2.1
       with:
         workspaces: ${{ inputs.rust_project_path }}
 
+    - name: Install Cross Compiler
+      shell: bash
+      run: |
+        cargo +${{ inputs.rust_branch }} install cross
+
     - name: Run (Wine x86)
+      shell: bash
       working-directory: ${{ inputs.rust_project_path }}
       run: |
-        Invoke-WebRequest -Uri https://raw.githubusercontent.com/Reloaded-Project/reloaded-project-configurations-rust/main/scripts/test-wine-x86.ps1 -OutFile test-wine.ps1
-        ./test-wine.ps1
-      shell: pwsh
+        echo "Adding Windows (x86) Target"
+        rustup target add i686-pc-windows-gnu
+
+        echo "Building for Windows (x86)"
+        cross +${{ inputs.rust_branch }} build --target i686-pc-windows-gnu
+
+        echo "Testing Windows (x86)"
+        cross +${{ inputs.rust_branch }} test --target i686-pc-windows-gnu
 
     - name: Run (Wine x64)
+      shell: bash
       working-directory: ${{ inputs.rust_project_path }}
       run: |
-        Invoke-WebRequest -Uri https://raw.githubusercontent.com/Reloaded-Project/reloaded-project-configurations-rust/main/scripts/test-wine-x64.ps1 -OutFile test-wine.ps1
-        ./test-wine.ps1
-      shell: pwsh
+        echo "Adding Windows (x64) Target"
+        rustup target add x86_64-pc-windows-gnu
+
+        echo "Building for Windows (x64)"
+        cross +${{ inputs.rust_branch }} build --target x86_64-pc-windows-gnu
+
+        echo "Testing Windows (x64)"
+        cross +${{ inputs.rust_branch }} test --target x86_64-pc-windows-gnu

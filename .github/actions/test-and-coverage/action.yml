@@ -14,13 +14,25 @@ inputs:
     description: 'Flag indicating if coverage should be uploaded to codecov'
     required: false
     default: 'true'
+  rust_branch:
+    description: 'Rust branch to use (nightly, stable, beta)'
+    required: true
+    default: 'stable'
 
 runs:
   using: 'composite'
   steps:
-    - name: Install Rust
+    - name: Install Stable Rust
+      if: ${{ inputs.install_rust == 'true' && inputs.rust_branch == 'stable' }}
       uses: dtolnay/rust-toolchain@stable
-      if: ${{ inputs.install_rust == 'true' }}
+
+    - name: Install Beta Rust
+      if: ${{ inputs.install_rust == 'true' && inputs.rust_branch == 'beta' }}
+      uses: dtolnay/rust-toolchain@beta
+
+    - name: Install Nightly Rust
+      if: ${{ inputs.install_rust == 'true' && inputs.rust_branch == 'nightly' }}
+      uses: dtolnay/rust-toolchain@nightly
 
     - name: Cache dependencies
       uses: Swatinem/rust-cache@v2.2.1
@@ -31,8 +43,8 @@ runs:
       shell: bash
       working-directory: ${{ inputs.rust_project_path }}
       run: |
-        cargo install cargo-tarpaulin
-        cargo tarpaulin --all --release --out Xml --engine llvm
+        cargo +${{ inputs.rust_branch }} install cargo-tarpaulin
+        cargo +${{ inputs.rust_branch }} tarpaulin --all --release --out Xml --engine llvm
 
     - name: Upload Coverage to Codecov
       if: ${{ inputs.upload_coverage == 'true' }}
