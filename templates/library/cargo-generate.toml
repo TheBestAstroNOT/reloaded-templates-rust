@@ -54,9 +54,6 @@ type = "bool"
 prompt = "Run Automated Tests against Wine (x86 and x64)"
 default = true
 
-[conditional.'wine == false']
-ignore = [".github/workflows/test-on-wine.yml"]
-
 ## Benchmark
 [placeholders.bench]
 type = "bool"

@@ -1,4 +1,4 @@
-name: Test and Upload Coverage
+name: Test, Upload Coverage and Release
 
 on:
   push:
@@ -28,3 +28,16 @@ jobs:
 
       - id: test-rust
         uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/test-and-coverage@v1 # upgrade if needed
+
+{%- if wine %}
+  test-on-wine:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - id: test-rust
+        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/test-in-wine@v1 # upgrade if needed
+{%- endif %}
