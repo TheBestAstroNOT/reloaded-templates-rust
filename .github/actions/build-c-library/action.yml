@@ -1,0 +1,70 @@
+name: 'Build C Library from Rust Project'
+description: 'Builds a C library from a Rust project using cbindgen and cargo. Panics are immediately aborted, and Cargo.toml must define `crate-type = ["cdylib", "staticlib"]`'
+
+inputs:
+  rust_project_path:
+    description: 'Path to the Rust project'
+    required: false
+    default: '.'
+  target:
+    description: 'The target platform for the Rust compiler'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Nightly Rust
+      uses: dtolnay/rust-toolchain@nightly
+
+    - name: Cache dependencies
+      uses: Swatinem/rust-cache@v2.2.1
+      with:
+        workspaces: ${{ inputs.rust_project_path }}
+
+    - name: Install cbindgen
+      shell: bash
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        cargo install --force cbindgen
+
+    - name: Generate C bindings
+      shell: bash
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        cbindgen --output my_header.h
+
+    - name: Build Rust project
+      shell: bash
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        RUSTFLAGS="-C panic=abort" cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target ${{ inputs.target }}
+
+    - name: Upload artifacts on Linux
+      if: runner.os == 'Linux'
+      uses: actions/upload-artifact@v2
+      with:
+        name: C-Library-${{ inputs.target }}
+        path: |
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.a
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.so
+          ${{ inputs.rust_project_path }}/my_header.h
+
+    - name: Upload artifacts on Windows
+      if: runner.os == 'Windows'
+      uses: actions/upload-artifact@v2
+      with:
+        name: C-Library-${{ inputs.target }}
+        path: |
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.lib
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.dll
+          ${{ inputs.rust_project_path }}/my_header.h
+
+    - name: Upload artifacts on macOS
+      if: runner.os == 'macOS'
+      uses: actions/upload-artifact@v2
+      with:
+        name: C-Library-${{ inputs.target }}
+        path: |
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.a
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.dylib
+          ${{ inputs.rust_project_path }}/my_header.h
