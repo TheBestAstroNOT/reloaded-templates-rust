@@ -1,0 +1,55 @@
+name: 'Generate and Upload Changelog'
+description: 'Generates a changelog, uploading it as artifact and to GitHub Releases.'
+
+inputs:
+  changelog-path:
+    description: 'Path to where the changelog will be generated'
+    required: false
+    default: './Changelog.md'
+
+  changelog-template:
+    description: 'Template file used for auto-changelog'
+    required: false
+    default: 'keepachangelog'
+
+  is-release:
+    description: 'Whether this is a (GitHub) release'
+    required: true
+
+  release-tag:
+    description: 'Tag associated with release, must be set if is-release is true'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create Changelog (on Tag)
+      shell: pwsh
+      run: |
+        if ("${{ inputs.is-release }}" -eq "true")
+        {
+            auto-changelog --sort-commits date --hide-credit --template "${{ inputs.changelog-template }}" --commit-limit false --unreleased --starting-version "${{ inputs.release-tag }}" --output "${{ inputs.changelog-path }}"
+        }
+        else
+        {
+            auto-changelog --sort-commits date --hide-credit --template "${{ inputs.changelog-template }}" --commit-limit false --unreleased --output "${{ inputs.changelog-path }}"
+        }
+
+    - name: Upload Changelog Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        # Artifact name
+        name: Changelog
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ${{ inputs.changelog-path }}
+        retention-days: 0
+
+    - name: Upload to GitHub Releases
+      uses: softprops/action-gh-release@v0.1.15
+      if: ${{ inputs.is-release == 'true' }}
+      with:
+        # Path to load note-worthy description of changes in release from
+        body_path: ${{ inputs.changelog-path }}
+        # Newline-delimited list of path globs for asset files to upload
+        files: |
+          ${{ inputs.changelog-path }}
