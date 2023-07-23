@@ -22,10 +22,15 @@ runs:
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
 
-    - name: Cache dependencies
-      uses: Swatinem/rust-cache@v2.2.1
-      with:
-        workspaces: ${{ inputs.rust_project_path }}
+    # Cache Dependencies for Build Speed
+    - name: Set environment variable
+      shell: bash
+      run: |
+        echo "SCCACHE_GHA_ENABLED=true" >> $GITHUB_ENV
+        echo "RUSTC_WRAPPER=sccache" >> $GITHUB_ENV
+
+    - name: Run sccache-cache
+      uses: mozilla-actions/sccache-action@v0.0.3
 
     - name: Install cbindgen
       shell: bash
