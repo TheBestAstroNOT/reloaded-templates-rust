@@ -10,13 +10,13 @@ include = ["src/**/*"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 {%- if build-c-libs %}
 [lib]
-crate-type = ["cdylib", "staticlib"]{%- endif %}
+crate-type = ["cdylib", "staticlib", "rlib"]{%- endif %}
 
-[dependencies]
+[dev-dependencies]
 {%- if bench %}
 criterion = "0.5.1"
 
-[target.'cfg(unix)'.dependencies]
+[target.'cfg(unix)'.dev-dependencies]
 pprof = { version = "0.12", features = ["flamegraph", "criterion"] }{%- endif %}
 
 # Profile Build
