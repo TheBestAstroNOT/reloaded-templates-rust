@@ -37,7 +37,10 @@ runs:
       shell: bash
       working-directory: ${{ inputs.rust_project_path }}
       run: |
-        RUSTFLAGS="-C panic=abort" cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target ${{ inputs.target }}
+        rustup component add rust-src --toolchain nightly
+        rustup toolchain install nightly-${{ inputs.target }}
+        cargo install cross --git https://github.com/cross-rs/cross
+        RUSTFLAGS="-C panic=abort" cross +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target ${{ inputs.target }}
 
     - name: Upload artifacts on Linux
       if: runner.os == 'Linux'
