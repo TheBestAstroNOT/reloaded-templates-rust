@@ -1,0 +1,23 @@
+name: 'Publish to crates.io'
+description: 'Publishes a Rust project to crates.io'
+
+inputs:
+  token:
+    description: 'Token for crates.io'
+    required: true
+  rust_project_path:
+    description: 'Path to the Rust project'
+    required: false
+    default: '.'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Publish
+      shell: bash
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        cargo publish --token ${{ inputs.token }}
