@@ -21,18 +21,6 @@ runs:
       with:
         workspaces: ${{ inputs.rust_project_path }}
 
-    - name: Install cbindgen
-      shell: bash
-      working-directory: ${{ inputs.rust_project_path }}
-      run: |
-        cargo install --force cbindgen
-
-    - name: Generate C bindings
-      shell: bash
-      working-directory: ${{ inputs.rust_project_path }}
-      run: |
-        cbindgen --output my_header.h
-
     - name: Build Rust project
       shell: bash
       working-directory: ${{ inputs.rust_project_path }}
@@ -50,7 +38,6 @@ runs:
         path: |
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.a
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.so
-          ${{ inputs.rust_project_path }}/my_header.h
 
     - name: Upload artifacts on Windows
       if: runner.os == 'Windows'
@@ -60,7 +47,6 @@ runs:
         path: |
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.lib
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.dll
-          ${{ inputs.rust_project_path }}/my_header.h
 
     - name: Upload artifacts on macOS
       if: runner.os == 'macOS'
@@ -70,4 +56,3 @@ runs:
         path: |
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.a
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.dylib
-          ${{ inputs.rust_project_path }}/my_header.h

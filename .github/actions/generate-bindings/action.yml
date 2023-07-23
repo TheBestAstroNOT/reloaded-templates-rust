@@ -1,0 +1,46 @@
+# .github/actions/cbindgen-action/action.yml
+name: 'Generate bindings with cbindgen'
+description: 'Generates bindings with cbindgen for a Rust project'
+
+inputs:
+  rust_project_path:
+    description: 'Path to the Rust project'
+    required: false
+    default: '.'
+  config_file:
+    description: 'Configuration file for cbindgen'
+    required: true
+    default: 'cbindgen.toml'
+  header_file:
+    description: 'Name of the output header file'
+    required: true
+    default: 'bindings_c.h'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Cache dependencies
+      uses: Swatinem/rust-cache@v2.2.1
+      with:
+        workspaces: ${{ inputs.rust_project_path }}
+
+    - name: Install cbindgen
+      shell: bash
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        cargo install --force cbindgen
+
+    - name: Generate bindings
+      shell: bash
+      working-directory: ${{ inputs.rust_project_path }}
+      run: |
+        cbindgen --config ${{ inputs.config_file }} --output ${{ inputs.header_file }}
+
+    - name: Upload header files
+      uses: actions/upload-artifact@v3
+      with:
+        name: Headers
+        path: ${{ inputs.rust_project_path }}/${{ inputs.header_file }}
