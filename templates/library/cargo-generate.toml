@@ -66,5 +66,14 @@ ignore = ["benches"]
 ## Size Optimization
 [placeholders.sizeopt]
 type = "bool"
-prompt = "Optimize for Size (Disables panic!, recommended for C dynamic libraries)"
+prompt = "Abort on Panic to Reduce Binary Size"
 default = false
+
+## Build C Libraries
+[placeholders.build-c-libs]
+type = "bool"
+prompt = "Build C Libraries in CI? (Min Size, Nightly Rust, Panic Aborts)"
+default = true
+
+[conditional.'build-c-libs == false']
+ignore = ["src/exports.rs"]

@@ -8,6 +8,9 @@ license-file = "LICENSE"
 include = ["src/**/*"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+{%- if build-c-libs %}
+[lib]
+crate-type = ["cdylib", "staticlib"]{%- endif %}
 
 [dependencies]
 {%- if bench %}
