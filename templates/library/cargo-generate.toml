@@ -77,3 +77,9 @@ default = true
 
 [conditional.'build-c-libs == false']
 ignore = ["src/exports.rs"]
+
+## Publish Crate on crates.io
+[placeholders.publish-crate-on-tag]
+type = "bool"
+prompt = "Publish to crates.io on Tag?"
+default = true

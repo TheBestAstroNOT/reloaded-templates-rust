@@ -27,6 +27,15 @@ Once you make your first commit to GitHub, you'll need to do the following:
 - Go to `Settings -> Pages` in your repo and select `gh-pages` branch to enable GitHub Pages.
 {% endif %}
 
+{% if publish-crate-on-tag %-}
+### Setup API Key
+
+You'll need to set up an API key to publish to `crates.io` on tag.
+
+- Go to `Settings -> Secrets -> Actions` in your repo and add environment secret named `CRATES_IO_TOKEN`.  
+- Paste your API key generated in [crates.io (Account Settings -> API Tokens)][crates-io-key].  
+{% endif %}
+
 -----------------------
 
 ## About
@@ -241,6 +250,7 @@ Licensed under [{{license}}](./LICENSE), the default for Reloaded project.
 [codecov]: https://about.codecov.io/
 [codelldb]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
 [coverage-gutters]: https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters 
+[crates-io-key]: https://crates.io/settings/tokens
 {%- if mkdocs %}
 [docs]: https://{{gh_reponame}}.github.io/{{gh_reponame}}{%- endif %}
 [mkdocs-material]: https://squidfunk.github.io/mkdocs-material/
