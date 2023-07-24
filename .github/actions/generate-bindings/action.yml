@@ -47,5 +47,5 @@ runs:
     - name: Upload header files
       uses: actions/upload-artifact@v3
       with:
-        name: Headers
+        name: C and CPP Headers
         path: ${{ inputs.rust_project_path }}/${{ inputs.header_file }}
