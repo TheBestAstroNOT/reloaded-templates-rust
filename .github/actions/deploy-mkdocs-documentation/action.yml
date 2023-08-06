@@ -17,11 +17,9 @@ runs:
       uses: actions/checkout@v2
       with:
         submodules: recursive
-      shell: bash
 
     - name: Deploy MkDocs
       uses: mhausenblas/mkdocs-deploy-gh-pages@master
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
         REQUIREMENTS: ${{ inputs.REQUIREMENTS }}
-      shell: bash
