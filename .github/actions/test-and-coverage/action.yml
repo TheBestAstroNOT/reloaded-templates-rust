@@ -49,7 +49,7 @@ runs:
       working-directory: ${{ inputs.rust_project_path }}
       run: |
         cargo +${{ inputs.rust_branch }} install cargo-tarpaulin
-        cargo +${{ inputs.rust_branch }} tarpaulin --all --out Xml --engine llvm
+        cargo +${{ inputs.rust_branch }} tarpaulin --all --out xml --engine llvm
 
     - name: Upload Coverage to Codecov
       if: ${{ inputs.upload_coverage == 'true' }}
