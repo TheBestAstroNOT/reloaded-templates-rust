@@ -27,7 +27,7 @@ Once you make your first commit to GitHub, you'll need to do the following:
 - Go to `Settings -> Pages` in your repo and select `gh-pages` branch to enable GitHub Pages.
 {% endif %}
 
-{% if publish-crate-on-tag %-}
+{% if publish-crate-on-tag -%}
 ### Setup API Key
 
 You'll need to set up an API key to publish to `crates.io` on tag.
