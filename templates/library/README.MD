@@ -244,8 +244,9 @@ See [CONTRIBUTING](CONTRIBUTING.MD) for guidance on how to contribute to this pr
 
 ## License
 
-Licensed under [{{license}}](./LICENSE), the default for Reloaded project.  
-[Learn more about Reloaded's choice of licensing.][reloaded-license].  
+Licensed under [{{license}}](./LICENSE).  
+
+[Learn more about Reloaded's general choice of licensing for projects.][reloaded-license].  
 
 [codecov]: https://about.codecov.io/
 [codelldb]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
