@@ -61,7 +61,7 @@ prompt = "Include Benchmark Configuration"
 default = true
 
 [conditional.'bench == false']
-ignore = ["benches"]
+ignore = ["benches", "assets"]
 
 ## Size Optimization
 [placeholders.sizeopt]

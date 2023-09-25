@@ -171,7 +171,8 @@ The following is the expected file layout for your project:
 docs/{%- endif %}
 src/
 Cargo.toml
-mkdocs.yml
+{%- if mkdocs %}
+mkdocs.yml{%- endif %}
 ```
 
 {% if mkdocs -%}
@@ -253,8 +254,8 @@ Licensed under [{{license}}](./LICENSE).
 [coverage-gutters]: https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters 
 [crates-io-key]: https://crates.io/settings/tokens
 {%- if mkdocs %}
-[docs]: https://{{gh_reponame}}.github.io/{{gh_reponame}}{%- endif %}
-[mkdocs-material]: https://squidfunk.github.io/mkdocs-material/
+[docs]: https://{{gh_reponame}}.github.io/{{gh_reponame}}
+[mkdocs-material]: https://squidfunk.github.io/mkdocs-material/{%- endif %}
 [reloaded-license]: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/license/
 [rust-analyzer]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer
 [rust-toolchain]: https://www.rust-lang.org/tools/install
