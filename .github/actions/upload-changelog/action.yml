@@ -23,6 +23,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Setup AutoChangelog
+      shell: pwsh
+      run: npm install -g auto-changelog
+
     - name: Create Changelog (on Tag)
       shell: pwsh
       run: |
