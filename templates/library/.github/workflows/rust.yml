@@ -124,7 +124,6 @@ jobs:
       - name: Publish to crates.io
         uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/publish-crate@v1
         with:
-          rust_project_path: src-rust
           {% raw -%}
           token: ${{ secrets.CRATES_IO_TOKEN }}{%- endraw %}
 {%- endif %}
