@@ -52,6 +52,7 @@ runs:
         path: |
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.lib
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.dll
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.pdb
 
     - name: Upload artifacts on macOS
       if: runner.os == 'macOS'
