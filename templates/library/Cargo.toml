@@ -10,7 +10,7 @@ include = ["src/**/*"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 {%- if build-c-libs %}
 [lib]
-crate-type = ["cdylib", "staticlib", "rlib"]{%- endif %}
+crate-type = ["cdylib", "staticlib"]{%- endif %}
 
 [dev-dependencies]
 {%- if bench %}
