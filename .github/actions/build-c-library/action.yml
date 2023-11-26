@@ -33,7 +33,7 @@ runs:
         rustup component add rust-src --toolchain nightly
         rustup toolchain install nightly-${{ inputs.target }}
         cargo install cross --git https://github.com/cross-rs/cross
-        RUSTFLAGS="-C panic=abort" cross +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target ${{ inputs.target }}
+        RUSTFLAGS="-C panic=abort -Zlocation-detail=none -C lto=fat" cross +nightly rustc --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target ${{ inputs.target }} --crate-type cdylib --crate-type staticlib
 
     - name: Upload artifacts on Linux
       if: runner.os == 'Linux'
