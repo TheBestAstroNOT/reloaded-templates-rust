@@ -132,10 +132,30 @@ And run with command `my_benchmark-eced832ac8f31257.exe --bench --profile-time 1
 {% endif -%}
 {% endif -%}
 
-{% if bench -%}
+{% if build-c-libs -%}
+
+## Building C Libraries Locally
+
+Reloaded-based C libraries are built with `panic=abort` and self-built STD to minimize binary size.
+
+First get the prerequisites (nightly rust).
+
+```
+rustup toolchain install nightly
+rustup component add rust-src --toolchain nightly
+```
+
+To build C library locally, run the following command:
+
+```
+RUSTFLAGS="-C panic=abort -C lto=fat -C embed-bitcode=yes" cargo +nightly rustc -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --crate-type cdylib --crate-type staticlib --target x86_64-unknown-linux-gnu
+```
+
+Replace `x86_64-unknown-linux-gnu` with your [target triple][target-triple].
+
 ## Optimizing for Size when Creating C Libraries
 
-1. Add `"cdylib"` crate type to `Cargo.toml` (if not already present)
+1. Add `"cdylib"` crate type to `Cargo.toml` (temporarily!! do not commit)
 
 ```
 [lib]
@@ -253,6 +273,7 @@ Licensed under [{{license}}](./LICENSE).
 [codelldb]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
 [coverage-gutters]: https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters 
 [crates-io-key]: https://crates.io/settings/tokens
+[target-triple]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
 {%- if mkdocs %}
 [docs]: https://{{gh_reponame}}.github.io/{{gh_reponame}}
 [mkdocs-material]: https://squidfunk.github.io/mkdocs-material/{%- endif %}

@@ -54,3 +54,36 @@ while switch license.to_upper()
 }
 
 variable::set("license", license);
+
+// Handling no_std support
+let no_std_support = variable::get("no_std_support");
+while switch no_std_support 
+{
+  "STD" => {
+    variable::set("std", "true");
+    variable::set("no_std-by-default", "false");
+    variable::set("std-by-default", "false");
+    false
+  },
+  "NO_STD BY DEFAULT" => {
+    variable::set("std", "false");
+    variable::set("no_std-by-default", "true");
+    variable::set("std-by-default", "false");
+    false
+  },
+  "STD BY DEFAULT (VIA STD FEATURE)" => {
+    variable::set("std", "false");
+    variable::set("no_std-by-default", "false");
+    variable::set("std-by-default", "true");
+    false
+  },
+  _ => true,
+} {
+  no_std_support = variable::prompt("Do you need no_std support?", "STD", [
+    "STD",
+    "NO_STD BY DEFAULT",
+    "STD BY DEFAULT (VIA STD FEATURE)",
+  ]);
+}
+
+variable::set("no_std_support", no_std_support);

@@ -7,8 +7,13 @@ repository = "https://github.com/{{gh_username}}/{{project-name}}"
 license-file = "LICENSE"
 include = ["src/**/*"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+{% if std-by-default %}
+[features]
+default = ["std"]
+std = []
+{%- endif %}
 
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dev-dependencies]
 {%- if bench %}
 criterion = "0.5.1"
