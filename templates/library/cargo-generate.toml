@@ -63,12 +63,6 @@ default = true
 [conditional.'bench == false']
 ignore = ["benches/my_benchmark"]
 
-## Size Optimization
-[placeholders.sizeopt]
-type = "bool"
-prompt = "Abort on Panic to Reduce Binary Size"
-default = false
-
 ## Build C Libraries
 [placeholders.build-c-libs]
 type = "bool"

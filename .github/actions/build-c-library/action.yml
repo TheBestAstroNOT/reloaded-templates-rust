@@ -126,29 +126,13 @@ runs:
         $BUILD_CMD +nightly rustc --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target ${{ inputs.target }} --crate-type cdylib --crate-type staticlib $FEATURES_ARGS
 
     - name: Upload artifacts on Linux
-      if: runner.os == 'Linux'
       uses: actions/upload-artifact@v4
       with:
         name: C-Library-${{ inputs.target }}-${{ inputs.features }}
         path: |
-          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.a
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.a # Linux
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.so
-
-    - name: Upload artifacts on Windows
-      if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v4
-      with:
-        name: C-Library-${{ inputs.target }}-${{ inputs.features }}
-        path: |
-          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.lib
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.lib # Windows
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.dll
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.pdb
-
-    - name: Upload artifacts on macOS
-      if: runner.os == 'macOS'
-      uses: actions/upload-artifact@v4
-      with:
-        name: C-Library-${{ inputs.target }}-${{ inputs.features }}
-        path: |
-          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.a
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.dylib
