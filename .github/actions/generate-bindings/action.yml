@@ -30,7 +30,7 @@ runs:
         echo "RUSTC_WRAPPER=sccache" >> $GITHUB_ENV
 
     - name: Run sccache-cache
-      uses: mozilla-actions/sccache-action@v0.0.3
+      uses: mozilla-actions/sccache-action@v0.0.4
 
     - name: Install cbindgen
       shell: bash

@@ -57,11 +57,11 @@ default = true
 ## Benchmark
 [placeholders.bench]
 type = "bool"
-prompt = "Include Benchmark Configuration"
+prompt = "Include Benchmark Configuration (Required for PGO)"
 default = true
 
 [conditional.'bench == false']
-ignore = ["benches", "assets"]
+ignore = ["benches/my_benchmark"]
 
 ## Size Optimization
 [placeholders.sizeopt]
@@ -77,6 +77,10 @@ default = true
 
 [conditional.'build-c-libs == false']
 ignore = ["src/exports.rs"]
+
+## Add PGO to C Libraries
+[conditional.'bench == false'.placeholders]
+build-c-libs-with-pgo = { type = "bool", prompt = "Build C Libraries with PGO? (Profile Guided Optimization)", default = true }
 
 ## Publish Crate on crates.io
 [placeholders.publish-crate-on-tag]

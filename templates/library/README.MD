@@ -125,7 +125,7 @@ Navigate to the executable listed in the commandline:
 target/profile/deps/my_benchmark-eced832ac8f31257.exe
 ```
 
-And run with command `my_benchmark-eced832ac8f31257.exe --bench --profile-time 10` under an external profiler, such as Visual Studio.  
+And run with command `my_benchmark-eced832ac8f31257.exe --bench --profile-time 10` under an external profiler, such as Visual Studio.  (in VS, Debug -> Performance Profiler)
 
 ![example](./assets/profile_example.png)
 
@@ -180,6 +180,65 @@ Change `--target` if needed for your platform.
 This should produce binaries more appropriate for dynamic linking from C.  
 
 {% endif -%}
+
+{% if build-c-libs-with-pgo -%}
+
+## PGO (Profile Guided Optimization) on C Libraries
+
+This Reloaded-based library is built with [Profile Guided Optimization (PGO)](https://doc.rust-lang.org/rustc/profile-guided-optimization.html).
+
+PGO is a compiler optimization technique that uses data from profiling runs to improve the quality of the generated code.
+
+Details of the PGO implementation in this project are as follows:
+
+- We collect PGO data with `pgo_benchmark`.
+- You can run it with `cargo +nightly test --feature pgo_benchmark`.
+    - Install Nightly Rust (`rustup toolchain install nightly`) if you haven't already.
+
+In this project you should put 'representative' workloads. 
+
+For example, if this was a compression library, the methods 'compress' and 'decompress' methods would be here, with realistic data.
+
+During CI, these benchmarks will be executed, and a PGO optimized build will be generated as part
+of publishing your C library.
+
+### Testing PGO
+
+PGO isn't guaranteed to always provide an improvement, after adding representative workloads, always test.
+
+We will test with `cargo pgo`.
+
+First, install the following:
+
+```
+cargo install cargo-pgo
+rustup toolchain install nightly
+rustup component add llvm-tools-preview
+```
+
+Then run an 'instrumented' benchmark, this will run your code in `pgo_benchmark` and collect some data:
+
+```
+cargo +nightly pgo instrument bench
+```
+
+After that run a regular benchmark to create a 'baseline' number:
+
+```
+cargo +nightly bench
+```
+
+And run the PGO optimized build:
+
+```
+cargo +nightly pgo optimize bench
+```
+
+If most of the results are equal or show an improvement, PGO has helped.
+Otherwise disable PGO from the library by editing the [rust.yml](./.github/workflows/rust.yml) workflow.
+
+{% endif -%}
+
 ## File Layout
 
 The following is the expected file layout for your project:
