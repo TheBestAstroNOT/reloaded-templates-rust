@@ -191,16 +191,23 @@ PGO is a compiler optimization technique that uses data from profiling runs to i
 
 Details of the PGO implementation in this project are as follows:
 
-- We collect PGO data with `pgo_benchmark`.
-- You can run it with `cargo +nightly test --feature pgo_benchmark`.
-    - Install Nightly Rust (`rustup toolchain install nightly`) if you haven't already.
+- We collect PGO data by running the `benchmarks` with the `pgo` feature enabled.
+- This is done in CI, before building the final C library.
 
-In this project you should put 'representative' workloads. 
+You should ensure that only realistic representative workloads are used to collect the PGO data.
 
-For example, if this was a compression library, the methods 'compress' and 'decompress' methods would be here, with realistic data.
+For example, if this was a compression library, you should run the 'compress' and 'decompress' methods
+on real files (not random data) as part of your benchmarks. 
 
-During CI, these benchmarks will be executed, and a PGO optimized build will be generated as part
-of publishing your C library.
+Non-realistic/representative workloads in benchmarks should be excluded through the 'pgo' feature flag,
+for example an unrealistic benchmark can be excluded like this:
+
+```rust
+#[cfg(not(feature = "pgo"))]
+{
+    bench_create_dict(c);
+}
+```
 
 ### Testing PGO
 
