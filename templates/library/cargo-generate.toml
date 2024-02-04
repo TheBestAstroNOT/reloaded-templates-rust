@@ -70,7 +70,7 @@ prompt = "Build C Libraries in CI? (Min Size, Nightly Rust, Panic Aborts)"
 default = true
 
 [conditional.'build-c-libs == false']
-ignore = ["src/exports.rs"]
+ignore = ["src/exports.rs", "cbindgen_cpp.toml", "cbindgen_c.toml"]
 
 ## Add PGO to C Libraries
 [conditional.'bench == false'.placeholders]

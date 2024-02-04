@@ -100,6 +100,7 @@ jobs:
           target: ${{ matrix.target }}
           use_pgo: ${{ matrix.use_pgo }}
           use_cross: ${{ matrix.use_cross }}
+          features: "c-exports"
           {%- endraw %}
 {%- endif %}
 
