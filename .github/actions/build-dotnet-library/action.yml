@@ -1,0 +1,109 @@
+name: 'Build and Package .NET Library with Native Binaries'
+description: 'Builds and packages a .NET library, incorporating pre-downloaded native binaries for specified targets.'
+
+inputs:
+  targets:
+    description: 'Comma-separated list of Rust target triples to include in the build'
+    required: true
+  artifact_prefix:
+    description: 'Prefix for the artifact names to download'
+    required: false
+    default: 'C-Library-'
+  csharp_project_path:
+    description: 'Path to the C# project directory'
+    required: false
+    default: 'bindings/csharp'
+  install_dotnet:
+    description: 'If true, installs the .NET SDK with specified version'
+    required: false
+    default: 'false'
+  dotnet_version:
+    description: 'Version of the .NET SDK to install'
+    required: false
+    default: '8.0.x'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install .NET Core SDK
+      if: ${{ inputs.install_dotnet == 'true' }}
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet_version }}
+
+    - name: Download Artifacts with Prefix
+      uses: actions/download-artifact@v4
+      with:
+        pattern: ${{ inputs.artifact_prefix }}*
+        path: downloaded_artifacts/
+
+    - name: Organize Artifacts
+      shell: bash
+      run: |
+        tree "downloaded_artifacts/"
+        IFS=',' read -ra TARGETS <<< "${{ inputs.targets }}"
+        for TARGET in "${TARGETS[@]}"; do
+          case "$TARGET" in
+            x86_64-unknown-linux-gnu)
+              RUNTIME_ID="linux-x64"
+              FILE_EXTENSION=".so"
+              ;;
+            i686-unknown-linux-gnu)
+              RUNTIME_ID="linux-x86"
+              FILE_EXTENSION=".so"
+              ;;
+            aarch64-unknown-linux-gnu)
+              RUNTIME_ID="linux-arm64"
+              FILE_EXTENSION=".so"
+              ;;
+            armv7-unknown-linux-gnueabihf)
+              RUNTIME_ID="linux-arm"
+              FILE_EXTENSION=".so"
+              ;;
+            x86_64-pc-windows-msvc)
+              RUNTIME_ID="win-x64"
+              FILE_EXTENSION=".dll"
+              ;;
+            i686-pc-windows-msvc)
+              RUNTIME_ID="win-x86"
+              FILE_EXTENSION=".dll"
+              ;;
+            aarch64-pc-windows-msvc)
+              RUNTIME_ID="win-arm64"
+              FILE_EXTENSION=".dll"
+              ;;
+            x86_64-apple-darwin)
+              RUNTIME_ID="osx-x64"
+              FILE_EXTENSION=".dylib"
+              ;;
+            aarch64-apple-darwin)
+              RUNTIME_ID="osx-arm64"
+              FILE_EXTENSION=".dylib"
+              ;;
+          esac
+
+          # Create the target directory
+          mkdir -p "${{ inputs.csharp_project_path }}/runtimes/$RUNTIME_ID/native"
+
+          # Move only the specified file types into the correct runtime directory
+          find downloaded_artifacts/ -type f -path "*/*$TARGET*/*$FILE_EXTENSION" -exec mv {} "${{ inputs.csharp_project_path }}/runtimes/$RUNTIME_ID/native/" \;
+        done
+        tree "${{ inputs.csharp_project_path }}/runtimes"
+
+    - name: Build .NET Project
+      shell: bash
+      run: |
+        cd "${{ inputs.csharp_project_path }}"
+        dotnet build -c Release
+
+    - name: Pack .NET Project
+      shell: bash
+      run: |
+        cd "${{ inputs.csharp_project_path }}"
+        dotnet pack -c Release --output nupkg/
+
+    - name: Upload NuGet Package
+      uses: actions/upload-artifact@v4
+      with:
+        name: NuGet-Package
+        path: ${{ inputs.csharp_project_path }}/nupkg/*.nupkg

@@ -17,6 +17,7 @@ public static unsafe partial class NativeMethods
     {
         if (libraryName == __DllName)
         {
+            var dllName = __DllName;
             var path = "runtimes/";
             var extension = "";
 
@@ -29,11 +30,13 @@ public static unsafe partial class NativeMethods
             {
                 path += "osx-";
                 extension = ".dylib";
+                dllName = "lib" + dllName;
             }
             else
             {
                 path += "linux-";
                 extension = ".so";
+                dllName = "lib" + dllName;
             }
 
             if (RuntimeInformation.OSArchitecture == Architecture.X86)
@@ -53,8 +56,15 @@ public static unsafe partial class NativeMethods
                 path += "arm64";
             }
 
-            path += "/native/" + __DllName + extension;
-            return NativeLibrary.Load(Path.Combine(AppContext.BaseDirectory, path), assembly, searchPath);
+            path += "/native/" + dllName + extension;
+            try
+            {
+                return NativeLibrary.Load(Path.Combine(AppContext.BaseDirectory, path), assembly, searchPath);
+            }
+            catch (DllNotFoundException)
+            {
+                return NativeLibrary.Load(Path.Combine(AppContext.BaseDirectory, dllName + extension));
+            }
         }
 
         return IntPtr.Zero;
