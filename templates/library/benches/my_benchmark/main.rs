@@ -18,10 +18,12 @@ fn fibonacci(n: u64) -> u64 {
 fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("fib 20", |b| b.iter(|| fibonacci(black_box(20))));
 
+{% if build_c_libs-with-pgo %}
     #[cfg(not(feature = "pgo"))]
     {
         // Benchmarks excluded from PGO run.
     }
+{% endif %}
 }
 
 #[cfg(not(target_os = "windows"))]

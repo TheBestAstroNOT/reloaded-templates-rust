@@ -56,7 +56,7 @@ runs:
       run: |
         rustup target add ${{ inputs.target }}
         rustup component add rust-src --toolchain nightly
-        rustup toolchain install nightly-${{ inputs.target }}
+        rustup toolchain install nightly-${{ inputs.target }} --force-non-host
 
         # Install cross-rs if needed
         if [ "${{ inputs.use_cross }}" == "true" ]; then

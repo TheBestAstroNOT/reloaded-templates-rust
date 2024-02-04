@@ -45,43 +45,47 @@ jobs:
         uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/test-in-wine@v1 # upgrade if needed
 {%- endif %}
 
-{%- if build-c-libs %}
+{%- if build_c_libs %}
 
-  build-c-libs:
+  build_c_libs:
     strategy:
       matrix:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
             use_cross: false
           - os: ubuntu-latest
             target: i686-unknown-linux-gnu
-            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
             use_cross: false
-          - os: ubuntu-latest # no native runner
+          - os: ubuntu-latest
             target: aarch64-unknown-linux-gnu
-            use_pgo: {% if build-c-libs-with-pgo %}false{%- else %}false{% endif %}
+            use_pgo: false # no native runner
+            use_cross: true
+          - os: ubuntu-latest
+            target: armv7-unknown-linux-gnueabihf
+            use_pgo: false # no native runner
             use_cross: true
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
             use_cross: false
           - os: windows-latest
             target: i686-pc-windows-msvc
-            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
             use_cross: false
           - os: windows-latest # no native runner
             target: aarch64-pc-windows-msvc
-            use_pgo: {% if build-c-libs-with-pgo %}false{%- else %}false{% endif %}
+            use_pgo: {% if build_c_libs-with-pgo %}false{%- else %}false{% endif %}
             use_cross: false # msvc cross links
           - os: macos-13 # x86
             target: x86_64-apple-darwin
-            use_pgo: {% if build-c-libs-with-pgo %}false{%- else %}false{% endif %}
+            use_pgo: {% if build_c_libs-with-pgo %}false{%- else %}false{% endif %}
             use_cross: false
           - os: macos-14 # M1 runner
             target: aarch64-apple-darwin
-            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
             use_cross: false
 
     {% raw -%}
@@ -122,11 +126,23 @@ jobs:
           config_file: cbindgen_c.toml
           header_file: bindings_c.h
 {%- endif %}
+{% if build_csharp_libs %}
+  build-dotnet-library:
+    needs: build_c_libs
+    runs-on: ubuntu-latest
 
-{%- if publish-crate-on-tag %}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Build and Package .NET Library
+        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/build-dotnet-library@dotnet-bindings
+        with:
+          targets: 'x86_64-unknown-linux-gnu,i686-unknown-linux-gnu,aarch64-unknown-linux-gnu,armv7-unknown-linux-gnueabihf,x86_64-pc-windows-msvc,i686-pc-windows-msvc,aarch64-pc-windows-msvc,x86_64-apple-darwin,aarch64-apple-darwin'
+{%- endif %}
+{% if publish_crate_on_tag %}
   publish-crate:
-    needs: [test-native{%- if build-c-libs %},build-c-libs,build-c-headers{%- endif %}{%- if wine %},test-on-wine{%- endif %} ]
+    needs: [test-native{%- if build_c_libs %},build_c_libs,build-c-headers{%- endif %}{%- if wine %},test-on-wine{%- endif %} ]
     # Publish only on tags
     if: startsWith(github.ref, 'refs/tags/') 
     runs-on: ubuntu-latest
@@ -169,4 +185,22 @@ jobs:
         with:
           {% raw -%}
           token: ${{ secrets.CRATES_IO_TOKEN }}{%- endraw %}
+{% if build_csharp_libs %}
+      - name: Upload to NuGet
+        shell: pwsh
+        run: |
+          $items = Get-ChildItem -Path "**.nupkg" -Recurse
+          Foreach ($item in $items)
+          {
+              Write-Host "Pushing $item"
+              dotnet nuget push "$item" -k "{% raw -%}${{ secrets.NUGET_KEY }}{%- endraw %}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+          }
+
+          $items = Get-ChildItem -Path "**.snupkg" -Recurse
+          Foreach ($item in $items)
+          {
+              Write-Host "Pushing Symbol Package $item"
+              dotnet nuget push "$item" -k "{% raw -%}${{ secrets.NUGET_KEY }}{%- endraw %}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+          }
+{%- endif %}
 {%- endif %}

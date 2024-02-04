@@ -8,21 +8,23 @@ license-file = "LICENSE"
 include = ["src/**/*"]
 
 [features]
-{% if std-by-default %}
+{% if std-by-default -%}
 default = ["std"]
 std = []
-{% endif %}
-
-{% if build-c-libs-with-pgo %}
+{% endif -%}
+{% if build_c_libs-with-pgo -%}
 # See README.md for more information on using Profile-Guided Optimization.
 pgo = []
-{% endif %}
-
-{% if build-c-libs %}
+{% endif -%}
+{% if build_c_libs -%}
 # Feature for enabling C library exports.
 c-exports = []
+{% endif -%}
+{% if build_csharp_libs %}
+# C# Bindings
+[build-dependencies]
+csbindgen = "1.9.0"
 {% endif %}
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dev-dependencies]
 {%- if bench %}
@@ -46,7 +48,7 @@ lto = true
 strip = true  # Automatically strip symbols from the binary.
 panic = "abort"
 
-{%- if bench %}
+{% if bench %}
 # Benchmark Stuff
 [[bench]]
 name = "my_benchmark"
