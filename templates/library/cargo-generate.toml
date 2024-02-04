@@ -64,29 +64,27 @@ default = true
 ignore = ["benches/my_benchmark"]
 
 ## Build C Libraries
-[placeholders.build-c-libs]
+[placeholders.build_c_libs]
 type = "bool"
 prompt = "Build C Libraries in CI? (Min Size, Nightly Rust, Panic Aborts)"
 default = true
 
-[conditional.'build-c-libs == false']
-ignore = ["src/exports.rs", "cbindgen_cpp.toml", "cbindgen_c.toml"]
+[conditional.'build_c_libs == false']
+ignore = ["src/exports.rs", "cbindgen_cpp.toml", "cbindgen_c.toml", "bindings/csharp"]
 
-## Build C# Binding
-[placeholders.build-csharp-libs]
-type = "bool"
-prompt = "Build C# Bindings?"
-default = false
+## Build C# Bindings
+[conditional.'build_c_libs == true'.placeholders]
+build_csharp_libs = { type = "bool", prompt = "Build C# Bindings?", default = false }
 
-[conditional.'build-csharp-libs == false']
+[conditional.'build_csharp_libs == false']
 ignore = ["bindings/csharp"]
 
 ## Add PGO to C Libraries
-[conditional.'bench == true'.placeholders]
-build-c-libs-with-pgo = { type = "bool", prompt = "Build C Libraries with PGO? (Profile Guided Optimization)", default = true }
+[conditional.'bench == true && build_c_libs == true'.placeholders]
+build_c_libs-with-pgo = { type = "bool", prompt = "Build C Libraries with PGO? (Profile Guided Optimization)", default = true }
 
 ## Publish Crate on crates.io
-[placeholders.publish-crate-on-tag]
+[placeholders.publish_crate_on_tag]
 type = "bool"
 prompt = "Publish to crates.io on Tag?"
 default = true

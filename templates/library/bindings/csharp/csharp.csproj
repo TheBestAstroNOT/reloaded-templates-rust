@@ -36,6 +36,7 @@
       <Pack>True</Pack>
       <PackagePath>/</PackagePath>
     </None>
+    <None Include="runtimes\**\*" Pack="true" PackagePath="runtimes" />
   </ItemGroup>
 
 </Project>

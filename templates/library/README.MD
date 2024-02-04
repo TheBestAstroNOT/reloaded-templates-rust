@@ -26,14 +26,21 @@ git submodule add https://github.com/Reloaded-Project/Reloaded.MkDocsMaterial.Th
 Once you make your first commit to GitHub, you'll need to do the following:
 - Go to `Settings -> Pages` in your repo and select `gh-pages` branch to enable GitHub Pages.
 {% endif %}
-
-{% if publish-crate-on-tag -%}
-### Setup API Key
+{% if publish_crate_on_tag -%}
+### Setup API Key (crates.io)
 
 You'll need to set up an API key to publish to `crates.io` on tag.
 
 - Go to `Settings -> Secrets -> Actions` in your repo and add environment secret named `CRATES_IO_TOKEN`.  
 - Paste your API key generated in [crates.io (Account Settings -> API Tokens)][crates-io-key].  
+
+{% if build_csharp_libs %}
+### Setup API Key (NuGet)
+You'll need to set up an API key to publish to `NuGet` on tag.
+
+- Go to `Settings -> Secrets -> Actions` in your repo and add environment secret named `NUGET_KEY`.  
+- Paste your API key generated in [Api Keys][nuget-key].  
+{% endif %}
 {% endif %}
 
 -----------------------
@@ -132,7 +139,7 @@ And run with command `my_benchmark-eced832ac8f31257.exe --bench --profile-time 1
 {% endif -%}
 {% endif -%}
 
-{% if build-c-libs -%}
+{% if build_c_libs -%}
 
 ## Building C Libraries Locally
 
@@ -181,7 +188,7 @@ This should produce binaries more appropriate for dynamic linking from C.
 
 {% endif -%}
 
-{% if build-c-libs-with-pgo -%}
+{% if build_c_libs-with-pgo -%}
 
 ## PGO (Profile Guided Optimization) on C Libraries
 
@@ -246,7 +253,7 @@ Otherwise disable PGO from the library by editing the [rust.yml](./.github/workf
 
 {% endif -%}
 
-{% if build-csharp-libs -%}
+{% if build_csharp_libs -%}
 ## C# Bindings for {{crate_name}}
 
 This Reloaded-based project provides C# bindings, as [{{crate_name}}.Net.Sys](https://www.nuget.org/packages/{{crate_name}}.Net.Sys).
@@ -259,8 +266,7 @@ It shouldn't be modified.
 Instead, if you want to make a 'friendlier' API, make a separate project with 
 [{{crate_name}}.Net.Sys](https://www.nuget.org/packages/{{crate_name}}.Net.Sys) as a dependency,
 and provide high level bindings.
-{% endif -%}
-
+{% endif %}
 ## File Layout
 
 The following is the expected file layout for your project:
@@ -354,6 +360,7 @@ Licensed under [{{license}}](./LICENSE).
 [codelldb]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
 [coverage-gutters]: https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters 
 [crates-io-key]: https://crates.io/settings/tokens
+[nuget-key]: https://www.nuget.org/account/apikeys
 [target-triple]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
 {%- if mkdocs %}
 [docs]: https://{{gh_reponame}}.github.io/{{gh_reponame}}
