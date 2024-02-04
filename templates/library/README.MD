@@ -246,6 +246,21 @@ Otherwise disable PGO from the library by editing the [rust.yml](./.github/workf
 
 {% endif -%}
 
+{% if build-csharp-libs -%}
+## C# Bindings for {{crate_name}}
+
+This Reloaded-based project provides C# bindings, as [{{crate_name}}.Net.Sys](https://www.nuget.org/packages/{{crate_name}}.Net.Sys).
+
+These are the raw bindings to the C exports of this Rust library, and are automatically generated.
+
+The project is inside `bindings/csharp` folder. 
+It shouldn't be modified. 
+
+Instead, if you want to make a 'friendlier' API, make a separate project with 
+[{{crate_name}}.Net.Sys](https://www.nuget.org/packages/{{crate_name}}.Net.Sys) as a dependency,
+and provide high level bindings.
+{% endif -%}
+
 ## File Layout
 
 The following is the expected file layout for your project:

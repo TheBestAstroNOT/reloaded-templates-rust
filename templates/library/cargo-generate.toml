@@ -72,6 +72,15 @@ default = true
 [conditional.'build-c-libs == false']
 ignore = ["src/exports.rs", "cbindgen_cpp.toml", "cbindgen_c.toml"]
 
+## Build C# Binding
+[placeholders.build-csharp-libs]
+type = "bool"
+prompt = "Build C# Bindings?"
+default = false
+
+[conditional.'build-csharp-libs == false']
+ignore = ["bindings/csharp"]
+
 ## Add PGO to C Libraries
 [conditional.'bench == true'.placeholders]
 build-c-libs-with-pgo = { type = "bool", prompt = "Build C Libraries with PGO? (Profile Guided Optimization)", default = true }

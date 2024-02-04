@@ -23,6 +23,12 @@ pgo = []
 c-exports = []
 {% endif %}
 
+{% if build-csharp-libs %}
+# C# Bindings
+[build-dependencies]
+csbindgen = "1.9.0"
+{% endif %}
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dev-dependencies]
 {%- if bench %}
