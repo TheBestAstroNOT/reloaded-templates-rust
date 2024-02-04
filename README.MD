@@ -33,7 +33,8 @@ or Reloaded3 mod development.
 - [`cargo-bench`](https://doc.rust-lang.org/cargo/commands/cargo-bench.html) integration 
   (*optional*).  
 - Cross-compilation & testing; including testing for Wine on Linux (*optional*).  
-- Native C exports (*optional*).  
+- Profile Guided Optimization (*optional*).
+- Native C exports (*optional*), and C# exports.  
 
 ## Outline
 
