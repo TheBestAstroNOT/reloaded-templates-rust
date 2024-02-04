@@ -53,7 +53,7 @@ runs:
 
     - name: Upload Coverage to Codecov
       if: ${{ inputs.upload_coverage == 'true' }}
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v3
       with:
         files: ${{ inputs.rust_project_path }}/cobertura.xml
         fail_ci_if_error: true
