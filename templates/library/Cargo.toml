@@ -7,11 +7,21 @@ repository = "https://github.com/{{gh_username}}/{{project-name}}"
 license-file = "LICENSE"
 include = ["src/**/*"]
 
-{% if std-by-default %}
 [features]
+{% if std-by-default %}
 default = ["std"]
 std = []
-{%- endif %}
+{% endif %}
+
+{% if build-c-libs-with-pgo %}
+# See README.md for more information on using Profile-Guided Optimization.
+pgo = []
+{% endif %}
+
+{% if build-c-libs %}
+# Feature for enabling C library exports.
+c-exports = []
+{% endif %}
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dev-dependencies]
@@ -34,9 +44,7 @@ strip = false  # No stripping!!
 codegen-units = 1
 lto = true
 strip = true  # Automatically strip symbols from the binary.
-{%- if sizeopt %}
 panic = "abort"
-{%- endif %}
 
 {%- if bench %}
 # Benchmark Stuff

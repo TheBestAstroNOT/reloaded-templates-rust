@@ -1,3 +1,7 @@
+
+// Example of how to include a 2nd file.
+mod util;
+
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 #[cfg(not(target_os = "windows"))]
@@ -13,6 +17,11 @@ fn fibonacci(n: u64) -> u64 {
 
 fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("fib 20", |b| b.iter(|| fibonacci(black_box(20))));
+
+    #[cfg(not(feature = "pgo"))]
+    {
+        // Benchmarks excluded from PGO run.
+    }
 }
 
 #[cfg(not(target_os = "windows"))]

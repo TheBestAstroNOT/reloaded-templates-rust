@@ -42,7 +42,7 @@ ignore = [".vscode"]
 ## Cross Platform
 [placeholders.xplat]
 type = "bool"
-prompt = "Include Cross Platform Testing Instructions & GitHub Actions"
+prompt = "Include Cross Platform Testing Instructions & GitHub Actions Test Runs"
 default = true
 
 [conditional.'xplat == false']
@@ -57,17 +57,11 @@ default = true
 ## Benchmark
 [placeholders.bench]
 type = "bool"
-prompt = "Include Benchmark Configuration"
+prompt = "Include Benchmark Configuration (Required for PGO)"
 default = true
 
 [conditional.'bench == false']
-ignore = ["benches", "assets"]
-
-## Size Optimization
-[placeholders.sizeopt]
-type = "bool"
-prompt = "Abort on Panic to Reduce Binary Size"
-default = false
+ignore = ["benches/my_benchmark"]
 
 ## Build C Libraries
 [placeholders.build-c-libs]
@@ -76,7 +70,11 @@ prompt = "Build C Libraries in CI? (Min Size, Nightly Rust, Panic Aborts)"
 default = true
 
 [conditional.'build-c-libs == false']
-ignore = ["src/exports.rs"]
+ignore = ["src/exports.rs", "cbindgen_cpp.toml", "cbindgen_c.toml"]
+
+## Add PGO to C Libraries
+[conditional.'bench == true'.placeholders]
+build-c-libs-with-pgo = { type = "bool", prompt = "Build C Libraries with PGO? (Profile Guided Optimization)", default = true }
 
 ## Publish Crate on crates.io
 [placeholders.publish-crate-on-tag]

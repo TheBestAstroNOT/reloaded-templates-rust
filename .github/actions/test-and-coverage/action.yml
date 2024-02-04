@@ -42,7 +42,7 @@ runs:
         echo "RUSTC_WRAPPER=sccache" >> $GITHUB_ENV
 
     - name: Run sccache-cache
-      uses: mozilla-actions/sccache-action@v0.0.3
+      uses: mozilla-actions/sccache-action@v0.0.4
 
     - name: Run Tarpaulin
       shell: bash
@@ -53,7 +53,7 @@ runs:
 
     - name: Upload Coverage to Codecov
       if: ${{ inputs.upload_coverage == 'true' }}
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         files: ${{ inputs.rust_project_path }}/cobertura.xml
         fail_ci_if_error: true

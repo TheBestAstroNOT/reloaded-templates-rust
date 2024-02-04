@@ -30,7 +30,7 @@ runs:
         echo "RUSTC_WRAPPER=sccache" >> $GITHUB_ENV
 
     - name: Run sccache-cache
-      uses: mozilla-actions/sccache-action@v0.0.3
+      uses: mozilla-actions/sccache-action@v0.0.4
 
     - name: Install cbindgen
       shell: bash
@@ -45,7 +45,7 @@ runs:
         cbindgen --config ${{ inputs.config_file }} --output ${{ inputs.header_file }}
 
     - name: Upload header files
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: C and CPP Headers
         path: ${{ inputs.rust_project_path }}/${{ inputs.header_file }}

@@ -24,7 +24,7 @@ jobs:
 {%- endif %}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -53,52 +53,90 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
+            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_cross: false
           - os: ubuntu-latest
             target: i686-unknown-linux-gnu
-          - os: ubuntu-latest
+            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_cross: false
+          - os: ubuntu-latest # no native runner
             target: aarch64-unknown-linux-gnu
+            use_pgo: {% if build-c-libs-with-pgo %}false{%- else %}false{% endif %}
+            use_cross: true
           - os: windows-latest
             target: x86_64-pc-windows-msvc
+            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_cross: false
           - os: windows-latest
             target: i686-pc-windows-msvc
-          - os: windows-latest
+            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_cross: false
+          - os: windows-latest # no native runner
             target: aarch64-pc-windows-msvc
-          - os: macos-latest
+            use_pgo: {% if build-c-libs-with-pgo %}false{%- else %}false{% endif %}
+            use_cross: false # msvc cross links
+          - os: macos-13 # x86
             target: x86_64-apple-darwin
-          - os: macos-latest
+            use_pgo: {% if build-c-libs-with-pgo %}false{%- else %}false{% endif %}
+            use_cross: false
+          - os: macos-14 # M1 runner
             target: aarch64-apple-darwin
+            use_pgo: {% if build-c-libs-with-pgo %}true{%- else %}false{% endif %}
+            use_cross: false
 
     {% raw -%}
     runs-on: ${{ matrix.os }}
     {%- endraw %}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
       - id: build-libs
         uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/build-c-library@v1 # upgrade if needed
         with:
-          rust_project_path: src-rust
           {% raw -%}
-          target: ${{ matrix.target }}{%- endraw %}
+          target: ${{ matrix.target }}
+          use_pgo: ${{ matrix.use_pgo }}
+          use_cross: ${{ matrix.use_cross }}
+          features: "c-exports"
+          {%- endraw %}
+  
+  build-c-headers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Generate C++ bindings
+        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/generate-bindings@v1
+        with:
+          config_file: cbindgen_cpp.toml
+          header_file: bindings_cpp.hpp
+  
+      - name: Generate C bindings
+        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/generate-bindings@v1
+        with:
+          config_file: cbindgen_c.toml
+          header_file: bindings_c.h
 {%- endif %}
 
 {%- if publish-crate-on-tag %}
 
   publish-crate:
-    needs: [test-native{%- if build-c-libs %},build-c-libs{%- endif %}{%- if wine %},test-on-wine{%- endif %} ]
+    needs: [test-native{%- if build-c-libs %},build-c-libs,build-c-headers{%- endif %}{%- if wine %},test-on-wine{%- endif %} ]
     # Publish only on tags
     if: startsWith(github.ref, 'refs/tags/') 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
       - name: ↙️ Download Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
 

@@ -40,7 +40,7 @@ runs:
         }
 
     - name: Upload Changelog Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         # Artifact name
         name: Changelog

@@ -7,6 +7,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 {%- endif %}
 {%- if build-c-libs %}
+#[cfg(feature = "c-exports")]
 pub mod exports;
 {%- endif %}
 

@@ -65,7 +65,7 @@ while switch no_std_support
     variable::set("std-by-default", "false");
     false
   },
-  "NO_STD BY DEFAULT" => {
+  "NO_STD BY DEFAULT (INCOMPATIBLE WITH C EXPORTS)" => {
     variable::set("std", "false");
     variable::set("no_std-by-default", "true");
     variable::set("std-by-default", "false");
@@ -81,8 +81,8 @@ while switch no_std_support
 } {
   no_std_support = variable::prompt("Do you need no_std support?", "STD", [
     "STD",
-    "NO_STD BY DEFAULT",
     "STD BY DEFAULT (VIA STD FEATURE)",
+    "NO_STD BY DEFAULT (INCOMPATIBLE WITH C EXPORTS)",
   ]);
 }
 
