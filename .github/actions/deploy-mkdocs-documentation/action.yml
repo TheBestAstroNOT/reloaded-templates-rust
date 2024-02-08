@@ -28,12 +28,27 @@ runs:
       id: pages
       uses: actions/configure-pages@v3
 
-    - name: Build
-      uses: Tiryoh/actions-mkdocs@v0.23.0
+    - name: Setup Python
+      uses: actions/setup-python@v5
       with:
-        mkdocs_version: ${{ inputs.MKDOCS_VERSION }}
-        requirements: ${{ inputs.REQUIREMENTS }}
-        configfile: ${{ inputs.CONFIG_FILE }}
+        python-version: 3.x
+
+    - name: Install MkDocs and Dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        if [ "${{ inputs.MKDOCS_VERSION }}" = "latest" ]; then
+          pip install mkdocs-material
+        else
+          pip install mkdocs-material==${{ inputs.MKDOCS_VERSION }}
+        fi
+        if [ -f ${{ inputs.REQUIREMENTS }} ]; then
+          pip install -r ${{ inputs.REQUIREMENTS }}
+        fi
+
+    - name: Build MkDocs Site
+      shell: bash
+      run: mkdocs build --config-file ${{ inputs.CONFIG_FILE }}
 
     - name: Upload pages artifact
       uses: actions/upload-pages-artifact@v3
