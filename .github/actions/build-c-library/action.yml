@@ -107,6 +107,9 @@ runs:
 
         $BUILD_CMD +nightly rustc --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target ${{ inputs.target }} --crate-type cdylib --crate-type staticlib --features $FEATURES_ARGS
 
+        echo "Build Dir: "
+        ls "${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release"
+
     - name: Build Rust project (without PGO)
       if: inputs.use_pgo != 'true'
       shell: bash
@@ -125,14 +128,17 @@ runs:
 
         $BUILD_CMD +nightly rustc --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target ${{ inputs.target }} --crate-type cdylib --crate-type staticlib $FEATURES_ARGS
 
+        echo "Build Dir: "
+        ls "${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release"
+
     - name: Upload artifacts on Linux
       uses: actions/upload-artifact@v4
       with:
         name: C-Library-${{ inputs.target }}-${{ inputs.features }}
         path: |
-          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.a # Linux
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.a
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.so
-          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.lib # Windows
+          ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.lib
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.dll
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.pdb
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/*.dylib
