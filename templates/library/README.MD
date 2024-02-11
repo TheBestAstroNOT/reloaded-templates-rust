@@ -346,6 +346,10 @@ Use the provided `pwsh` scripts in `scripts` folder.
 These scripts can be used on any platform given the prerequisites are met.  
 If you need to test Apple stuff without an Apple machine, you're generally out of luck outside of using CI/CD for testing.  
 {% endif %}
+## Releasing a New Version
+
+Make a tag, aptly named after the current version of the project. For instance, if you are publishing version `0.1.0`, the tag should be `0.1.0`. This will create a GitHub release for you automatically.
+
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.MD) for guidance on how to contribute to this project.  
