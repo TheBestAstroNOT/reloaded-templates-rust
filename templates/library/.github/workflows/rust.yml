@@ -144,7 +144,7 @@ jobs:
     permissions:
       contents: write
 
-    needs: [test-native{%- if build_c_libs %},build_c_libs,build-c-headers{%- endif %}{%- if wine %},test-on-wine{%- endif %} ]
+    needs: [test-native{%- if build_c_libs %},build_c_libs,build-c-headers{%- endif %}{%- if wine %},test-on-wine{%- endif %}{%- if build_csharp_libs %},build-dotnet-library{%- endif %} ]
     # Publish only on tags
     if: startsWith(github.ref, 'refs/tags/') 
     runs-on: ubuntu-latest
@@ -157,6 +157,25 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+
+{% if build_csharp_libs %}
+      - name: Upload to NuGet
+        shell: pwsh
+        run: |
+          $items = Get-ChildItem -Path "artifacts/**.nupkg" -Recurse
+          Foreach ($item in $items)
+          {
+              Write-Host "Pushing $item"
+              dotnet nuget push "$item" -k "{% raw -%}${{ secrets.NUGET_KEY }}{%- endraw %}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+          }
+
+          $items = Get-ChildItem -Path "artifacts/**.snupkg" -Recurse
+          Foreach ($item in $items)
+          {
+              Write-Host "Pushing Symbol Package $item"
+              dotnet nuget push "$item" -k "{% raw -%}${{ secrets.NUGET_KEY }}{%- endraw %}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+          }
+{%- endif %}
 
       - name: Compress Artifacts
         shell: bash
@@ -188,22 +207,4 @@ jobs:
         with:
           {% raw -%}
           token: ${{ secrets.CRATES_IO_TOKEN }}{%- endraw %}
-{%- endif %}
-{% if build_csharp_libs %}
-      - name: Upload to NuGet
-        shell: pwsh
-        run: |
-          $items = Get-ChildItem -Path "**.nupkg" -Recurse
-          Foreach ($item in $items)
-          {
-              Write-Host "Pushing $item"
-              dotnet nuget push "$item" -k "{% raw -%}${{ secrets.NUGET_KEY }}{%- endraw %}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
-          }
-
-          $items = Get-ChildItem -Path "**.snupkg" -Recurse
-          Foreach ($item in $items)
-          {
-              Write-Host "Pushing Symbol Package $item"
-              dotnet nuget push "$item" -k "{% raw -%}${{ secrets.NUGET_KEY }}{%- endraw %}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
-          }
 {%- endif %}

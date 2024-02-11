@@ -21,6 +21,10 @@ inputs:
     description: 'Version of the .NET SDK to install'
     required: false
     default: '8.0.x'
+  nuget_artifact_name:
+    description: 'Name for the NuGet artifact'
+    required: false
+    default: 'NuGet-Package'
 
 runs:
   using: 'composite'
@@ -105,5 +109,7 @@ runs:
     - name: Upload NuGet Package
       uses: actions/upload-artifact@v4
       with:
-        name: NuGet-Package
-        path: ${{ inputs.csharp_project_path }}/nupkg/*.nupkg
+        name: ${{ inputs.nuget_artifact_name }}
+        path: |
+          ${{ inputs.csharp_project_path }}/nupkg/*.nupkg
+          ${{ inputs.csharp_project_path }}/nupkg/*.snupkg
