@@ -52,5 +52,6 @@ panic = "abort"
 # Benchmark Stuff
 [[bench]]
 name = "my_benchmark"
+path = "benches/my_benchmark/main.rs"
 harness = false
 {%- endif %}
