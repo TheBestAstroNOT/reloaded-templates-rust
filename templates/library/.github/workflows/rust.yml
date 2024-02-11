@@ -140,7 +140,6 @@ jobs:
         with:
           targets: 'x86_64-unknown-linux-gnu,i686-unknown-linux-gnu,aarch64-unknown-linux-gnu,armv7-unknown-linux-gnueabihf,x86_64-pc-windows-msvc,i686-pc-windows-msvc,aarch64-pc-windows-msvc,x86_64-apple-darwin,aarch64-apple-darwin'
 {%- endif %}
-{% if publish_crate_on_tag %}
   publish-crate:
     needs: [test-native{%- if build_c_libs %},build_c_libs,build-c-headers{%- endif %}{%- if wine %},test-on-wine{%- endif %} ]
     # Publish only on tags
@@ -180,11 +179,13 @@ jobs:
           files: |
             artifacts/*
 
+{% if publish_crate_on_tag %}
       - name: Publish to crates.io
         uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/publish-crate@v1
         with:
           {% raw -%}
           token: ${{ secrets.CRATES_IO_TOKEN }}{%- endraw %}
+{%- endif %}
 {% if build_csharp_libs %}
       - name: Upload to NuGet
         shell: pwsh
@@ -202,5 +203,4 @@ jobs:
               Write-Host "Pushing Symbol Package $item"
               dotnet nuget push "$item" -k "{% raw -%}${{ secrets.NUGET_KEY }}{%- endraw %}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
           }
-{%- endif %}
 {%- endif %}
