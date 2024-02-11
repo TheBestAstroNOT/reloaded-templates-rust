@@ -154,3 +154,4 @@ runs:
         name: ${{ inputs.crate_name }}-${{ inputs.target }}-${{ inputs.features }}
         path: |
           ${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/${{ inputs.crate_name }}*
+          !${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release/${{ inputs.crate_name }}*.d
