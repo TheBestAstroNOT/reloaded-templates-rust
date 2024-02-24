@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="Reloaded.Project.Configurations/NuGet.Build.props" />
-  
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>{{crate_name}}.Net.Sys</AssemblyName>
