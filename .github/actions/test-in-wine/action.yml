@@ -43,7 +43,7 @@ runs:
     - name: Install Cross Compiler
       shell: bash
       run: |
-        cargo +${{ inputs.rust_branch }} install cross
+        cargo +${{ inputs.rust_branch }} install cross --git https://github.com/cross-rs/cross
 
     - name: Run (Wine x86)
       shell: bash
