@@ -121,7 +121,7 @@ runs:
         set +x
 
         echo "Build Dir: "
-        ls "${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release"
+        ls "./target/${{ inputs.target }}/release"
 
     - name: Build Rust project (without PGO)
       if: inputs.use_pgo != 'true'
@@ -149,7 +149,7 @@ runs:
         set +x
 
         echo "Build Dir: "
-        ls "${{ inputs.rust_project_path }}/target/${{ inputs.target }}/release"
+        ls "./target/${{ inputs.target }}/release"
 
     - name: Upload artifacts on Linux
       uses: actions/upload-artifact@v4
