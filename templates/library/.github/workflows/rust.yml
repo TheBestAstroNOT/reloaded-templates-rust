@@ -9,8 +9,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+{% if build_c_libs %}
 env:
   build-with-pgo: {% if build_c_libs-with-pgo %}true{% else %}false{% endif %}
+{%- endif %}
 
 jobs:
   build-and-test:
@@ -166,14 +168,18 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Publish Rust Crate and Artifacts
+      - name: Publish Rust Crate and Artifacts  
         uses: Reloaded-Project/devops-publish-action@v1
+        {%- if publish_crate_on_tag or build_csharp_libs %}
         with:
+          {%- if publish_crate_on_tag %}
           crates-io-token: {% raw %}${{ secrets.CRATES_IO_TOKEN }}{% endraw %}
+          {%- endif %}
+          {%- if build_csharp_libs %}
           nuget-api-key: {% raw %}${{ secrets.NUGET_KEY }}{% endraw %}
+          {%- endif %}
+          {%- if publish_crate_on_tag %}
           rust-project-paths: |
-            {%- if publish_crate_on_tag %}
             .
-            {%- endif %}
+          {%- endif %}
+        {%- endif %}
