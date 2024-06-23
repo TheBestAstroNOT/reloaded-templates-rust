@@ -9,104 +9,121 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+{% if build_c_libs %}
+env:
+  build-with-pgo: {% if build_c_libs-with-pgo %}true{% else %}false{% endif %}
+{%- endif %}
+
 jobs:
-  test-native:
-    {% raw -%}
-    runs-on: ${{ matrix.os }}
-    {%- endraw %}
-    strategy:
-      matrix:
-        os: 
-          - ubuntu-latest
-{%- if xplat %}
-          - macos-latest
-          - windows-latest
-{%- endif %}
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - id: test-rust
-        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/test-and-coverage@v1 # upgrade if needed
-
-{%- if wine %}
-
-  test-on-wine:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - id: test-rust
-        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/test-in-wine@v1 # upgrade if needed
-{%- endif %}
-
-{%- if build_c_libs %}
-
-  build_c_libs:
+  build-and-test:
     strategy:
       matrix:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
-            use_cross: false
+            {%- if build_c_libs %}
+            use-pgo: true
+            {%- endif %}
+            use-cross: false
+{%- if xplat %}
           - os: ubuntu-latest
             target: i686-unknown-linux-gnu
-            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
-            use_cross: false
+            {%- if build_c_libs %}
+            use-pgo: true
+            {%- endif %}
+            use-cross: false
           - os: ubuntu-latest
             target: aarch64-unknown-linux-gnu
-            use_pgo: false # no native runner
-            use_cross: true
+            {%- if build_c_libs %}
+            use-pgo: false # no native runner
+            {%- endif %}
+            use-cross: true
           - os: ubuntu-latest
             target: armv7-unknown-linux-gnueabihf
-            use_pgo: false # no native runner
-            use_cross: true
+            {%- if build_c_libs %}
+            use-pgo: false # no native runner
+            {%- endif %}
+            use-cross: true
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
-            use_cross: false
+            {%- if build_c_libs %}
+            use-pgo: true
+            {%- endif %}
+            use-cross: false
           - os: windows-latest
             target: i686-pc-windows-msvc
-            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
-            use_cross: false
-          - os: windows-latest # no native runner
+            {%- if build_c_libs %}
+            use-pgo: true
+            {%- endif %}
+            use-cross: false
+          - os: windows-latest
             target: aarch64-pc-windows-msvc
-            use_pgo: {% if build_c_libs-with-pgo %}false{%- else %}false{% endif %}
-            use_cross: false # msvc cross links
+            {%- if build_c_libs %}
+            use-pgo: false # no native runner
+            {%- endif %}
+            use-cross: false
           - os: macos-13 # x86
             target: x86_64-apple-darwin
-            use_pgo: {% if build_c_libs-with-pgo %}false{%- else %}false{% endif %}
-            use_cross: false
-          - os: macos-14 # M1 runner
+            {%- if build_c_libs %}
+            use-pgo: true
+            {%- endif %}
+            use-cross: false
+          - os: macos-14 # M1
             target: aarch64-apple-darwin
-            use_pgo: {% if build_c_libs-with-pgo %}true{%- else %}false{% endif %}
-            use_cross: false
+            {%- if build_c_libs %}
+            use-pgo: true
+            {%- endif %}
+            use-cross: false
+{%- endif %}
 
-    {% raw -%}
-    runs-on: ${{ matrix.os }}
-    {%- endraw %}
+{%- if wine %}
+          - os: ubuntu-latest
+            target: x86_64-pc-windows-gnu
+            {%- if build_c_libs %}
+            use-pgo: true
+            {%- endif %}
+            use-cross: true
+          - os: ubuntu-latest
+            target: i686-pc-windows-gnu
+            {%- if build_c_libs %}
+            use-pgo: true
+            {%- endif %}
+            use-cross: true
+{%- endif %}
+
+    {% raw %}runs-on: ${{ matrix.os }}{% endraw %}
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - id: build-libs
-        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/build-c-library@v1 # upgrade if needed
+{%- if build_c_libs %}
+
+      - name: Build C Libraries and Run Tests
+        uses: Reloaded-Project/devops-rust-lightweight-binary@v1
         with:
-          {% raw -%}
-          target: ${{ matrix.target }}
-          use_pgo: ${{ matrix.use_pgo }}
-          use_cross: ${{ matrix.use_cross }}
+          crate-name: {% raw %}${{ github.event.repository.name }}{% endraw %}
+          target: {% raw %}${{ matrix.target }}{% endraw %}
+          use-pgo: {% raw %}${{ matrix.use-pgo && env.build-with-pgo }}{% endraw %}
+          use-cross: {% raw %}${{ matrix.use-cross }}{% endraw %}
           features: "c-exports"
-          {%- endraw %}
-  
+          build-library: true
+          run-tests-and-coverage: true
+          codecov-token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
+
+{%- else %}
+
+      - name: Run Tests and Upload Coverage
+        uses: Reloaded-Project/devops-rust-test-and-coverage@v1
+        with:
+          upload-coverage: true
+          codecov-token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
+          target: {% raw %}${{ matrix.target }}{% endraw %}
+          use-cross: {% raw %}${{ matrix.use-cross }}{% endraw %}
+
+{%- endif %}
+
+{%- if build_c_libs %}
+
   build-c-headers:
     runs-on: ubuntu-latest
     steps:
@@ -115,96 +132,54 @@ jobs:
           submodules: recursive
 
       - name: Generate C++ bindings
-        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/generate-bindings@v1
+        uses: Reloaded-Project/cbindgen-action@v1
         with:
-          config_file: cbindgen_cpp.toml
-          header_file: bindings_cpp.hpp
-  
+          config-file: cbindgen_cpp.toml
+          output-header-file: bindings_cpp.hpp
+
       - name: Generate C bindings
-        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/generate-bindings@v1
+        uses: Reloaded-Project/cbindgen-action@v1
         with:
-          config_file: cbindgen_c.toml
-          header_file: bindings_c.h
+          config-file: cbindgen_c.toml
+          output-header-file: bindings_c.h
 {%- endif %}
-{% if build_csharp_libs %}
+
+{%- if build_csharp_libs %}
+
   build-dotnet-library:
-    needs: build_c_libs
+    needs: build-and-test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Build and Package .NET Library
-        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/build-dotnet-library@dotnet-bindings
+      - name: Build and Package .NET Wrapper
+        uses: Reloaded-Project/devops-rust-c-library-to-dotnet@v1
         with:
-          targets: 'x86_64-unknown-linux-gnu,i686-unknown-linux-gnu,aarch64-unknown-linux-gnu,armv7-unknown-linux-gnueabihf,x86_64-pc-windows-msvc,i686-pc-windows-msvc,aarch64-pc-windows-msvc,x86_64-apple-darwin,aarch64-apple-darwin'
+          csharp-project-path: bindings/csharp
 {%- endif %}
+
   publish-crate:
     permissions:
       contents: write
 
-    needs: [test-native{%- if build_c_libs %},build_c_libs,build-c-headers{%- endif %}{%- if wine %},test-on-wine{%- endif %}{%- if build_csharp_libs %},build-dotnet-library{%- endif %} ]
+    needs: [build-and-test{%- if build_c_libs %},build-c-headers{%- endif %}{%- if build_csharp_libs %},build-dotnet-library{%- endif %}]
     # Publish only on tags
-    if: startsWith(github.ref, 'refs/tags/') 
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Publish Rust Crate and Artifacts  
+        uses: Reloaded-Project/devops-publish-action@v1
+        {%- if publish_crate_on_tag or build_csharp_libs %}
         with:
-          submodules: recursive
-
-      - name: ↙️ Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
-{% if build_csharp_libs %}
-      - name: Upload to NuGet
-        shell: pwsh
-        run: |
-          $items = Get-ChildItem -Path "artifacts/**.nupkg" -Recurse
-          Foreach ($item in $items)
-          {
-              Write-Host "Pushing $item"
-              dotnet nuget push "$item" -k "{% raw -%}${{ secrets.NUGET_KEY }}{%- endraw %}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
-          }
-
-          $items = Get-ChildItem -Path "artifacts/**.snupkg" -Recurse
-          Foreach ($item in $items)
-          {
-              Write-Host "Pushing Symbol Package $item"
-              dotnet nuget push "$item" -k "{% raw -%}${{ secrets.NUGET_KEY }}{%- endraw %}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
-          }
-{%- endif %}
-
-      - name: Compress Artifacts
-        shell: bash
-        run: |
-          dir="artifacts"
-          if [ ! -d "$dir" ]; then
-            echo "Directory $dir does not exist. No artifacts found."
-            exit 0
-          fi
-
-          for subdir in "$dir"/*; do
-            if [ -d "$subdir" ]; then
-              base=$(basename "$subdir")
-              zip -r "$dir/$base.zip" "$subdir"
-              rm -r "$subdir"
-            fi
-          done
-          ls -A ./artifacts
-
-      - name: GitHub Release Artifacts
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            artifacts/*
-
-{% if publish_crate_on_tag %}
-      - name: Publish to crates.io
-        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/publish-crate@v1
-        with:
-          {% raw -%}
-          token: ${{ secrets.CRATES_IO_TOKEN }}{%- endraw %}
-{%- endif %}
+          {%- if publish_crate_on_tag %}
+          crates-io-token: {% raw %}${{ secrets.CRATES_IO_TOKEN }}{% endraw %}
+          {%- endif %}
+          {%- if build_csharp_libs %}
+          nuget-api-key: {% raw %}${{ secrets.NUGET_KEY }}{% endraw %}
+          {%- endif %}
+          {%- if publish_crate_on_tag %}
+          rust-project-paths: |
+            .
+          {%- endif %}
+        {%- endif %}
