@@ -121,6 +121,16 @@ jobs:
           use-cross: {% raw %}${{ matrix.use-cross }}{% endraw %}
 
 {%- endif %}
+      # Note: The GitHub Runner Images will contain an up to date Rust Stable Toolchain
+      #       thus as per recommendation of cargo-semver-checks, we're using stable here.
+      #
+      # Note to reader. If adding this to a new repo, please clear cache.
+      - name: Run cargo-semver-checks
+        if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/')
+        run: |
+          rustup target add {% raw %}${{ matrix.target }}{% endraw %}
+          cargo install cargo-semver-checks
+          cargo semver-checks --target {% raw %}${{ matrix.target }}{% endraw %} {% if build_c_libs %}--features c-exports{% endif %}
 
 {%- if build_c_libs %}
 
