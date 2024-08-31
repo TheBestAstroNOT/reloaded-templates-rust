@@ -25,6 +25,9 @@ git submodule add https://github.com/Reloaded-Project/Reloaded.MkDocsMaterial.Th
 
 After which you can follow the [Theme Documentation](https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/contributing.html#website-live-preview) to find out how to work with the docs.
 
+Before you make your first commit to GitHub, you'll need to go to `Settings -> Pages` and set
+`Source` to `GitHub Actions` for the documentation builds to work.
+
 {% endif %}
 {% if publish_crate_on_tag -%}
 ### Setup API Key (crates.io)
