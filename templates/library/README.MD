@@ -17,14 +17,14 @@ To setup code coverage for this project. Login into [Codecov][codecov] and add t
 {% if mkdocs -%}
 ### Setup Documentation
 
-If you don't have a `docs/Reloaded` folder, an error occurred, and you might need to add it manually as submodule:
+If you don't have a `docs/Reloaded` folder, you might need to add it manually as submodule:
 
 ```
 git submodule add https://github.com/Reloaded-Project/Reloaded.MkDocsMaterial.Themes.R2.git docs/Reloaded
 ```
 
-Once you make your first commit to GitHub, you'll need to do the following:
-- Go to `Settings -> Pages` in your repo and select `gh-pages` branch to enable GitHub Pages.
+After which you can follow the [Theme Documentation](https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/contributing.html#website-live-preview) to find out how to work with the docs.
+
 {% endif %}
 {% if publish_crate_on_tag -%}
 ### Setup API Key (crates.io)
@@ -354,6 +354,12 @@ Make a tag, aptly named after the current version of the project. For instance, 
 
 See [CONTRIBUTING](CONTRIBUTING.MD) for guidance on how to contribute to this project.  
 
+{%- if mkdocs %}
+## Updating the Documentation
+
+For the latest instructions on updating the documentation (docs), see the [Relevant Doc Page].
+{%- endif %}
+
 ## License
 
 Licensed under [{{license}}](./LICENSE).  
@@ -368,7 +374,8 @@ Licensed under [{{license}}](./LICENSE).
 [target-triple]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
 {%- if mkdocs %}
 [docs]: https://{{gh_reponame}}.github.io/{{gh_reponame}}
-[mkdocs-material]: https://squidfunk.github.io/mkdocs-material/{%- endif %}
+[mkdocs-material]: https://squidfunk.github.io/mkdocs-material/
+[Relevant Doc Page]: https://{{gh_reponame}}.github.io/{{gh_reponame}}/Reloaded/Pages/contributing {%- endif %}
 [reloaded-license]: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/license/
 [rust-analyzer]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer
 [rust-toolchain]: https://www.rust-lang.org/tools/install
