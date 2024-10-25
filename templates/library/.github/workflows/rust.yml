@@ -113,9 +113,15 @@ jobs:
       - name: Run cargo-semver-checks
         if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/')
         run: |
-          rustup target add {% raw %}${{ matrix.target }}{% endraw %}
-          cargo install cargo-semver-checks
-          cargo semver-checks --target {% raw %}${{ matrix.target }}{% endraw %} {% if build_c_libs %}--features c-exports{% endif %}
+          SEARCH_RESULT=$(cargo search "^{{project-name}}$" --limit 1)
+
+          if echo "$SEARCH_RESULT" | grep -q "^{{project-name}} "; then
+            rustup target add {% raw %}${{ matrix.target }}{% endraw %}
+            cargo install cargo-semver-checks
+            cargo semver-checks --target {% raw %}${{ matrix.target }}{% endraw %} {% if build_c_libs %}--features c-exports{% endif %}
+          else
+              echo "No previous version found on crates.io. Skipping semver checks."
+          fi
 
 {%- if wine %}
   test-on-wine:
