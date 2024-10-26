@@ -67,7 +67,7 @@ git clone -c core.symlinks=true https://github.com/{{gh_username}}/{{project-nam
 ***Install Rust:***
 - Install the [Rust Toolchain.][rust-toolchain]  
 
-{%- if vscode -%}
+{% if vscode -%}
 ***Setup IDE***
 - This repository is fully with VSCode. [Guidance below](#visual-studio-code-integration).
 {% endif %}
