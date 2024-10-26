@@ -6,6 +6,7 @@ description = "{{project_description}}"
 repository = "https://github.com/{{gh_username}}/{{project-name}}"
 license-file = "LICENSE"
 include = ["src/**/*"]
+readme = "README.MD"
 
 [features]
 {% if std-by-default -%}
