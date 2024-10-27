@@ -1,5 +1,4 @@
-//! # Some Cool Reloaded Library
-//! Here's the crate documentation.
+#![doc = include_str!("../README.MD")]
 {%- if no-std-by-default %}
 #![cfg_attr(not(test), no_std)]
 {%- endif %}
