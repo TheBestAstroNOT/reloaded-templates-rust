@@ -31,7 +31,7 @@ csbindgen = "1.9.0"
 {%- if bench %}
 criterion = "0.5.1"
 
-[target.'cfg(unix)'.dev-dependencies]
+[target.'cfg(all(any(target_os = "linux", target_os = "macos"), any(target_arch = "x86", target_arch = "x86_64", target_arch = "aarch64")))'.dev-dependencies]
 pprof = { version = "0.15", features = ["flamegraph", "criterion"] }{%- endif %}
 
 # Profile Build
