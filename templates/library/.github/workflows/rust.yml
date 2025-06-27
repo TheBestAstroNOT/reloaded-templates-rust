@@ -120,9 +120,11 @@ jobs:
           SEARCH_RESULT=$(cargo search "^{{project-name}}$" --limit 1)
 
           if echo "$SEARCH_RESULT" | grep -q "^{{project-name}} "; then
-            rustup target add {% raw %}${{ matrix.target }}{% endraw %}
-            cargo install cargo-semver-checks
-            cargo semver-checks --target {% raw %}${{ matrix.target }}{% endraw %} {% if build_c_libs %}--features c-exports{% endif %}
+              # Run semver checks on stable, because nightly sometimes gets borked in cargo-semver-checks.
+              rustup +stable target add {% raw %}${{ matrix.target }}{% endraw %}
+              # Note: binstall is available after devops-rust-test-and-coverage@v1 call
+              cargo binstall --no-confirm cargo-semver-checks
+              cargo +stable semver-checks --target {% raw %}${{ matrix.target }}{% endraw %} {% if build_c_libs %}--features c-exports{% endif %}
           else
               echo "No previous version found on crates.io. Skipping semver checks."
           fi
