@@ -32,7 +32,7 @@ csbindgen = "1.9.0"
 criterion = "0.5.1"
 
 [target.'cfg(unix)'.dev-dependencies]
-pprof = { version = "0.12", features = ["flamegraph", "criterion"] }{%- endif %}
+pprof = { version = "0.15", features = ["flamegraph", "criterion"] }{%- endif %}
 
 # Profile Build
 [profile.profile]
