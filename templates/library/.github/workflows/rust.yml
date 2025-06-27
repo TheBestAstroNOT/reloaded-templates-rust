@@ -166,12 +166,14 @@ jobs:
         with:
           config-file: cbindgen_cpp.toml
           output-header-file: bindings_cpp.hpp
+          use-cache: 'true'
 
       - name: Generate C bindings
         uses: Reloaded-Project/devops-rust-cbindgen@v1
         with:
           config-file: cbindgen_c.toml
           output-header-file: bindings_c.h
+          use-cache: 'false' # Caching already included in Generate C++ bindings action
 {%- endif %}
 
 {%- if build_csharp_libs %}
