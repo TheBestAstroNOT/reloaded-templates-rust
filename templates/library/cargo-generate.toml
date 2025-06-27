@@ -1,6 +1,7 @@
 [template]
 cargo_generate_version = ">=0.18.3"
 ignore = ["pre-script.rhai"]
+exclude = ["assets/profile_example.png", ".github/workflows/auto-changelog.yml", ".github/workflows/deploy-mkdocs.yml"]
 
 [hooks]
 pre = ["pre-script.rhai"]
