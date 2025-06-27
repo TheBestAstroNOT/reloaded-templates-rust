@@ -1,9 +1,11 @@
 #![doc = include_str!("../README.MD")]
 {%- if no-std-by-default %}
-#![cfg_attr(not(test), no_std)]
+#![no_std]
 {%- endif %}
 {%- if std-by-default %}
-#![cfg_attr(not(feature = "std"), no_std)]
+#![no_std]
+#[cfg(feature = "std")]
+extern crate std;
 {%- endif %}
 {%- if build_c_libs %}
 #[cfg(feature = "c-exports")]
