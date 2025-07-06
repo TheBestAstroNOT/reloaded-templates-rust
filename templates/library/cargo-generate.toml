@@ -1,6 +1,6 @@
 [template]
 cargo_generate_version = ">=0.18.3"
-exclude = ["assets/profile_example.png", ".github/workflows/auto-changelog.yml", ".github/workflows/deploy-mkdocs.yml"]
+exclude = ["assets/profile_example.png", ".github/workflows/auto-changelog.yml", ".github/workflows/deploy-mkdocs.yml", "bindings/csharp/nuget-icon.png"]
 
 [hooks]
 post = ["final-msg.rhai"]
