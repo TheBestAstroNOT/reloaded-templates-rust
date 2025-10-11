@@ -62,13 +62,13 @@ jobs:
             use-pgo: false # no native runner
             {%- endif %}
             use-cross: false
-          - os: macos-13 # x86
+          - os: macos-15-intel # x86
             target: x86_64-apple-darwin
             {%- if build_c_libs %}
             use-pgo: true
             {%- endif %}
             use-cross: false
-          - os: macos-14 # M1
+          - os: macos-latest # M1
             target: aarch64-apple-darwin
             {%- if build_c_libs %}
             use-pgo: true
