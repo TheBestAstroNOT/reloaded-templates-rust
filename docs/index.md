@@ -7,14 +7,16 @@ hide:
 	<h1>Reloaded Rust Templates</h1>
 	<img src="assets/reloaded-logo.png" width="150" align="center" />
 	<br/> <br/>
-    Opinionated Rust, library and Reloaded project generators.
+    Opinionated Rust project generators for libraries and binaries.
     <br/>
     Built with <a href="https://github.com/cargo-generate/cargo-generate">cargo-generate</a>.
+    <br/>
+    Used by <a href="https://sewer56.dev">Sewer's Projects</a> and the <a href="https://reloaded-project.github.io/Reloaded-III/">Reloaded-III</a> framework.
 </div>
 
 ## About
 
-This template repository provides opinionated [Rust](https://www.rust-lang.org/) project generators for libraries, web servers, binaries, and [Reloaded-III](https://reloaded-project.github.io/Reloaded-III/) mods using the [cargo-generate](https://github.com/cargo-generate/cargo-generate) tool.
+This template repository provides opinionated [Rust](https://www.rust-lang.org/) project generators for libraries and binaries using the [cargo-generate](https://github.com/cargo-generate/cargo-generate) tool.
 
 These templates provide various features for getting up and running with cross platform Rust library or Reloaded3 mod development:
 
@@ -33,7 +35,7 @@ These templates provide various features for getting up and running with cross p
 This repository contains two sub-templates:
 
 - `library`: for generating a rust library, webserver, or binary/executable project
-- `reloaded3`: for generating a [Reloaded-III](https://reloaded-project.github.io/Reloaded-III/) mod written in Rust. Coming 2024
+- `reloaded3`: for generating a [Reloaded-III](https://reloaded-project.github.io/Reloaded-III/) mod written in Rust. ~~2024~~, ~~2025~~, god knows
 
 ## Getting Started
 

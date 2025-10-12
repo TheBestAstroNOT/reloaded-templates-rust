@@ -1,6 +1,8 @@
 # Reloaded Rust Templates
 
-Opinionated [Rust](https://www.rust-lang.org/) project generators for libraries, web servers, binaries, and [Reloaded-III](https://reloaded-project.github.io/Reloaded-III/) mods using [cargo-generate](https://github.com/cargo-generate/cargo-generate).
+Opinionated [Rust](https://www.rust-lang.org/) project generators for libraries and binaries using [cargo-generate](https://github.com/cargo-generate/cargo-generate).
+
+Used by [Sewer's Projects](https://sewer56.dev) and the [Reloaded-III](https://reloaded-project.github.io/Reloaded-III/) framework.
 
 ## 📖 Documentation
 
@@ -21,7 +23,7 @@ cargo generate --git https://github.com/Reloaded-Project/reloaded-templates-rust
 ## 📋 Available Templates
 
 - **`library`**: Rust libraries, web servers, and binary/executable projects
-- **`reloaded3`**: Reloaded-III mods written in Rust (Coming 2024)
+- **`reloaded3`**: Reloaded-III mods written in Rust (~~2024~~, ~~2025~~, god knows)
 
 ## 📄 License
 
