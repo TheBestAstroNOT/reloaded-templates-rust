@@ -59,5 +59,16 @@ plugins:
 
 nav:
   - Home: index.md
+  - Features:
+    - Project Layout: features/project-layout.md
+    - GitHub Templates: features/github-templates.md
+    - VSCode Integration: features/vscode-integration.md
+    - CI Workflows: features/ci-workflows.md
+    - License Options: features/license-options.md
+    - Cargo Bench: features/cargo-bench.md
+    - Cross Compilation: features/cross-compilation.md
+    - Profile Guided Optimization: features/profile-guided-optimization.md
+    - Native Exports: features/native-exports.md
+    - Integration Guide: features/integration-guide.md
   - License: Reloaded/Pages/license.md
   - How to Document: Reloaded/Pages/contributing.md
