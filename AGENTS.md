@@ -9,3 +9,6 @@
 - `mkdocs build --strict` - Check build errors
 - NEVER run blocking commands like `mkdocs serve`
 - ALWAYS delete `dist/` folder immediately after running `mkdocs build --strict`
+
+## MkDocs Material Admonitions
+Use admonitions for highlighting: `!!! tip`, `!!! warning`, `!!! info`, `!!! example`. Available types: note, abstract, info, tip, success, question, warning, failure, danger, bug, example, quote. Use `???` for collapsible blocks.
