@@ -15,9 +15,8 @@ A starter kit of standardized issue and PR templates that improve contribution q
 - Customizable template variables
 
 ## What's Included
-- **[Bug Report Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/bug_report.md)** - Structured bug reporting with reproduction steps
-- **[Feature Request Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/feature_request.md)** - Standardized feature suggestions  
-- **[Pull Request Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/pull_request_template.md)** - Contribution guidelines and checklist
+- **[Bug Report Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/bug_report.yml)** - Structured bug reporting with reproduction steps
+- **[Feature Request Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/feature_request.yml)** - Standardized feature suggestions  
 - **[Configuration Files](https://github.com/Reloaded-Project/reloaded-templates-rust/tree/main/templates/library/.github)** - Ready-to-use GitHub template settings
 
 ## Quick Start
