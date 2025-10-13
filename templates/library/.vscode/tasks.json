@@ -9,7 +9,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
+      "problemMatcher": []
     },
     {
       "label": "Reloaded: Cargo Watch Tarpaulin (Auto Coverage on Save)",
