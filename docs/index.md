@@ -5,7 +5,7 @@ hide:
 
 <div align="center">
 	<h1>Reloaded Rust Templates</h1>
-	<img src="assets/reloaded-logo.png" width="150" align="center" />
+	<img src="assets/reloaded-logo.avif" width="150" align="center" />
 	<br/> <br/>
     Opinionated Rust project generators for libraries and binaries.
     <br/>
@@ -51,7 +51,7 @@ More installation options are available [here](https://github.com/cargo-generate
 
 The experience running through the template should look something like this:
 
-![cargo-generate Rust Binary Application Screenshot](assets/example-create.png)
+![cargo-generate Rust Binary Application Screenshot](assets/example-create.avif)
 
 Once you generate a template, further instructions might await in your project's README file 😉.
 
