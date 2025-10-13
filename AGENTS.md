@@ -17,8 +17,8 @@ Use admonitions for highlighting: `!!! tip`, `!!! warning`, `!!! info`, `!!! exa
 Include screenshots for better content digestion.
 
 ```markdown
-<figure markdown="span">
-  ![Image title](path/to/image.png){ width="300" }
-  <figcaption>Image caption</figcaption>
-</figure>
+![Image title](path/to/image.png)
+/// caption
+Image caption here
+///
 ```

@@ -22,7 +22,7 @@ These templates provide various features for getting up and running with cross p
 
 - Standardized README, Contributing Guidelines & Project Layout
 - GitHub Issue and Pull Request templates
-- VSCode Workflow & Integration
+- VSCode Workflow & Integration with sane defaults
 - Test, lint, audit, and code coverage via [Codecov](https://about.codecov.io/) GitHub Action workflows
 - A choice of Apache, MIT, LGPLv3 or GPLv3 licenses
 - [`cargo-bench`](https://doc.rust-lang.org/cargo/commands/cargo-bench.html) integration (*optional*)
