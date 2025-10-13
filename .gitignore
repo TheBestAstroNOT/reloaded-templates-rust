@@ -1,0 +1,17 @@
+# MkDocs build output
+dist/
+
+# Rust
+target/
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
