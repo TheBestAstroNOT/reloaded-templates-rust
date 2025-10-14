@@ -15,8 +15,10 @@ extra_css:
 markdown_extensions:
   - admonition
   - tables
+  - abbr
   - pymdownx.details
   - pymdownx.highlight
+  - pymdownx.snippets
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -41,6 +43,7 @@ theme:
     scheme: reloaded3-slate
   features:
     - navigation.instant
+    - content.tooltips
 
 plugins:
   - search
