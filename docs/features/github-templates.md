@@ -1,23 +1,28 @@
 # GitHub Templates
 
+!!! tip
+    Good issue templates reduce time spent making follow-up questions and help users solve their issues faster.
+
 A starter kit of standardized issue and PR templates that improve contribution quality and reduce maintenance overhead.
 
-![GitHub Issue Template](../assets/issue-template.avif)
+![GitHub Template Selector](../assets/issue-template.avif)
+/// caption
+Template selector for bug reports and feature requests.
+///
 
-!!! tip
-    Professional templates help maintain consistency and reduce the time spent asking follow-up questions.
-    
-    For programs run by less technical end users, consider [YAML-based issue forms](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms) for enhanced validation and user experience.
+## Template Example
 
-## Key Features
-- Pre-configured bug report and feature request templates
-- Automatic labeling and categorization
-- Customizable template variables
+![Bug Report Template](../assets/bug-report-template.avif)
+/// caption
+Pre-configured bug report template with structured fields.
+///
 
 ## What's Included
-- **[Bug Report Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/bug_report.yml)** - Structured bug reporting with reproduction steps
-- **[Feature Request Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/feature_request.yml)** - Standardized feature suggestions  
-- **[Configuration Files](https://github.com/Reloaded-Project/reloaded-templates-rust/tree/main/templates/library/.github)** - Ready-to-use GitHub template settings
+- **[Bug Report Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/bug_report.yml)** - Example structured bug reporting with reproduction steps
+- **[Feature Request Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/feature_request.yml)** - Example standardized feature suggestions
+
+!!! tip
+    For programs run by less technical end users, consider [YAML-based issue forms](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms) to ensure users give you the information you need.
 
 ## Quick Start
 !!! info
