@@ -15,7 +15,7 @@ Automated checks running on pull requests
 - **[PGO optimization](#cross-platform-testing)**: Better performance
 - **[Wine testing](#testing-on-wine)**: Linux gaming compatibility
 
-## Testing
+## Testing Your Code
 
 ### Cross-Platform Testing
 
@@ -58,7 +58,9 @@ The `test-on-wine` job ensures your code runs correctly inside Wine, which is cr
 
 This is helpful when your code is expected to run in a Windows environment from Linux; such as being part of game mods.
 
-## Code Coverage
+## Code Quality & Coverage
+
+### Code Coverage Reports
 
 !!! info "Track Your Test Coverage"
     See how much of your code is actually tested and find missing test cases.
@@ -75,10 +77,8 @@ Coverage pills on README.md show project health at a glance - click them to go t
 
 The default CI configuration collects and uploads coverage reports to Codecov for all supported platforms, showing you which parts of your code need more tests.
 
-## Code Quality
-
 ### Semantic Version Checks
-Automatically verifies that changes don't break the public API in ways that require a major version bump using `cargo-semver-checks`. Releases and Pull Requests will fail if incompatible changes were made without an appropriate version bump.
+Automatically checks if your changes might break code for people who use your library. If you make changes that could break other people's code, you'll need to update your version number. This prevents accidental breaking changes from reaching your users.
 
 !!! info "[What is Semantic Versioning?](https://semver.org)"
 
@@ -91,15 +91,21 @@ Automatically verifies that changes don't break the public API in ways that requ
     For versions < 1.0.0, the project is considered unstable and the minor version may include breaking changes.
 
     *[Incompatible changes]: Changes that may break things for people using your code, such as:<br/>- Removing or renaming functions<br/>- Changing parameters to a function
+    
+    *This check is performed using the `cargo-semver-checks` tool.*
 
-## Publishing
+## Publishing Your Library
 
 !!! tip "How to Publish?"
     In order to make a release, you should push a tag that's named after the version, for example `1.0.0` for version `1.0.0`. Do not use a `v` prefix.
 
-### What Happens When You Publish?
+### How Publishing Works
 
-When you push a version tag, the CI workflow automatically handles your release. Depending on your template options, the following may happen:
+When you push a version tag, the CI workflow automatically handles your release process.
+
+### What Gets Published
+
+Depending on your template options, the following may happen:
 
 - **crates.io**: Publishes your Rust library to the official Rust package registry
 - **GitHub Release**: Creates a GitHub release with changelog
