@@ -1,4 +1,4 @@
-# CI Workflows
+# Automated Testing & Publishing
 
 Automated testing, publishing, and code quality checks that run when you update your code, ensuring your rust code works across all platforms.
 

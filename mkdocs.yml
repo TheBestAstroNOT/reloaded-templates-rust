@@ -67,7 +67,7 @@ nav:
       - Project Layout: features/project-layout.md
       - GitHub Templates: features/github-templates.md
       - VSCode Integration: features/vscode-integration.md
-      - CI Workflows: features/ci-workflows.md
+      - Automated Testing & Publishing: features/automated-testing-publishing.md
       - License Options: features/license-options.md
       - Cargo Bench: features/cargo-bench.md
       - Cross Compilation: features/cross-compilation.md
