@@ -1,6 +1,11 @@
 # CI Workflows
 
-Automated testing, publishing, and code quality checks that run when you update your code, ensuring your Rust library works across all platforms.
+Automated testing, publishing, and code quality checks that run when you update your code, ensuring your rust code works across all platforms.
+
+![PR Checks](../assets/pr-checks.avif)
+/// caption
+Automated checks running on pull requests
+///
 
 ## Key Features
 - **[Cross-platform testing](#cross-platform-testing)**: Linux, Windows, macOS
@@ -14,8 +19,8 @@ Automated testing, publishing, and code quality checks that run when you update 
 
 ### Cross-Platform Testing
 
-!!! info "Matrix Strategy Testing"
-    The workflow tests across modern platforms using a matrix strategy:
+!!! info
+    Out of the box, the template is configured to test on a variety of platforms:
 
 #### Standard Targets
 - **Linux**: x86_64, i686
@@ -23,21 +28,24 @@ Automated testing, publishing, and code quality checks that run when you update 
 - **macOS**: x86_64 (Intel), aarch64 (Apple Silicon)
 
 #### Optional Extended Targets
+
+!!! tip
+    You can opt in to testing on less standard platforms for comprehensive compatibility.
+    
+    [Reloaded3](https://reloaded-project.github.io/Reloaded-III/) uses extended targets and `no_std` to ensure compatibility with hard platforms like consoles.
+
 <div class="annotate" markdown>
 
 - **Linux**: aarch64, armv7 (ARM variants use cross-compilation)
 - **Windows**: aarch64 (MSVC toolchain) (1)
-- **Big Endian**: powerpc64-unknown-linux-gnu, powerpc-unknown-linux-gnu (2)
+- **Big Endian & Aligned Memory** (2):
+    - powerpc64-unknown-linux-gnu
+    - powerpc-unknown-linux-gnu
 
 </div>
 
 1.  Currently unsupported due to lack of non-enterprise GitHub runners
-2.  Optional feature aiming to support older game consoles which used Big Endian
-
-!!! tip "Opt-in Extended Platform Testing"
-    You can opt in to testing on less standard platforms for comprehensive compatibility.
-    
-    [Reloaded3](https://reloaded-project.github.io/Reloaded-III/) uses extended targets and `no_std` to ensure compatibility with hard platforms like consoles.
+2.  Required for mods/code targeting older game consoles
 
 ### Testing on Wine
 
@@ -113,4 +121,4 @@ Run the template again with your desired options to generate a customized `rust.
 cargo generate --git https://github.com/Reloaded-Project/reloaded-templates-rust.git
 ```
 
-See the [main documentation](../index.md#getting-started) for more details on getting started with cargo-generate.
+See the [main documentation](../index.md#getting-started) for more details on getting started with `cargo-generate`.
