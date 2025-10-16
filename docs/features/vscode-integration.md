@@ -5,7 +5,28 @@ While Rust is wonderful to work with- getting started with the tooling can be a 
 The Reloaded Project Template provides sane defaults for VSCode (Visual Studio Code) integration,
 including testing, code coverage, and professional Rust development workflows.
 
-## Tasks
+## Quick Start
+Install the recommended VSCode extensions:
+
+- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) - Rust language server for IDE features
+- [Coverage Gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters) - Visualize code coverage in your editor
+- [Crates](https://marketplace.visualstudio.com/items?itemName=serayuzgur.crates) - Manage crate dependencies and versions
+
+!!! info
+    Coverage tools are automatically installed when you first run coverage tasks.
+
+## Debugging
+Install the `CodeLLDB` extension for native debugging support. Debug profiles are automatically created when the extension is installed.
+
+![VSCode Debugging](../assets/vscode-debug.avif)
+/// caption
+Debugging Rust applications with CodeLLDB in VSCode
+///
+
+!!! warning
+    If debug profiles are not available, run `Ctrl+Shift+P` → "Debug: Add Configuration..." to generate them manually.
+
+## Testing and Tasks
 Access pre-configured development tasks via `Ctrl+Shift+P` → "Run Task". The template includes three essential workflows for automated testing and coverage generation.
 
 ![Run Task](../assets/run-task.avif)
@@ -17,6 +38,9 @@ Access tasks via Ctrl+Shift+P → "Run Task"
 /// caption
 Pre-configured development tasks for testing and coverage
 ///
+
+## Formatting
+The template configures VSCode to format Rust files automatically when saved using `rustfmt`.
 
 ## Linting
 
@@ -54,31 +78,6 @@ Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
 
 !!! tip
     Enable `Coverage Gutters: Watch` alongside `Cargo Watch Tarpaulin` for live coverage updates as you code.
-
-## Formatting
-The template configures VSCode to format Rust files automatically when saved using `rustfmt`.
-
-## Debugging
-Install the `CodeLLDB` extension for native debugging support. Debug profiles are automatically created when the extension is installed.
-
-![VSCode Debugging](../assets/vscode-debug.avif)
-/// caption
-Debugging Rust applications with CodeLLDB in VSCode
-///
-
-!!! warning
-    If debug profiles are not available, run `Ctrl+Shift+P` → "Debug: Add Configuration..." to generate them manually.
-
-## Quick Start
-Install the recommended extensions and `cargo-tarpaulin`:
-
-```bash
-# Install cargo-tarpaulin for coverage
-cargo install cargo-tarpaulin
-
-# Install VSCode extensions (Ctrl+Shift+P → "Extensions: Install Extensions")
-# rust-analyzer, coverage-gutters, crates
-```
 
 ## Integration with Existing Projects
 Copy the template configuration files to your project and install the recommended extensions:
