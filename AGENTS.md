@@ -56,3 +56,7 @@ Include screenshots for better content digestion.
 Image caption here
 ///
 ```
+
+## Target Audience
+
+The documentation should be accessible to both regular Rust developers and people new to coding (not just Rust). Avoid jargon, use images, and explain concepts clearly. Prioritise sections in order of importance to new users- e.g. a user would want to know how to build and run a project before understanding formatting, linting, coverage, etc.
