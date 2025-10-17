@@ -69,7 +69,7 @@ nav:
       - VSCode Integration: features/vscode-integration.md
       - Automated Testing & Publishing: features/automated-testing-publishing.md
       - License Options: features/license-options.md
-      - Cargo Bench: features/cargo-bench.md
+      - Performance Benchmarking & Profiling: features/performance-benchmarking-profiling.md
       - Cross Compilation: features/cross-compilation.md
       - Profile Guided Optimization: features/profile-guided-optimization.md
       - Native Exports: features/native-exports.md
