@@ -29,14 +29,18 @@ csbindgen = "1.9.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dev-dependencies]
 {%- if bench %}
-criterion = "0.5.1"{%- endif %}
+criterion = "0.7.0"{%- endif %}
 
 # Profile Build
 [profile.profile]
 inherits = "release"
 debug = true
-codegen-units = 1
-lto = true
+strip = false  # No stripping!!
+
+# Benchmark Build
+[profile.bench]
+inherits = "release"
+debug = true
 strip = false  # No stripping!!
 
 # Optimized Release Build

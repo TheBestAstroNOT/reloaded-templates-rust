@@ -161,23 +161,158 @@ Violin plot generated from the "File Decompression" benchmark group, comparing t
     }
     ```
 
-## Integration with Existing Projects
-Add benchmarking to existing Rust projects by copying the template configuration:
+## Profiling
 
-- [templates/library/benches/my_benchmark/main.rs](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/benches/my_benchmark/main.rs) - Example benchmark with best practices
-- [templates/library/Cargo.toml](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/Cargo.toml) - Benchmark dependencies and configuration
+### Generating Profile
+Generate performance profiles of your benchmarks using cargo flamegraph.
 
-Add these dependencies to your `Cargo.toml`:
+Install cargo flamegraph:
 
-```toml
-[dev-dependencies]
-criterion = "0.5.1"
+```bash
+cargo install cargo-flamegraph
+# if on Linux, ensure `perf` and `objdump` are available/installed
 ```
 
-And this benchmark configuration:
+Profile a benchmark:
 
+```bash
+cargo flamegraph --bench my_benchmark --profile profile -- --bench --profile-time 10 can_decompress_file_Model
+# On Windows this requires `sudo cargo`, or administrator command prompt
+```
+
+### Inspecting Flamegraph
+
+!!! warning "The 'profile' profile is mandatory"
+    The `--profile profile` is required. This is the release profile but with debug symbols, which will be necessary for accurate results.
+Explore the interactive flamegraph visualization to identify performance bottlenecks.
+
+![Flamegraph Example](../assets/flamegraph.avif)
+/// caption
+Interactive flamegraph showing function call hierarchy
+///
+
+Open the generated `flamegraph.svg` in your web browser to explore the interactive visualization.
+
+Click on any segment to zoom into that function's call stack and identify performance bottlenecks.
+
+??? warning "Open the SVG in a web browser"
+    The `flamegraph.svg` is a webpage with JavaScript, not just an image. Opening it in an image viewer, including VSCode by default, may render it not interactive.
+
+### Inspecting Profile Data
+Analyze detailed profile data with specialized tools for deep performance investigation.
+
+#### Linux
+Linux users can analyze `perf.data` files (created after running `cargo flamegraph`) with Hotspot or the perf CLI.
+
+![Linux Perf CLI](../assets/profiling-linux-perf.avif)
+/// caption
+Linux perf command-line analysis with `perf report perf.data`
+///
+
+You can enable original code view with `S` (capital) after pressing `/` + `Enter`, and then selecting a function. Perf is real powerful but requires some minimal discovery around the web for more guidance.
+
+![Linux Hotspot](../assets/profiling-linux-hotspot.avif)
+/// caption
+Hotspot GUI tool for visualizing perf profile data
+///
+#### Windows
+!!! tip "On Windows you should use a standalone profiling tool."
+
+We'll show Visual Studio here since you will already likely have it installed after setting up Rust.
+
+![Visual Studio Profiler](../assets/profiling-windows-visualstudio.avif)
+/// caption
+Visual Studio 2022 Community Profiler showing CPU usage
+///
+
+Build the benchmark binary without running it:
+
+```bash
+cargo build --bench my_benchmark --profile profile
+```
+
+Follow these steps to profile your benchmark in Visual Studio:
+
+1. In the Visual Studio start pop-up, select 'Continue without code' in the bottom right.
+
+    ![Visual Studio Start](../assets/profiling-windows-vs-tutorial-1.avif)
+
+2. From the top menu, select `Debug` -> `Performance Profiler`.
+
+    ![Performance Profiler Menu](../assets/profiling-windows-vs-tutorial-2.avif)
+
+3. Select `Executable`, then navigate to `target/profile/deps/my_benchmark-....exe` (or similar).
+
+    ![Select Executable](../assets/profiling-windows-vs-tutorial-3.avif)
+
+    ![Navigate to Binary](../assets/profiling-windows-vs-tutorial-4.avif)
+
+4. Tick `CPU Usage`, then hit `Start`.
+
+    ![Start Profiling](../assets/profiling-windows-vs-tutorial-5.avif)
+
+#### macOS
+!!! info "Contributions Welcome"
+    I (sewer) never owned an Apple device, so I can't provide good guidance here. Please contribute if you have macOS experience.
+
+## Integration with Existing Projects
+
+Add benchmarking to existing Rust projects in 3 steps:
+
+### 1. Create Benchmark Directory
+```bash
+mkdir benches
+```
+
+### 2. Add to Cargo.toml
 ```toml
+[dev-dependencies]
+criterion = "0.7.0"
+
 [[bench]]
 name = "my_benchmark"
 harness = false
+
+# Profile Build
+[profile.profile]
+inherits = "release"
+debug = true
+strip = false
+
+# Benchmark Build  
+[profile.bench]
+inherits = "release"
+debug = true
+strip = false
+```
+
+### 3. Create Basic Benchmark
+`benches/my_benchmark.rs`:
+```rust
+use criterion::{black_box, criterion_group, criterion_main, Criterion};
+
+fn fibonacci(n: u64) -> u64 {
+    match n {
+        0 => 1,
+        1 => 1,
+        n => fibonacci(n-1) + fibonacci(n-2),
+    }
+}
+
+fn criterion_benchmark(c: &mut Criterion) {
+    c.bench_function("fib 20", |b| b.iter(|| fibonacci(black_box(20))));
+}
+
+criterion_group!(benches, criterion_benchmark);
+criterion_main!(benches);
+```
+
+Run with `cargo bench`.
+
+### 4. Update .gitignore
+```gitignore
+# Profiling files
+perf.data.old
+perf.data
+flamegraph.svg
 ```
