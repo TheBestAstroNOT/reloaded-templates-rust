@@ -29,3 +29,5 @@ Pre-configured bug report template with structured fields.
     For adding to existing non-template projects.
 
 Copy the [`.github/ISSUE_TEMPLATE/`](https://github.com/Reloaded-Project/reloaded-templates-rust/tree/main/templates/library/.github/ISSUE_TEMPLATE) folder to your project root and customize the variables.
+
+See the [main documentation](../index.md#getting-started) for more details.

@@ -60,6 +60,9 @@ plugins:
         - Reloaded/Readme.md
         - Reloaded/LICENSE
         - Reloaded/mkdocs.yml
+  - exclude:
+      not_in_nav: |
+        AGENTS-DOCS.md
 
 nav:
   - Home: index.md

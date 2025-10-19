@@ -80,9 +80,14 @@ Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
     Enable `Coverage Gutters: Watch` alongside `Cargo Watch Tarpaulin` for live coverage updates as you code.
 
 ## Integration with Existing Projects
+!!! info
+    For adding to existing non-template projects.
+
 Copy the template configuration files to your project and install the recommended extensions:
 
 - [templates/library/.vscode/settings.json](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.vscode/settings.json) - VSCode settings with `rust-analyzer` and coverage configuration
 - [templates/library/.vscode/tasks.json](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.vscode/tasks.json) - Pre-configured development tasks
 
 Create a `.vscode` directory in your project root and copy these files to enable full functionality.
+
+See the [main documentation](../index.md#getting-started) for more details.
