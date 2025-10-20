@@ -55,6 +55,9 @@ type = "bool"
 prompt = "Run Automated Tests against Wine (x86 and x64)"
 default = true
 
+[conditional.'wine == false']
+ignore = ["flake.nix"]
+
 ## Benchmark
 [placeholders.bench]
 type = "bool"
