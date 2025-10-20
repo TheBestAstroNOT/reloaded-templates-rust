@@ -37,15 +37,13 @@ Automated checks running on pull requests
 <div class="annotate" markdown>
 
 - **Linux**: aarch64, armv7 (ARM variants use cross-compilation)
-- **Windows**: aarch64 (MSVC toolchain) (1)
-- **Big Endian & Aligned Memory** (2):
+- **Big Endian & Aligned Memory** (1):
     - powerpc64-unknown-linux-gnu
     - powerpc-unknown-linux-gnu
 
 </div>
 
-1.  Currently unsupported due to lack of non-enterprise GitHub runners
-2.  Required for mods/code targeting older game consoles
+1.  Required for mods/code targeting older game consoles
 
 ### Testing on Wine
 
