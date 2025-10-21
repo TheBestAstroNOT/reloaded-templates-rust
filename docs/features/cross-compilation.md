@@ -1,6 +1,8 @@
 # Cross Compilation Tutorial
 
-Reloaded projects are often compiled for a variety of platforms. While most of this is done by automated checks, you may sometimes want to try cross compilation during local development.
+Cross compilation allows you to build and test for platforms other than your current OS.
+
+While most cross-compilation is handled by automated checks, you might want to do it while writing new code.
 
 ## Supported Platforms
 
@@ -13,7 +15,37 @@ Most repositories using this template target the following:
 !!! info "Extended Targets"
     See [Automated Testing & Publishing](automated-testing-publishing.md#cross-platform-testing) for detailed testing workflows and extended target options.
 
-## Testing with Wine
+## Cross Compilation with Cross
+
+!!! tip "The `cross` tool provides easy cross-compilation for Rust projects using Docker or Podman containers."
+
+### Installation
+
+```bash
+cargo install cross --git https://github.com/cross-rs/cross
+```
+
+!!! info "Docker/Podman Required"
+    `cross` requires Docker or Podman to be installed and running for cross-compilation.
+
+### Basic Usage
+
+Simply replace `cargo` with `cross`:
+
+```bash
+cross build --target x86_64-pc-windows-gnu
+# Windows on Linux or macOS
+cross test --target x86_64-pc-windows-gnu --release
+# How about something close to the GameCube?
+cross test --target powerpc-unknown-linux-gnu --release
+```
+
+!!! warning "Try Release Builds"
+    For some targets, debug builds may have compilation issues with `cross`.
+
+    Use `--release` whenever possible.
+
+## Testing with Wine on Linux
 
 !!! info "Users on Linux can test Windows binaries by using Wine for local testing."
 
@@ -25,27 +57,15 @@ You can use either:
 !!! tip
     If you encounter a bug with WINE, it's recommended to test with the latest Wine on your local system before reporting bugs to WineHQ.
 
-!!! note
-    `cross` is also used to test more esoteric platforms (e.g., Big Endian), making it the recommended option.
-
 ### Testing on Wine with Cross
 
 `cross` can be used to test with Wine.
 
 ```bash
-# Install cross
-cargo install cross --git https://github.com/cross-rs/cross --force
-
 # Test Windows binaries on Linux using cross
 cross test --target x86_64-pc-windows-gnu --release
 cross test --target i686-pc-windows-gnu --release
 ```
-
-!!! info "Docker/Podman Required"
-    `cross` requires Docker or Podman to be installed and running for cross-compilation.
-
-!!! warning "Use Release Builds"
-    Debug builds may have compilation issues when cross-compiling with `cross` on certain images. Use `--release` whenever possible.
 
 ### Testing on Wine with Cargo
 
