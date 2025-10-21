@@ -61,23 +61,52 @@ The tests will run in your local WINE installation.
 
 === "NixOS"
 
-    You'll also need to update your system configuration to enable binfmt for Wine:
+    Use this flake I made: [rust-windows-gnu-helper-flake](https://github.com/Sewer56/rust-windows-gnu-helper-flake)
 
-    ```nix
-    # Allow EXE files to be automatically executed through Wine
-    boot.binfmt.emulatedSystems = [ "x86_64-windows" "i686-windows" ];
-    ```
+    1. Enable binfmt
 
-    Then you can cross compile as follows:
+        ```nix
+        # Add to configuration.nix
+        boot.binfmt.emulatedSystems = [ "x86_64-windows" "i686-windows" ];
+        ```
 
-    ```bash
-    # Activate the Windows development environment
-    nix develop .#windows
+    2. Install Windows targets
 
-    # Build and test
-    rustup target add x86_64-pc-windows-gnu  # or equivalent for your setup
-    cargo test --target x86_64-pc-windows-gnu --release
-    ```
+        ```bash
+        # Can also be sourced from rust-overlay, etc.
+        rustup target add x86_64-pc-windows-gnu i686-pc-windows-gnu
+        ```
+
+    3. Integrate flake with your flake
+
+        ```nix
+        {
+          inputs = {
+            nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+            flake-utils.url = "github:numtide/flake-utils";
+            helper.url = "github:Sewer56/rust-windows-gnu-helper-flake";
+          };
+
+          outputs = { self, nixpkgs, flake-utils, helper, ... }:
+            flake-utils.lib.eachDefaultSystem (system: let
+              pkgs = import nixpkgs { inherit system; };
+            in {
+              devShells.default = pkgs.mkShell ({
+                packages = [ /* your packages */ ] ++ (helper.lib.winGnuPackages pkgs);
+              } // (helper.lib.winGnuEnv pkgs));
+            });
+        }
+        ```
+
+    4. Run tests
+
+        ```bash
+        nix develop
+        cargo test --target x86_64-pc-windows-gnu --release
+        ```
+
+        !!! warning "i686 Target Broken"
+            The i686-pc-windows-gnu target is currently broken until nixpkgs [PR #367564](https://github.com/NixOS/nixpkgs/pull/367564) is merged.
 
 When Wine testing is enabled during template generation, these tests also run automatically in CI/CD.
 
