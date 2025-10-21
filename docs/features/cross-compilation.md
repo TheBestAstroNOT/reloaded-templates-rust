@@ -15,9 +15,18 @@ Most repositories using this template target the following:
 
 ## Testing with Wine
 
-Users on Linux can test Windows binaries by using Wine for local testing. You either have the option to use your local installed version of Wine, or through the use of `cross`, which uses a docker image under the hood. `cross` is also used to test the more esoteric platforms, e.g. Big Endian, thus is recommended.
+!!! info "Users on Linux can test Windows binaries by using Wine for local testing."
 
-If you encounter a bug with WINE, it's recommended to test with latest Wine on your local system before reporting bugs to WineHQ.
+You can use either:
+
+- Your local Wine installation
+- `cross`, which uses a Docker image
+
+!!! tip
+    If you encounter a bug with WINE, it's recommended to test with the latest Wine on your local system before reporting bugs to WineHQ.
+
+!!! note
+    `cross` is also used to test more esoteric platforms (e.g., Big Endian), making it the recommended option.
 
 ### Testing on Wine with Cross
 
@@ -119,15 +128,7 @@ When Wine testing is enabled during template generation, these tests also run au
 Automated cross-platform checks running during pull requests
 ///
 
-The cross-compilation automation is implemented in `.github/workflows/auto-changelog.yml`.
+Cross-compilations are also tested as part of automated testing.
 
-For custom target configurations or additional platforms, modify the GitHub Actions workflow files in `.github/workflows/`. The matrix build strategy allows easy extension of supported targets.
+See [Automated Testing & Publishing](automated-testing-publishing.md) for detailed workflows and customization options.
 
-## Integration with Existing Projects
-
-!!! info
-    For adding to existing non-template projects.
-
-Copy and adapt `.github/workflows/rust.yml` from the template to your project.
-
-See the [main documentation](../index.md#getting-started) for more details.
