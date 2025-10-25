@@ -76,6 +76,5 @@ nav:
       - Cross Compilation: features/cross-compilation.md
       - Profile Guided Optimization: features/profile-guided-optimization.md
       - Native Exports: features/native-exports.md
-      - Integration Guide: features/integration-guide.md
   - License: Reloaded/Pages/license.md
   - How to Document: Reloaded/Pages/contributing.md
