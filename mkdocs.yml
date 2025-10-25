@@ -75,6 +75,8 @@ nav:
       - Performance Benchmarking & Profiling: features/performance-benchmarking-profiling.md
       - Cross Compilation: features/cross-compilation.md
       - Profile Guided Optimization: features/profile-guided-optimization.md
-      - Native Exports: features/native-exports.md
+      - Bindings:
+          - C/C++ Bindings: features/bindings/cpp-bindings.md
+          - C# Bindings: features/bindings/csharp-bindings.md
   - License: Reloaded/Pages/license.md
   - How to Document: Reloaded/Pages/contributing.md
