@@ -96,16 +96,16 @@ For lists:
 ```
 
 ## Integration vs Quick Start
-- Prefer the header `## Integration with Existing Projects`.
+- Prefer the header `## Integrate with Non-Template Projects`.
 - `## Quick Start` is acceptable when it serves the same purpose.
 - Keep steps brief and actionable (copy files, minimal commands).
 - When helpful, add: `See the [main documentation](../index.md#getting-started) for more details.`
 
 ### Example integration block
 ```markdown
-## Integration with Existing Projects
+## Integrate with Non-Template Projects
 !!! info
-    For adding to existing non-template projects.
+    If your project was not built on Reloaded template, here's how you can recreate template parts.
 
 Copy the relevant files from the template to your project, then follow the steps below.
 
@@ -137,9 +137,9 @@ Automated checks running on pull requests
 
 - **Integration boilerplate**
 ```markdown
-## Integration with Existing Projects
+## Integrate with Non-Template Projects
 !!! info
-    For adding to existing non-template projects.
+    If your project was not built on Reloaded template, here's how you can recreate template parts.
 
 [Brief steps or copy instructions]
 

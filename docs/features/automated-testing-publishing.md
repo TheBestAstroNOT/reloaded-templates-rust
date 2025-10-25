@@ -115,9 +115,9 @@ Depending on your template options, the following may happen:
 
 All releases are gated by successful tests and quality checks, ensuring only stable code reaches your users.
 
-## Integration with Existing Projects
+## Integrate with Non-Template Projects
 !!! info
-    For adding to existing non-template projects.
+    If your project was not built on Reloaded template, here's how you can recreate the CI workflow parts.
 
 Run the template again with your desired options to generate a customized `rust.yml` file, then copy it to your project:
 

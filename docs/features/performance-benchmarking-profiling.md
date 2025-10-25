@@ -255,7 +255,9 @@ Follow these steps to profile your benchmark in Visual Studio:
 !!! info "Contributions Welcome"
     I (sewer) never owned an Apple device, so I can't provide good guidance here. Please contribute if you have macOS experience.
 
-## Integration with Existing Projects
+## Integrate with Non-Template Projects
+!!! info
+    If your project was not built on Reloaded template, here's how you can recreate the benchmarking parts.
 
 Add benchmarking to existing Rust projects in 3 steps:
 

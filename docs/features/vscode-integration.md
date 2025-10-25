@@ -79,9 +79,9 @@ Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
 !!! tip
     Enable `Coverage Gutters: Watch` alongside `Cargo Watch Tarpaulin` for live coverage updates as you code.
 
-## Integration with Existing Projects
+## Integrate with Non-Template Projects
 !!! info
-    For adding to existing non-template projects.
+    If your project was not built on Reloaded template, here's how you can recreate the VSCode setup parts.
 
 Copy the template configuration files to your project and install the recommended extensions:
 

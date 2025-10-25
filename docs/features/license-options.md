@@ -40,10 +40,10 @@ When you generate a project:
 3. Other license files are deleted
 4. README.MD automatically references your choice
 
-## Integration with Existing Projects
+## Integrate with Non-Template Projects
 
 !!! info
-    For adding to existing non-template projects.
+    If your project was not built on Reloaded template, here's how you can recreate the license parts.
 
 Copy the license file you need from `templates/library/`:
 

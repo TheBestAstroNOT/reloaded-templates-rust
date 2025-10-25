@@ -131,7 +131,9 @@ fn criterion_benchmark(c: &mut Criterion) {
 
 This gives you more control over PGO data collection: use custom data, exclude unrealistic cases, or test multiple components together.
 
-## Integration with Existing Projects
+## Integrate with Non-Template Projects
+!!! info
+    If your project was not built on Reloaded template, here's how you can recreate the PGO parts.
 
 Adding PGO support to existing Rust projects requires coordinated changes across build configuration and source code.
 
