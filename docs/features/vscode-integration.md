@@ -77,7 +77,7 @@ Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
 ///
 
 !!! tip
-    Enable `Coverage Gutters: Watch` alongside `Cargo Watch Tarpaulin` for live coverage updates as you code.
+    Enable `Coverage Gutters: Watch` alongside `Auto Coverage on Save` for live coverage updates as you code.
 
 ## Integrate with Non-Template Projects
 !!! info

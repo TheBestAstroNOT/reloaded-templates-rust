@@ -40,8 +40,8 @@ To run Coverage, run task (`Ctrl+Shift+P -> Run Task`), you should see something
 
 | Task                   | Description                                                                |
 | ---------------------- | -------------------------------------------------------------------------- |
-| Cargo Watch Test       | Automatically runs tests on save.                                         |
-| Cargo Watch Tarpaulin  | Automatically runs tests and updates coverage on save.                     |
+| Auto Test on Save      | Automatically runs tests on save.                                          |
+| Auto Coverage on Save  | Automatically runs tests and updates coverage on save.                     |
 | Generate Code Coverage | Manually generate code coverage (`cobertura.xml`, `tarpaulin-report.html`) |
 
 Note: The tasks will automatically install required dependencies (`cargo-watch`, `cargo-tarpaulin`) on first run.

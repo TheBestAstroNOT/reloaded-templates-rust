@@ -94,7 +94,7 @@ To exclude specific crates from coverage, use the `--workspace --exclude <crate-
 Update your `.vscode/tasks.json` to include the exclusion flags:
 ```diff
 {
-  "label": "Cargo Watch Tarpaulin (Auto Coverage on Save)",
+  "label": "Auto Coverage on Save",
 - "command": "cargo install cargo-tarpaulin --quiet && cargo watch -x \"tarpaulin --skip-clean --out Xml --out Html --engine llvm --target-dir target/coverage-build\" -w src/"
 + "command": "cargo install cargo-tarpaulin --quiet && cargo watch -x \"tarpaulin --skip-clean --out Xml --out Html --engine llvm --target-dir target/coverage-build --workspace --exclude my-cli-tool\" -w src/"
 }
