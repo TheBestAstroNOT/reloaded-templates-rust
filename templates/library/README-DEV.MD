@@ -287,14 +287,36 @@ cargo install cross
 
 #### Running Cross-Platform Tests
 
-Use the provided `pwsh` scripts in `scripts` folder.
+The PowerShell scripts for cross-platform testing have been replaced with VSCode tasks. You can run cross-platform tests using the built-in VSCode tasks or manually.
 
-- `./test-wine-x64.ps1`: Tests your code in Wine on x86_64.  
-- `./test-linux-x64.ps1`: Tests your code in Linux on x86_64.  
-- `./test-linux-x86.ps1`: Tests your code in Linux on x86.  
+**Using VSCode Tasks (Recommended):**
+- `Test: Linux (x64)`: Tests your code on Linux x86_64
+- `Test: Linux (x86)`: Tests your code on Linux x86  
+- `Test: Windows (x64)`: Tests your code on Windows x86_64
 
-These scripts can be used on any platform given the prerequisites are met.  
-If you need to test Apple stuff without an Apple machine, you're generally out of luck outside of using CI/CD for testing.  
+These tasks automatically install cross if not already present, then run the tests.
+
+These tasks are available in the VSCode Command Palette (Ctrl+Shift+P) under "Tasks: Run Task".
+
+**Using Cross (Manual):**
+```bash
+# Install cross if you haven't already
+cargo install cross
+
+# Test on different targets
+cross test --target x86_64-unknown-linux-gnu
+cross test --target x86_64-pc-windows-gnu
+cross test --target i686-unknown-linux-gnu
+```
+
+**Using GitHub Actions:**
+The template includes automated cross-platform testing workflows that run on:
+- Linux (x86_64 and i686)
+- Windows (x86_64)
+- macOS (x86_64)
+
+These workflows provide comprehensive testing across all supported platforms.  
+If you need to test Apple-specific functionality without an Apple machine, use the CI/CD workflows for testing.  
 {% endif %}
 ## Releasing a New Version
 

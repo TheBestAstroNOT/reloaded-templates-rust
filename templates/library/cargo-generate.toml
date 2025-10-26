@@ -46,9 +46,6 @@ type = "bool"
 prompt = "Include Cross Platform Testing Instructions & GitHub Actions Test Runs"
 default = true
 
-[conditional.'xplat == false']
-ignore = ["scripts"]
-
 ## Wine
 [placeholders.wine]
 type = "bool"

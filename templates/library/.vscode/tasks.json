@@ -30,6 +30,36 @@
         "reveal": "always"
       },
       "problemMatcher": []
-    }
+    }{% if xplat -%},
+    {
+      "label": "Test: Linux (x64)",
+      "type": "shell",
+      "command": "cargo install cross --git https://github.com/cross-rs/cross --quiet && cross test --target x86_64-unknown-linux-gnu",
+      "group": "test",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Test: Linux (x86)",
+      "type": "shell",
+      "command": "cargo install cross --git https://github.com/cross-rs/cross --quiet && cross test --target i686-unknown-linux-gnu",
+      "group": "test",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Test: Windows (x64)",
+      "type": "shell",
+      "command": "cargo install cross --git https://github.com/cross-rs/cross --quiet && cross test --target x86_64-pc-windows-gnu",
+      "group": "test",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    }{% endif -%}
   ]
 }
