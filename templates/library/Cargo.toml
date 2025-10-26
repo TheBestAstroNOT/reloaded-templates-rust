@@ -39,9 +39,7 @@ strip = false  # No stripping!!
 
 # Benchmark Build
 [profile.bench]
-inherits = "release"
-debug = true
-strip = false  # No stripping!!
+inherits = "profile"
 
 # Optimized Release Build
 [profile.release]

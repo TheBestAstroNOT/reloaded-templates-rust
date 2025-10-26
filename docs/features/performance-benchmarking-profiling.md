@@ -283,9 +283,7 @@ strip = false
 
 # Benchmark Build  
 [profile.bench]
-inherits = "release"
-debug = true
-strip = false
+inherits = "profile"
 ```
 
 ### 3. Create Basic Benchmark
