@@ -30,7 +30,20 @@
         "reveal": "always"
       },
       "problemMatcher": []
-    }{% if xplat -%},
+    }{% if bench -%},
+    {
+      "label": "Run Benchmarks",
+      "type": "shell",
+      "command": "cargo bench",
+      "group": "test",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }{% endif -%}{% if xplat -%},
     {
       "label": "Test Cross-Compile: Linux (x64)",
       "type": "shell",
