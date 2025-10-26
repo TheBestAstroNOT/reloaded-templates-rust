@@ -75,6 +75,31 @@ Coverage pills on README.md show project health at a glance - click them to go t
 
 The default CI configuration collects and uploads coverage reports to Codecov for all supported platforms, showing you which parts of your code need more tests.
 
+#### Excluding Crates from Coverage
+
+!!! tip "When to Exclude Crates"
+    You might want to exclude certain crates from coverage when they contain CLI tools or other binaries.
+
+To exclude specific crates from coverage, use the `--workspace --exclude <crate-name>` flags with cargo-tarpaulin:
+
+**GitHub Actions Configuration**
+```yaml
+- name: Run Tests and Upload Coverage
+  uses: Reloaded-Project/devops-rust-test-and-coverage@v1
+  with:
+    additional-tarpaulin-flags: "--workspace --exclude my-cli-tool"
+```
+
+**VS Code Tasks**
+Update your `.vscode/tasks.json` to include the exclusion flags:
+```diff
+{
+  "label": "Cargo Watch Tarpaulin (Auto Coverage on Save)",
+- "command": "cargo install cargo-tarpaulin --quiet && cargo watch -x \"tarpaulin --skip-clean --out Xml --out Html --engine llvm --target-dir target/coverage-build\" -w src/"
++ "command": "cargo install cargo-tarpaulin --quiet && cargo watch -x \"tarpaulin --skip-clean --out Xml --out Html --engine llvm --target-dir target/coverage-build --workspace --exclude my-cli-tool\" -w src/"
+}
+```
+
 ### Semantic Version Checks
 Automatically checks if your changes might break code for people who use your library. If you make changes that could break other people's code, you'll need to update your version number. This prevents accidental breaking changes from reaching your users.
 

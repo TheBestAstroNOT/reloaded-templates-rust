@@ -14,3 +14,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# LLM Prompts
+PROMPT.MD
+PROMPT-*.MD

@@ -67,7 +67,6 @@ plugins:
 nav:
   - Home: index.md
   - Features:
-      - Project Layout: features/project-layout.md
       - GitHub Templates: features/github-templates.md
       - VSCode Integration: features/vscode-integration.md
       - Automated Testing & Publishing: features/automated-testing-publishing.md
@@ -78,5 +77,9 @@ nav:
       - Bindings:
           - C/C++ Bindings: features/bindings/cpp-bindings.md
           - C# Bindings: features/bindings/csharp-bindings.md
+  - Manual:
+      - About: manual/about.md
+      - Migration Guides:
+          - v1.0.0: manual/migration/v1.0.0.md
   - License: Reloaded/Pages/license.md
   - How to Document: Reloaded/Pages/contributing.md

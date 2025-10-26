@@ -10,3 +10,7 @@ flamegraph.svg
 # Code Coverage
 cobertura.xml
 tarpaulin-report.html
+
+# LLM Prompts
+PROMPT.MD
+PROMPT-*.MD
