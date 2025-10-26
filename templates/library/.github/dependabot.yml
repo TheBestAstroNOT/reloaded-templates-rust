@@ -24,7 +24,6 @@ updates:
         patterns:
           - "criterion*"
           - "rstest*"
-          - "pprof*"
         update-types:
           - "minor"
           - "patch"
