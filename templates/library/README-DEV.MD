@@ -290,11 +290,14 @@ cargo install cross
 The PowerShell scripts for cross-platform testing have been replaced with VSCode tasks. You can run cross-platform tests using the built-in VSCode tasks or manually.
 
 **Using VSCode Tasks (Recommended):**
-- `Test: Linux (x64)`: Tests your code on Linux x86_64
-- `Test: Linux (x86)`: Tests your code on Linux x86  
-- `Test: Windows (x64)`: Tests your code on Windows x86_64
 
-These tasks automatically install cross if not already present, then run the tests.
+**Cross-Compile Testing:**
+- `Test Cross-Compile: Linux (x64)`: Cross-compiles and tests on Linux x86_64
+- `Test Cross-Compile: Linux (x86)`: Cross-compiles and tests on Linux x86
+- `Test Cross-Compile: Windows (x64) [Test on Linux via Wine]`: Cross-compiles and tests Windows x86_64 binary on Linux via Wine
+- `Test Cross-Compile: Windows (x86) [Test on Linux via Wine]`: Cross-compiles and tests Windows x86 binary on Linux via Wine
+
+Cross-compile tasks automatically install cross if not already present, then run the tests.
 
 These tasks are available in the VSCode Command Palette (Ctrl+Shift+P) under "Tasks: Run Task".
 
