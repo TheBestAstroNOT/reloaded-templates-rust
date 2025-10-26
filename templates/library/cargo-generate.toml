@@ -46,6 +46,10 @@ type = "bool"
 prompt = "Include Cross Platform Testing Instructions & GitHub Actions Test Runs"
 default = true
 
+## Big Endian
+[conditional.'xplat == true'.placeholders]
+big_endian = { type = "bool", prompt = "Include Big Endian Target Support (PowerPC 32-bit and 64-bit)", default = false }
+
 ## Wine
 [placeholders.wine]
 type = "bool"

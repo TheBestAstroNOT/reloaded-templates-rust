@@ -70,6 +70,20 @@ jobs:
             use-pgo: true
             {%- endif %}
             use-cross: false
+{%- if big_endian %}
+          - os: ubuntu-latest
+            target: powerpc-unknown-linux-gnu
+            {%- if build_c_libs %}
+            use-pgo: false # no native runner
+            {%- endif %}
+            use-cross: true
+          - os: ubuntu-latest
+            target: powerpc64-unknown-linux-gnu
+            {%- if build_c_libs %}
+            use-pgo: false # no native runner
+            {%- endif %}
+            use-cross: true
+{%- endif %}
 {%- endif %}
 
     {% raw %}runs-on: ${{ matrix.os }}{% endraw %}
