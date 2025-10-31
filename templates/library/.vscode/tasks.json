@@ -9,7 +9,10 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}/src"
+      }
     },
     {
       "label": "Auto Coverage on Save",
@@ -19,7 +22,10 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}/src"
+      }
     },
     {
       "label": "Fix Clippy Lints",
@@ -29,7 +35,10 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}/src"
+      }
     }{% if bench -%},
     {
       "label": "Run Benchmarks",
@@ -41,7 +50,7 @@
       },
       "problemMatcher": [],
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}/src"
       }
     }{% endif -%}{% if xplat -%},
     {

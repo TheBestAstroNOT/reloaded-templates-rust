@@ -21,6 +21,9 @@ pgo = []
 # Feature for enabling C library exports.
 c-exports = []
 {% endif -%}
+
+[dependencies]
+
 {% if build_csharp_libs %}
 # C# Bindings
 [build-dependencies]
@@ -30,23 +33,6 @@ csbindgen = "1.9.0"
 [dev-dependencies]
 {%- if bench %}
 criterion = "0.7.0"{%- endif %}
-
-# Profile Build
-[profile.profile]
-inherits = "release"
-debug = true
-strip = false  # No stripping!!
-
-# Benchmark Build
-[profile.bench]
-inherits = "profile"
-
-# Optimized Release Build
-[profile.release]
-codegen-units = 1
-lto = true
-strip = true  # Automatically strip symbols from the binary.
-panic = "abort"
 
 {% if bench %}
 # Benchmark Stuff

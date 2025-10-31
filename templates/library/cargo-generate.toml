@@ -75,14 +75,14 @@ prompt = "Build C Libraries in CI? (Min Size, Nightly Rust, Panic Aborts)"
 default = true
 
 [conditional.'build_c_libs == false']
-ignore = ["src/exports.rs", "cbindgen_cpp.toml", "cbindgen_c.toml", "bindings/csharp"]
+ignore = ["src/exports.rs", ".github/cbindgen_cpp.toml", ".github/cbindgen_c.toml", "src/bindings/csharp"]
 
 ## Build C# Bindings
 [conditional.'build_c_libs == true'.placeholders]
 build_csharp_libs = { type = "bool", prompt = "Build C# Bindings?", default = false }
 
 [conditional.'build_csharp_libs == false']
-ignore = ["bindings/csharp"]
+ignore = ["src/bindings/csharp"]
 
 ## Add PGO to C Libraries
 [conditional.'bench == true && build_c_libs == true'.placeholders]

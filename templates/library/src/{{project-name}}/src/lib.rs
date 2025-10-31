@@ -1,4 +1,4 @@
-#![doc = include_str!("../README.MD")]
+#![doc = include_str!("../../../README.MD")]
 {%- if no-std-by-default %}
 #![no_std]
 {%- endif %}
@@ -19,3 +19,4 @@ mod tests {
         assert_eq!(2 + 2, 4);
     }
 }
+

@@ -210,7 +210,7 @@ This Reloaded-based project provides C# bindings, as [{{crate_name}}.Net.Sys](ht
 
 These are the raw bindings to the C exports of this Rust library, and are automatically generated.
 
-The project is inside `bindings/csharp` folder. 
+The project is inside `src/bindings/csharp` folder. 
 It shouldn't be modified. 
 
 Instead, if you want to make a 'friendlier' API, make a separate project with 

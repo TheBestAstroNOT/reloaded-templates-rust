@@ -1,16 +1,3 @@
-target
-/Cargo.lock
-/fuzz/hfuzz_target
-
-# Profiling files
-perf.data.old
-perf.data
-flamegraph.svg
-
-# Code Coverage
-cobertura.xml
-tarpaulin-report.html
-
 # LLM Prompts
 PROMPT.md
 PROMPT-*.md

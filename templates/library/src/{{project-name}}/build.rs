@@ -6,7 +6,7 @@ fn main() {
         .csharp_dll_name("{{crate_name}}")
         .csharp_class_accessibility("public")
         .csharp_namespace("{{crate_name}}.Net.Sys")
-        .generate_csharp_file("bindings/csharp/NativeMethods.g.cs")
+        .generate_csharp_file("src/bindings/csharp/NativeMethods.g.cs")
         .unwrap();
 {% endif %}
 }
