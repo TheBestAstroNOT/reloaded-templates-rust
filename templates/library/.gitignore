@@ -12,5 +12,7 @@ cobertura.xml
 tarpaulin-report.html
 
 # LLM Prompts
+PROMPT.md
+PROMPT-*.md
 PROMPT.MD
 PROMPT-*.MD
