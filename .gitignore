@@ -20,4 +20,9 @@ PROMPT.md
 PROMPT-*.md
 PROMPT.MD
 PROMPT-*.MD
+
+# Python docs stuff
 venv/
+__pycache__/
+*.pyc
+site/
