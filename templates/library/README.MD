@@ -17,14 +17,6 @@ To setup code coverage for this project. Login into [Codecov][codecov] and add t
 {% if mkdocs -%}
 ### Setup Documentation
 
-If you don't have a `docs/Reloaded` folder, you might need to add it manually as submodule:
-
-```
-git submodule add https://github.com/Reloaded-Project/Reloaded.MkDocsMaterial.Themes.R2.git docs/Reloaded
-```
-
-After which you can follow the [Theme Documentation](https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/contributing.html#website-live-preview) to find out how to work with the docs.
-
 Before you make your first commit to GitHub, you'll need to go to `Settings -> Pages` and set
 `Source` to `GitHub Actions` for the documentation builds to work.
 
