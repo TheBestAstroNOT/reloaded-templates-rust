@@ -163,7 +163,6 @@ jobs:
           setup-rust-cache: true
           upload-coverage: true
           codecov-token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
-          features: "c-exports"
           use-cross: true
           additional-test-args: --release
 {%- endif %}
