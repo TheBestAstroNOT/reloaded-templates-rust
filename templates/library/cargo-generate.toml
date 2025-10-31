@@ -1,6 +1,6 @@
 [template]
 cargo_generate_version = ">=0.18.3"
-ignore = ["pre-script.rhai"]
+ignore = ["pre-script.rhai", "doc/docs/vendor/Reloaded/Images/Nexus-Heart-40.avif", "doc/docs/vendor/Reloaded/Images/Nexus-Icon-40.avif", "doc/docs/vendor/Reloaded/Images/Reloaded-Heart-40.avif", "doc/docs/vendor/Reloaded/Images/Reloaded-Icon-40.avif", "src/bindings/csharp/nuget-icon.png"]
 exclude = ["assets/profile_example.png", ".github/workflows/auto-changelog.yml", ".github/workflows/deploy-mkdocs.yml"]
 
 [hooks]
