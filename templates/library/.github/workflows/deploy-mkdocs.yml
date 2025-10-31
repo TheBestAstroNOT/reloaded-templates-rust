@@ -27,4 +27,4 @@ jobs:
           requirements: ./doc/docs/requirements.txt
           publish-to-pages: ${{ github.event_name == 'push' }}
           checkout-current-repo: true
-          config-file: docs/mkdocs.yml
+          config-file: ./doc/mkdocs.yml
