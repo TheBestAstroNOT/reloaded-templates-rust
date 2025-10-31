@@ -31,8 +31,9 @@ Before you make your first commit to GitHub, you'll need to go to [Settings -> P
 
 You'll need to set up an API key to publish to `crates.io` on tag.
 
+- Generate your API key in [crates.io (Account Settings -> API Tokens)][crates-io-key].  
 - Go to [Settings -> Secrets and variables -> Actions][gh-actions-secrets] in your repo and add environment secret named `CRATES_IO_TOKEN`.  
-- Paste your API key generated in [crates.io (Account Settings -> API Tokens)][crates-io-key].  
+- Paste your API key.  
 
 {% if build_csharp_libs %}
 ### Setup API Key (NuGet)
