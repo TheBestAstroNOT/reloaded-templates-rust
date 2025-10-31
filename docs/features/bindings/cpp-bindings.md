@@ -464,4 +464,4 @@ Include the exports module in your `src/lib.rs`:
 pub mod exports;
 ```
 
-See the [main documentation](../index.md#getting-started) for more details.
+See the [main documentation](../../index.md#getting-started) for more details.

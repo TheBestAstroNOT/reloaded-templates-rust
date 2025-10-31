@@ -146,4 +146,4 @@ fn main() {
 }
 ```
 
-See the [main documentation](../index.md#getting-started) for more details on getting started with `cargo-generate`.
+See the [main documentation](../../index.md#getting-started) for more details on getting started with `cargo-generate`.

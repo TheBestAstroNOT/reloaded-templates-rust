@@ -9,9 +9,9 @@ Automated checks running on pull requests
 
 ## Key Features
 - **[Cross-platform testing](#cross-platform-testing)**: Linux, Windows, macOS
-- **[Automated code coverage](#code-coverage)**: How much of your code is tested? (Codecov)
-- **[Semantic version checking](#code-quality)**: Prevents breaking changes
-- **[Tag-based publishing](#publishing)**: crates.io, NuGet
+- **[Automated code coverage](#code-coverage-reports)**: How much of your code is tested? (Codecov)
+- **[Semantic version checking](#semantic-version-checks)**: Prevents breaking changes
+- **[Tag-based publishing](#publishing-your-library)**: crates.io, NuGet
 - **[PGO optimization](#cross-platform-testing)**: Better performance
 - **[Wine testing](#testing-on-wine)**: Linux gaming compatibility
 
