@@ -10,7 +10,7 @@ extra:
       link: https://github.com/Reloaded-Project
 
 extra_css:
-  - Reloaded/Stylesheets/extra.css
+  - vendor/Reloaded/Stylesheets/reloaded.css
 
 markdown_extensions:
   - admonition
@@ -47,19 +47,17 @@ theme:
 
 plugins:
   - search
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+      cache_safe: true
   - exclude-unused-files:
       file_types_to_check: ["psd", "7z", "kra"]
       file_types_override_mode: append
       enabled: true
-  - exclude:
-      # Exclude the Theme's own files.
-      glob:
-        - Reloaded/Pages/testing-zone.md
-        - Reloaded/Pages/index.md
-        - Reloaded/docs/*
-        - Reloaded/Readme.md
-        - Reloaded/LICENSE
-        - Reloaded/mkdocs.yml
 
 not_in_nav: |
   AGENTS-DOCS.md
@@ -81,5 +79,5 @@ nav:
       - About: manual/about.md
       - Migration Guides:
           - v1.0.0: manual/migration/v1.0.0.md
-  - License: Reloaded/Pages/license.md
-  - How to Document: Reloaded/Pages/contributing.md
+  - License: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/license.html
+  - How to Document: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/contributing.html

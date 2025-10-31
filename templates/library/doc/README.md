@@ -26,7 +26,7 @@ MkDocs documentation for the {{ gh_reponame }} project.
   ```bash
   winget install Python.Python.3
   ```
-  Or download manually from [python.org/downloads](https://python.org/downloads/)
+   Or download manually from [python.org/downloads](https://python.org/downloads/)
 
 ## Quick Start (Recommended)
 
