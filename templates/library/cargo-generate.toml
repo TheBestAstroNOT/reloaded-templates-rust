@@ -1,7 +1,16 @@
 [template]
 cargo_generate_version = ">=0.18.3"
-ignore = ["pre-script.rhai", "doc/docs/vendor/Reloaded/Images/Nexus-Heart-40.avif", "doc/docs/vendor/Reloaded/Images/Nexus-Icon-40.avif", "doc/docs/vendor/Reloaded/Images/Reloaded-Heart-40.avif", "doc/docs/vendor/Reloaded/Images/Reloaded-Icon-40.avif", "src/bindings/csharp/nuget-icon.png"]
-exclude = ["assets/profile_example.png", ".github/workflows/auto-changelog.yml", ".github/workflows/deploy-mkdocs.yml"]
+ignore = ["pre-script.rhai"]
+exclude = [
+    "assets/profile_example.png",
+    ".github/workflows/auto-changelog.yml",
+    ".github/workflows/deploy-mkdocs.yml",
+    "doc/docs/vendor/Reloaded/Images/Nexus-Heart-40.avif",
+    "doc/docs/vendor/Reloaded/Images/Nexus-Icon-40.avif",
+    "doc/docs/vendor/Reloaded/Images/Reloaded-Heart-40.avif",
+    "doc/docs/vendor/Reloaded/Images/Reloaded-Icon-40.avif",
+    "src/bindings/csharp/nuget-icon.png",
+]
 
 [hooks]
 pre = ["pre-script.rhai"]
@@ -81,7 +90,12 @@ prompt = "Build C Libraries in CI? (Min Size, Nightly Rust, Panic Aborts)"
 default = true
 
 [conditional.'build_c_libs == false']
-ignore = ["src/exports.rs", ".github/cbindgen_cpp.toml", ".github/cbindgen_c.toml", "src/bindings/csharp"]
+ignore = [
+    "src/exports.rs",
+    ".github/cbindgen_cpp.toml",
+    ".github/cbindgen_c.toml",
+    "src/bindings/csharp",
+]
 
 ## Build C# Bindings
 [conditional.'build_c_libs == true'.placeholders]
