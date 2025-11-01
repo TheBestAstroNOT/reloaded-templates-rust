@@ -68,6 +68,12 @@ default = true
 [conditional.'bench == false']
 ignore = ["benches/my_benchmark"]
 
+## Miri
+[placeholders.miri]
+type = "bool"
+prompt = "Will you write advanced, unsafe, or mission-critical code? (Adds Miri to detect undefined behaviour)"
+default = false
+
 ## Build C Libraries
 [placeholders.build_c_libs]
 type = "bool"
