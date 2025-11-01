@@ -141,7 +141,7 @@ fn main() {
         .csharp_dll_name("your_library_name")
         .csharp_class_accessibility("public")
         .csharp_namespace("YourLibrary.Net.Sys")
-        .generate_csharp_file("bindings/csharp/NativeMethods.g.cs")
+        .generate_csharp_file("../bindings/csharp/NativeMethods.g.cs")
         .unwrap();
 }
 ```
