@@ -2,6 +2,8 @@
 cargo_generate_version = ">=0.18.3"
 ignore = [
     "pre-script.rhai",
+    "src/bindings/csharp/obj",
+    "src/bindings/csharp/bin",
 ] # These files are not included in the generated project. Don't include images here.
 exclude = [
     ".github/workflows/auto-changelog.yml",
