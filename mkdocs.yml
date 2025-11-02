@@ -76,9 +76,7 @@ nav:
       - Bindings:
           - C/C++ Bindings: features/bindings/cpp-bindings.md
           - C# Bindings: features/bindings/csharp-bindings.md
-  - Manual:
-      - About: manual/about.md
-      - Guide: manual/guide.md
+  - Manual: manual.md
   - Migration Guides:
       - Overview: migration/about.md
       - To v1.0.0: migration/v1.0.0.md

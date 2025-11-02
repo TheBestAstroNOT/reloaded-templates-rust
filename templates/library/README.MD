@@ -68,13 +68,13 @@ Open the `src` folder in VSCode as your workspace for development.
 {% if mkdocs %}
 ## Developer Manual
 
-For step-by-step development guidance, see the [Developer Manual](https://{{gh_username}}.github.io/{{gh_reponame}}/manual/guide/). You can filter the manual by features you selected: add `?bench=true&xplat=true&pgo=true&c-bindings=true&csharp-bindings=true` to show optional features.
+For step-by-step development guidance, see the [Developer Manual](https://{{gh_username}}.github.io/{{gh_reponame}}/manual/).
 {% endif %}
 
 {% if mkdocs %}
 ## Contributing
 
-We welcome contributions! See the [Contributing Guide](https://{{gh_username}}.github.io/{{gh_reponame}}/manual/contributing/) for details.
+We welcome contributions! See the [Contributing Guide](https://{{gh_username}}.github.io/{{gh_reponame}}/manual/#contributing) for details.
 {% endif %}
 
 ## License

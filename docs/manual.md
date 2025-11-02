@@ -88,12 +88,12 @@ cargo run --release  # run optimized release build
 
 Install the `CodeLLDB` extension for native debugging support. Debug profiles are automatically created when the extension is installed.
 
-![VSCode Debugging](../assets/vscode-debug.avif)
+![VSCode Debugging](assets/vscode-debug.avif)
 /// caption
 Debugging Rust applications with CodeLLDB in VSCode
 ///
 
-!!! tip "For more info, see [VSCode Integration](../features/vscode-integration.md)"
+!!! tip "For more info, see [VSCode Integration](features/vscode-integration.md)"
 
 ### How to Test
 
@@ -103,12 +103,12 @@ Access pre-configured testing tasks via `Ctrl+Shift+P` → "Run Task":
 
 - **Auto Test on Save** - Automatically run tests when files change
 
-![Run Task](../assets/run-task.avif)
+![Run Task](assets/run-task.avif)
 /// caption
 Access tasks via Ctrl+Shift+P → "Run Task"
 ///
 
-![Available Tasks](../assets/reloaded-tasks.avif)
+![Available Tasks](assets/reloaded-tasks.avif)
 /// caption
 Pre-configured development tasks for testing and coverage
 ///
@@ -122,9 +122,9 @@ cargo test  # run all tests
 
 When you push code, GitHub Actions automatically runs tests on Linux, Windows, and macOS—check the "Actions" tab to see results.
 
-![PR Checks](../assets/pr-checks.avif)
+![PR Checks](assets/pr-checks.avif)
 
-!!! tip "For more info, see [Automated Testing & Publishing](../features/automated-testing-publishing.md)"
+!!! tip "For more info, see [Automated Testing & Publishing](features/automated-testing-publishing.md)"
 
 ### How to Lint
 
@@ -136,7 +136,7 @@ When you push code, GitHub Actions automatically runs tests on Linux, Windows, a
 
 Linting runs automatically in VSCode with the `rust-analyzer` extension. You'll see warnings and suggestions directly in your editor as you type.
 
-![Clippy Linting](../assets/clippy-lints.avif)
+![Clippy Linting](assets/clippy-lints.avif)
 /// caption
 Clippy integration provides advanced linting out of the box
 ///
@@ -162,7 +162,7 @@ Access pre-configured coverage tasks via `Ctrl+Shift+P` → "Run Task":
 
 - **Auto Coverage on Save** - Automatically generate coverage reports when files change
 
-![Run Coverage Task](../assets/run-coverage-task.avif)
+![Run Coverage Task](assets/run-coverage-task.avif)
 /// caption
 Run "Auto Coverage on Save" task via Ctrl+Shift+P → "Run Task"
 ///
@@ -171,14 +171,14 @@ You can preview coverage in the IDE directly with 'Coverage Gutters':
 
 - **Coverage Gutters: Preview Coverage Report** - View HTML coverage report in browser
 
-![Preview Coverage Report](../assets/coverage-report.avif)
+![Preview Coverage Report](assets/coverage-report.avif)
 /// caption
 Preview coverage report via Ctrl+Shift+P → "Coverage Gutters: Preview Coverage Report"
 ///
 
 - **Coverage Gutters: Watch** - Live coverage visualization in editor (shows green/red lines)
 
-![Coverage Gutters](../assets/coverage-gutters.avif)
+![Coverage Gutters](assets/coverage-gutters.avif)
 /// caption
 Coverage show covered (green) and uncovered (red) lines in editor.<br/>
 Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
@@ -186,11 +186,11 @@ Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
 
 When you push code, use the Codecov dashboard (click the coverage badge in your README) to track coverage trends and find untested code:
 
-![Codecov Dashboard](../assets/coverage-codecov.avif)
+![Codecov Dashboard](assets/coverage-codecov.avif)
 
-![Coverage Pills](../assets/coverage-pills.avif)
+![Coverage Pills](assets/coverage-pills.avif)
 
-!!! tip "For more info, see [Automated Testing & Publishing](../features/automated-testing-publishing.md)"
+!!! tip "For more info, see [Automated Testing & Publishing](features/automated-testing-publishing.md)"
 
 ### How to Check for Unsafe Code Issues and Undefined Behaviour
 
@@ -224,9 +224,7 @@ cargo +nightly miri test test_name
 !!! warning "Miri is MUCH slower than normal tests"
     This is expected—Miri thoroughly checks every memory operation. Use it primarily for projects with unsafe code, FFI bindings, or mission-critical applications.
 
-!!! tip "For more info, see [Miri Testing](../features/miri-testing.md)"
-
-<div data-feature="bench" markdown="1">
+!!! tip "For more info, see [Miri Testing](features/miri-testing.md)"
 
 ### How to Benchmark
 
@@ -243,17 +241,17 @@ cargo bench  # run all benchmarks
 
 This generates detailed HTML reports in `target/criterion/report/index.html`.
 
-![Benchmark CLI Output](../assets/benchmark-cli.avif)
+![Benchmark CLI Output](assets/benchmark-cli.avif)
 /// caption
 CLI output when running benchmarks
 ///
 
-![Benchmark Report](../assets/benchmark-report.avif)
+![Benchmark Report](assets/benchmark-report.avif)
 /// caption
 Example generated HTML report showing performance trends
 ///
 
-![Benchmark Comparison](../assets/benchmark-violin-plot.avif)
+![Benchmark Comparison](assets/benchmark-violin-plot.avif)
 /// caption
 Violin plot comparing different files or implementations
 ///
@@ -297,7 +295,7 @@ pub fn bench_my_function(c: &mut Criterion) {
 }
 ```
 
-!!! tip "For more info, see [Performance Benchmarking & Profiling](../features/performance-benchmarking-profiling.md)"
+!!! tip "For more info, see [Performance Benchmarking & Profiling](features/performance-benchmarking-profiling.md)"
 
 ### How to Profile
 
@@ -331,7 +329,7 @@ Generate flamegraph:
 
 Open the generated `flamegraph.svg` in your web browser to explore the interactive visualization.
 
-![Flamegraph Example](../assets/flamegraph.avif)
+![Flamegraph Example](assets/flamegraph.avif)
 /// caption
 Interactive flamegraph showing function call hierarchy and time spent
 ///
@@ -348,12 +346,12 @@ Interactive flamegraph showing function call hierarchy and time spent
     perf report perf.data
     ```
 
-    ![Linux Perf CLI](../assets/profiling-linux-perf.avif)
+    ![Linux Perf CLI](assets/profiling-linux-perf.avif)
     /// caption
     Linux perf command-line analysis
     ///
 
-    ![Linux Hotspot](../assets/profiling-linux-hotspot.avif)
+    ![Linux Hotspot](assets/profiling-linux-hotspot.avif)
     /// caption
     Hotspot GUI tool for visualizing perf profile data
     ///
@@ -371,47 +369,43 @@ Interactive flamegraph showing function call hierarchy and time spent
 
     1. Open Visual Studio → "Continue without code"
 
-        ![Visual Studio Start](../assets/profiling-windows-vs-tutorial-1.avif)
+        ![Visual Studio Start](assets/profiling-windows-vs-tutorial-1.avif)
         /// caption
         Visual Studio start screen
         ///
 
     2. Select `Debug` → `Performance Profiler`
 
-        ![Performance Profiler Menu](../assets/profiling-windows-vs-tutorial-2.avif)
+        ![Performance Profiler Menu](assets/profiling-windows-vs-tutorial-2.avif)
         /// caption
         Select Debug → Performance Profiler
         ///
 
     3. Choose `Executable` → Navigate to `target/profile/deps/my_benchmark-....exe`
 
-        ![Select Executable](../assets/profiling-windows-vs-tutorial-3.avif)
+        ![Select Executable](assets/profiling-windows-vs-tutorial-3.avif)
         /// caption
         Select the benchmark executable
         ///
 
-        ![Navigate to Binary](../assets/profiling-windows-vs-tutorial-4.avif)
+        ![Navigate to Binary](assets/profiling-windows-vs-tutorial-4.avif)
         /// caption
         Navigate to target/profile/deps/
         ///
 
     4. Enable `CPU Usage` → Click `Start`
 
-        ![Start Profiling](../assets/profiling-windows-vs-tutorial-5.avif)
+        ![Start Profiling](assets/profiling-windows-vs-tutorial-5.avif)
         /// caption
         Enable CPU Usage and start profiling
         ///
 
-        ![Visual Studio Profiler](../assets/profiling-windows-visualstudio.avif)
+        ![Visual Studio Profiler](assets/profiling-windows-visualstudio.avif)
         /// caption
         Visual Studio 2022 Community Profiler showing CPU usage
         ///
 
-!!! tip "For more info, see [Performance Benchmarking & Profiling](../features/performance-benchmarking-profiling.md)"
-
-</div>
-
-<div data-feature="pgo" markdown="1">
+!!! tip "For more info, see [Performance Benchmarking & Profiling](features/performance-benchmarking-profiling.md)"
 
 ### How to Use Profile Guided Optimization (PGO)
 
@@ -435,26 +429,22 @@ cargo bench  # establish baseline
 cargo pgo optimize bench  # build with PGO and compare
 ```
 
-![cargo pgo info](../assets/pgo-cargo-pgo-info.avif)
+![cargo pgo info](assets/pgo-cargo-pgo-info.avif)
 /// caption
 Verify cargo-pgo installation with `cargo pgo info`
 ///
 
-![Benchmark CLI](../assets/benchmark-cli.avif)
+![Benchmark CLI](assets/benchmark-cli.avif)
 /// caption
 Run baseline benchmark without PGO
 ///
 
-![cargo pgo optimize result](../assets/pgo-cargo-pgo-result.avif)
+![cargo pgo optimize result](assets/pgo-cargo-pgo-result.avif)
 /// caption
 Results showing performance improvement from PGO
 ///
 
-!!! tip "For more info, see [Profile Guided Optimization](../features/profile-guided-optimization.md)"
-
-</div>
-
-<div data-feature="xplat" markdown="1">
+!!! tip "For more info, see [Profile Guided Optimization](features/profile-guided-optimization.md)"
 
 ### How to Build for Other Platforms
 
@@ -478,11 +468,7 @@ cross test --target aarch64-unknown-linux-gnu --release  # test for ARM64 Linux
 
 The `cross` tool uses [Docker](https://www.docker.com/) or [Podman](https://podman.io/) containers to handle cross-compilation automatically. Simply replace `cargo` with `cross` and specify your target platform.
 
-!!! tip "For more info, see [Cross Compilation](../features/cross-compilation.md)"
-
-</div>
-
-<div data-feature="c-bindings" markdown="1">
+!!! tip "For more info, see [Cross Compilation](features/cross-compilation.md)"
 
 ### How to Create C/C++ Bindings
 
@@ -503,17 +489,13 @@ pub extern "C" fn add_numbers(a: i32, b: i32) -> i32 {
 
 Build with the `c-exports` feature enabled. Headers are automatically generated when you push a release tag via CI/CD.
 
-![C Bindings Releases](../assets/c-bindings-releases.avif)
+![C Bindings Releases](assets/c-bindings-releases.avif)
 /// caption
 Headers automatically attached to GitHub releases
 ///
 
-!!! tip "For more info, see [C/C++ Bindings](../features/bindings/cpp-bindings.md)"
-    In particular, check out the [How to Export Functions](../features/bindings/cpp-bindings.md#how-to-export-functions) section for useful patterns.
-
-</div>
-
-<div data-feature="csharp-bindings" markdown="1">
+!!! tip "For more info, see [C/C++ Bindings](features/bindings/cpp-bindings.md)"
+    In particular, check out the [How to Export Functions](features/bindings/cpp-bindings.md#how-to-export-functions) section for useful patterns.
 
 ### How to Create C# Bindings
 
@@ -525,11 +507,7 @@ Headers automatically attached to GitHub releases
 Bindings are generated when you build into `bindings/csharp/NativeMethods.g.cs`.
 Customize generation in `build.rs` using [csbindgen](https://github.com/Cysharp/csbindgen).
 
-!!! tip "For more info, see [C# Bindings](../features/bindings/csharp-bindings.md)"
-
-</div>
-
-<div data-feature="mkdocs" markdown="1">
+!!! tip "For more info, see [C# Bindings](features/bindings/csharp-bindings.md)"
 
 ## Editing Documentation
 
@@ -561,10 +539,6 @@ This starts a local server at `http://localhost:8000` with live reload.
 
 See `doc/README.md` for more information.
 
-</div>
-
-<div data-feature="contributing" markdown="1">
-
 ## Contributing
 
 !!! question "Want to contribute?"
@@ -594,8 +568,6 @@ Fixed memory leak in parser
 Changed API parameter order (breaking change)
 ```
 
-</div>
-
 ## Miscellaneous
 
 ### GitHub Workflows
@@ -609,90 +581,14 @@ You may want to edit these to match your project's needs:
 
 When you push code, these workflows automatically run tests on Linux, Windows, and macOS.
 
-![GitHub Template Selector](../assets/issue-template.avif)
+![GitHub Template Selector](assets/issue-template.avif)
 /// caption
 Template selector for bug reports and feature requests
 ///
 
-![Bug Report Template](../assets/bug-report-template.avif)
+![Bug Report Template](assets/bug-report-template.avif)
 /// caption
 Pre-configured bug report template with structured fields
 ///
 
-!!! tip "For more info, see [GitHub Templates](../features/github-templates.md)"
-
-<script>
-// Dynamic feature filtering based on URL parameters
-document.addEventListener('DOMContentLoaded', function() {
-    // Optional features that can be filtered
-    const optionalFeatures = ['bench', 'pgo', 'xplat', 'c-bindings', 'csharp-bindings', 'contributing', 'mkdocs'];
-    
-    // Get URL parameters
-    const params = new URLSearchParams(window.location.search);
-    
-    // Track if any true filters are present
-    let hasTrueFilters = false;
-    for (const feature of optionalFeatures) {
-        if (params.get(feature) === 'true') {
-            hasTrueFilters = true;
-            break;
-        }
-    }
-    
-    // First, hide sections explicitly set to false
-    for (const feature of optionalFeatures) {
-        if (params.get(feature) === 'false') {
-            const featureDivs = document.querySelectorAll(`[data-feature="${feature}"]`);
-            featureDivs.forEach(div => {
-                div.style.display = 'none';
-            });
-        }
-    }
-    
-    // Then, if any true flags present, hide all unspecified sections and show only true ones
-    if (hasTrueFilters) {
-        // Hide all optional feature sections
-        const allFeatureDivs = document.querySelectorAll('[data-feature]');
-        allFeatureDivs.forEach(div => {
-            div.style.display = 'none';
-        });
-        
-        // Show only sections that are explicitly true
-        for (const feature of optionalFeatures) {
-            if (params.get(feature) === 'true') {
-                const featureDivs = document.querySelectorAll(`[data-feature="${feature}"]`);
-                featureDivs.forEach(div => {
-                    div.style.display = 'block';
-                });
-            }
-        }
-    }
-    
-    // Project name substitution
-    const projectName = params.get('project');
-    if (projectName) {
-        // Find all elements in the contributing section and replace [Project Name]
-        const contributingSection = document.querySelector('[data-feature="contributing"]');
-        if (contributingSection) {
-            // Replace in text nodes
-            const walker = document.createTreeWalker(
-                contributingSection,
-                NodeFilter.SHOW_TEXT,
-                null,
-                false
-            );
-            
-            const textNodesToReplace = [];
-            while (walker.nextNode()) {
-                if (walker.currentNode.textContent.includes('[Project Name]')) {
-                    textNodesToReplace.push(walker.currentNode);
-                }
-            }
-            
-            textNodesToReplace.forEach(node => {
-                node.textContent = node.textContent.replace(/\[Project Name\]/g, projectName);
-            });
-        }
-    }
-});
-</script>
+!!! tip "For more info, see [GitHub Templates](features/github-templates.md)"
