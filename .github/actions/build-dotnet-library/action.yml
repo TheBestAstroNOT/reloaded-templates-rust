@@ -1,33 +1,33 @@
-name: 'Build and Package .NET Library with Native Binaries'
-description: 'Builds and packages a .NET library, incorporating pre-downloaded native binaries for specified targets.'
+name: "Build and Package .NET Library with Native Binaries"
+description: "Builds and packages a .NET library, incorporating pre-downloaded native binaries for specified targets."
 
 inputs:
   targets:
-    description: 'Comma-separated list of Rust target triples to include in the build'
+    description: "Comma-separated list of Rust target triples to include in the build"
     required: true
   artifact_prefix:
-    description: 'Prefix for the artifact names to download'
+    description: "Prefix for the artifact names to download"
     required: false
-    default: 'C-Library-'
+    default: "C-Library-"
   csharp_project_path:
-    description: 'Path to the C# project directory'
+    description: "Path to the C# project directory"
     required: false
-    default: 'src/bindings/csharp'
+    default: "bindings/csharp"
   install_dotnet:
-    description: 'If true, installs the .NET SDK with specified version'
+    description: "If true, installs the .NET SDK with specified version"
     required: false
-    default: 'false'
+    default: "false"
   dotnet_version:
-    description: 'Version of the .NET SDK to install'
+    description: "Version of the .NET SDK to install"
     required: false
-    default: '8.0.x'
+    default: "8.0.x"
   nuget_artifact_name:
-    description: 'Name for the NuGet artifact'
+    description: "Name for the NuGet artifact"
     required: false
-    default: 'NuGet-Package'
+    default: "NuGet-Package"
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Install .NET Core SDK
       if: ${{ inputs.install_dotnet == 'true' }}
