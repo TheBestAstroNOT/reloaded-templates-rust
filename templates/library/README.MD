@@ -68,13 +68,13 @@ Open the `src` folder in VSCode as your workspace for development.
 {% if mkdocs %}
 ## Developer Manual
 
-For step-by-step development guidance, see the [Developer Manual](https://{{gh_username}}.github.io/{{gh_reponame}}/manual/).
+For step-by-step development guidance, see the [Developer Manual](https://reloaded-project.github.io/reloaded-templates-rust/manual/).
 {% endif %}
 
 {% if mkdocs %}
 ## Contributing
 
-We welcome contributions! See the [Contributing Guide](https://{{gh_username}}.github.io/{{gh_reponame}}/manual/#contributing) for details.
+We welcome contributions! See the [Contributing Guide](https://reloaded-project.github.io/reloaded-templates-rust/manual/#contributing) for details.
 {% endif %}
 
 ## License
