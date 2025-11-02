@@ -1,6 +1,10 @@
 [template]
 cargo_generate_version = ">=0.18.3"
-ignore = ["pre-script.rhai"]
+ignore = [
+    "pre-script.rhai",
+    "src/bindings/csharp/obj",
+    "src/bindings/csharp/bin",
+] # These files are not included in the generated project. Don't include images here.
 exclude = [
     ".github/workflows/auto-changelog.yml",
     ".github/workflows/deploy-mkdocs.yml",
@@ -37,7 +41,7 @@ prompt = "Include external documentation (mkdocs)"
 default = true
 
 [conditional.'mkdocs == false']
-ignore = ["mkdocs.yml", "docs", ".github/workflows/deploy-mkdocs.yml"]
+ignore = ["mkdocs.yml", "doc", ".github/workflows/deploy-mkdocs.yml"]
 
 ## VSCode Integration
 [placeholders.vscode]
@@ -46,7 +50,7 @@ prompt = "Include VSCode Configurations & IDE Setup Guide"
 default = true
 
 [conditional.'vscode == false']
-ignore = [".vscode"]
+ignore = ["src/.vscode", "doc/.vscode"]
 
 ## Cross Platform
 [placeholders.xplat]
@@ -74,7 +78,7 @@ prompt = "Include Benchmark Configuration (Required for PGO)"
 default = true
 
 [conditional.'bench == false']
-ignore = ["benches/my_benchmark"]
+ignore = ["src/{{project-name}}/benches"]
 
 ## Miri
 [placeholders.miri]
@@ -90,7 +94,7 @@ default = true
 
 [conditional.'build_c_libs == false']
 ignore = [
-    "src/exports.rs",
+    "src/{{project-name}}/src/exports.rs",
     ".github/cbindgen_cpp.toml",
     ".github/cbindgen_c.toml",
     "src/bindings/csharp",
