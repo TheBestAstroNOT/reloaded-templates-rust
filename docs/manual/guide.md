@@ -2,15 +2,36 @@
 
 This guide walks you through common development tasks—from getting started to advanced optimization—with links to detailed documentation as needed.
 
-## Getting Started
+## Prerequisites
 
-Open the `src` folder in your code editor for source development.
+### Install Rust
 
-**For CLI users:** All commands below assume you're in the `src` directory.
+!!! tip "If you don't have Rust installed, follow the instructions for your operating system"
 
-### Setup
+=== "Windows"
 
-If using VSCode, install these recommended extensions:
+    Download and run the installer from [rustup.rs](https://rustup.rs/).
+
+    Alternatively, install via Chocolatey or Scoop:
+
+    ```powershell
+    choco install rust  # Chocolatey
+    scoop install rustup  # Scoop
+    ```
+
+=== "Linux & macOS"
+
+    Run the installer script:
+
+    ```bash
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    ```
+
+### Code Editor Setup
+
+#### VSCode
+
+Install these recommended extensions:
 
 - **rust-analyzer** - Rust language server for IDE features
 - **Coverage Gutters** - Visualize code coverage in your editor
@@ -18,11 +39,21 @@ If using VSCode, install these recommended extensions:
 
 VSCode will prompt you to install these when you open the project, or install manually via the Extensions panel (`Ctrl+Shift+X`).
 
-### How to Build
+## Getting Started
+
+### What are you editing?
+
+#### Editing Source Code
+
+Open the `src` folder in your code editor for source development.
+
+**For CLI users:** All commands below assume you're in the `src` directory.
+
+##### How to Build
 
 **Using VSCode:**
 
-Press `Ctrl+Shift+B` to build your project.
+Press `Ctrl+Shift+B` to open the build task menu. Select `rust: cargo build`.
 
 **From Command Line:**
 
@@ -32,7 +63,7 @@ cargo build  # for debug builds
 cargo build --release  # for optimized release builds
 ```
 
-### How to Run
+##### How to Run
 
 **Using VSCode:**
 
@@ -46,7 +77,7 @@ cargo run  # run debug build
 cargo run --release  # run optimized release build
 ```
 
-### How to Debug
+##### How to Debug
 
 Install the `CodeLLDB` extension for native debugging support. Debug profiles are automatically created when the extension is installed.
 
@@ -86,15 +117,14 @@ Coverage show covered (green) and uncovered (red) lines in editor.<br/>
 Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
 ///
 
-!!! info "Detailed Documentation"
-    See [VSCode Integration](../features/vscode-integration.md)
+!!! tip "For more info, see [VSCode Integration](../features/vscode-integration.md)"
 
 <div data-feature="mkdocs" markdown="1">
 
-## Working on Documentation
+#### Editing Documentation
 
-!!! info
-    Documentation lives in the `doc/` folder and uses [MkDocs](https://www.mkdocs.org/) for building static sites.
+!!! tip "Documentation lives in the doc/ folder"
+    It uses [MkDocs](https://www.mkdocs.org/) for building static sites.
 
 **If using VSCode:**
 
@@ -117,22 +147,8 @@ See `doc/README.md` for more information.
 
 ## Development Workflow
 
-### How to Use GitHub Workflows
-
-This template ships with a starter kit of issue and PR templates. Create issues using structured templates, push code to trigger CI/CD workflows, and check the 'Actions' tab for results.
-
-![GitHub Template Selector](../assets/issue-template.avif)
-/// caption
-Template selector for bug reports and feature requests.
-///
-
-![Bug Report Template](../assets/bug-report-template.avif)
-/// caption
-Pre-configured bug report template with structured fields.
-///
-
-!!! info "Detailed Documentation"
-    See [GitHub Templates](../features/github-templates.md)
+!!! info "GitHub Workflows"
+    This template includes issue and PR templates in the `.github` folder. See [GitHub Templates](../features/github-templates.md) for details.
 
 ### How to Test & Check Coverage
 
@@ -163,8 +179,7 @@ When you push code, GitHub Actions automatically runs tests on Linux, Windows, a
 
 ![Coverage Pills](../assets/coverage-pills.avif)
 
-!!! info "Detailed Documentation"
-    See [Automated Testing & Publishing](../features/automated-testing-publishing.md)
+!!! tip "For more info, see [Automated Testing & Publishing](../features/automated-testing-publishing.md)"
 
 ### How to Check for Unsafe Code Issues
 
@@ -192,8 +207,7 @@ cargo +nightly miri test test_name
 
 Use when developing unsafe code or FFI bindings to detect memory safety issues.
 
-!!! info "Detailed Documentation"
-    See [Miri Testing](../features/miri-testing.md)
+!!! tip "For more info, see [Miri Testing](../features/miri-testing.md)"
 
 ## Performance & Optimization
 
@@ -301,8 +315,7 @@ Navigate to target/profile/deps/
 Enable CPU Usage and start profiling
 ///
 
-!!! info "Detailed Documentation"
-    See [Performance Benchmarking & Profiling](../features/performance-benchmarking-profiling.md)
+!!! tip "For more info, see [Performance Benchmarking & Profiling](../features/performance-benchmarking-profiling.md)"
 
 </div>
 
@@ -341,8 +354,7 @@ Run baseline benchmark without PGO
 Results showing performance improvement from PGO
 ///
 
-!!! info "Detailed Documentation"
-    See [Profile Guided Optimization](../features/profile-guided-optimization.md)
+!!! tip "For more info, see [Profile Guided Optimization](../features/profile-guided-optimization.md)"
 
 </div>
 
@@ -368,8 +380,7 @@ cross test --target aarch64-unknown-linux-gnu --release  # test for ARM64 Linux
 
 The `cross` tool uses Docker or Podman containers to handle cross-compilation automatically. Simply replace `cargo` with `cross` and specify your target platform.
 
-!!! info "Detailed Documentation"
-    See [Cross Compilation](../features/cross-compilation.md)
+!!! tip "For more info, see [Cross Compilation](../features/cross-compilation.md)"
 
 </div>
 
@@ -388,22 +399,15 @@ pub extern "C" fn add_numbers(a: i32, b: i32) -> i32 {
 }
 ```
 
-**Generate headers:**
-
-```bash
-cd src
-cargo build  # automatically generates C/C++ headers via cbindgen
-```
-
-Find generated headers in `target/headers/` directory.
+Build with the `c-exports` feature enabled. Headers are automatically generated when you push a release tag via CI/CD.
 
 ![C Bindings Releases](../assets/c-bindings-releases.avif)
 /// caption
 Headers automatically attached to GitHub releases
 ///
 
-!!! info "Detailed Documentation"
-    See [C/C++ Bindings](../features/bindings/cpp-bindings.md)
+!!! tip "For more info, see [C/C++ Bindings](../features/bindings/cpp-bindings.md)"
+    In particular, check out the [How to Export Functions](../features/bindings/cpp-bindings.md#how-to-export-functions) section for useful patterns.
 
 </div>
 
@@ -413,19 +417,13 @@ Headers automatically attached to GitHub releases
 
 **Export functions:**
 
-C# bindings use the same exports as C/C++ bindings. See the [C/C++ Bindings section](#how-to-create-cc-bindings) above for how to export functions with `#[no_mangle]` and `extern "C"`.
+!!! note "C# bindings are autogenerated from C bindings"
+    See the [C/C++ Bindings section](#how-to-create-cc-bindings) above for how to export functions with `#[no_mangle]` and `extern "C"`.
 
-**Generate bindings:**
+Bindings are generated when you build into `bindings/csharp/NativeMethods.g.cs`.
+Customize generation in `build.rs` using [csbindgen](https://github.com/Cysharp/csbindgen).
 
-```bash
-cd src
-cargo build  # automatically generates C# bindings and NuGet package via csbindgen
-```
-
-Find generated bindings in `bindings/csharp/` directory.
-
-!!! info "Detailed Documentation"
-    See [C# Bindings](../features/bindings/csharp-bindings.md)
+!!! tip "For more info, see [C# Bindings](../features/bindings/csharp-bindings.md)"
 
 </div>
 
@@ -433,29 +431,13 @@ Find generated bindings in `bindings/csharp/` directory.
 
 ## Contributing
 
-We welcome contributions! This guide will help you get started with development and submit your changes.
+### Pull Requests
 
-## Getting Started
-
-Open the `src` folder in your code editor for development.
-
-If you're using the command line instead, make sure you're in the `src` directory when running Rust commands.
-
-## Reporting Issues
-
-Before reporting a bug on the issue tracker, please:
-
-1. **Check existing issues** - Search for related keywords to see if someone has already reported the same issue
-2. **Provide clear details** - Include steps to reproduce, expected behavior, and actual behavior
-3. **Discuss major changes** - If your contribution is not straightforward, create an issue first to discuss the design before starting work
-
-## Pull Requests
-
-### One Change Per PR
+#### One Change Per PR
 
 Keep pull requests focused and atomic. Try to do one logical change per pull request rather than bundling multiple unrelated changes together.
 
-### Commit Names
+#### Commit Names
 
 When writing commit messages, follow the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) style to help maintain clear project history:
 
@@ -474,6 +456,31 @@ Changed API parameter order (breaking change)
 ```
 
 </div>
+
+## Miscellaneous
+
+### GitHub Workflows
+
+The `.github` folder contains pre-configured issue templates, PR templates, and CI/CD workflows.
+
+You may want to edit these to match your project's needs:
+
+- **Issue templates** - Located in `.github/ISSUE_TEMPLATE/`
+- **Workflow files** - Located in `.github/workflows/`
+
+When you push code, these workflows automatically run tests on Linux, Windows, and macOS.
+
+![GitHub Template Selector](../assets/issue-template.avif)
+/// caption
+Template selector for bug reports and feature requests
+///
+
+![Bug Report Template](../assets/bug-report-template.avif)
+/// caption
+Pre-configured bug report template with structured fields
+///
+
+!!! tip "For more info, see [GitHub Templates](../features/github-templates.md)"
 
 <script>
 // Dynamic feature filtering based on URL parameters
