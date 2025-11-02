@@ -415,7 +415,7 @@ pub extern "C" fn perform_operation_is_error(result: OperationResultAlt) -> bool
 
 !!! note "Manual generation is only needed when adjusting configuration."
     
-    Headers are auto-generated in automated builds.
+    Headers are auto-generated in automated builds and published in releases.
 
 The template uses [cbindgen](https://github.com/mozilla/cbindgen) to generate C and C++ header files from your Rust code.
 

@@ -491,7 +491,7 @@ pub extern "C" fn add_numbers(a: i32, b: i32) -> i32 {
 
 !!! note "Manual generation is only needed when adjusting configuration."
     
-    Headers are auto-generated in automated builds.
+    Headers are auto-generated in automated builds and published in releases.
 
 Using VSCode, press `Ctrl+Shift+P` → "Run Task" → Select one of:
 
