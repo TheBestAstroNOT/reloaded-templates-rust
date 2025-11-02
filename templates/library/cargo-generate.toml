@@ -1,6 +1,8 @@
 [template]
 cargo_generate_version = ">=0.18.3"
-ignore = ["pre-script.rhai"]
+ignore = [
+    "pre-script.rhai",
+] # These files are not included in the generated project. Don't include images here.
 exclude = [
     ".github/workflows/auto-changelog.yml",
     ".github/workflows/deploy-mkdocs.yml",
