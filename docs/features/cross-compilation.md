@@ -159,4 +159,3 @@ Automated cross-platform checks running during pull requests
 Cross-compilations are also tested as part of automated testing.
 
 See [Automated Testing & Publishing](automated-testing-publishing.md) for detailed workflows and customization options.
-

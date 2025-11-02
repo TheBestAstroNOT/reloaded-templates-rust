@@ -487,7 +487,36 @@ pub extern "C" fn add_numbers(a: i32, b: i32) -> i32 {
 }
 ```
 
-Build with the `c-exports` feature enabled. Headers are automatically generated when you push a release tag via CI/CD.
+**Generate bindings:**
+
+!!! note "Manual generation is only needed when adjusting configuration."
+    
+    Headers are auto-generated in automated builds.
+
+Using VSCode, press `Ctrl+Shift+P` → "Run Task" → Select one of:
+
+- **Generate C Bindings** - Generate C headers only
+- **Generate C++ Bindings** - Generate C++ headers only
+
+Or from command line:
+
+```bash
+cd src
+
+# Install cbindgen (one-time setup)
+cargo install cbindgen
+
+# Generate C bindings
+cbindgen --config ../.github/cbindgen_c.toml --output bindings/c/your-project.h your-project
+
+# Generate C++ bindings
+cbindgen --config ../.github/cbindgen_cpp.toml --output bindings/cpp/your-project.hpp your-project
+```
+
+Replace `your-project` with your actual project name. Configuration files are located in `.github/`:
+
+- `.github/cbindgen_c.toml` - C bindings configuration
+- `.github/cbindgen_cpp.toml` - C++ bindings configuration
 
 ![C Bindings Releases](assets/c-bindings-releases.avif)
 /// caption
