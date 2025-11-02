@@ -31,22 +31,22 @@ class Colors:
 
 def print_success(message: str) -> None:
     """Print success message in green."""
-    print(f"{Colors.GREEN}✓ {message}{Colors.RESET}")
+    print(f"{Colors.GREEN}OK {message}{Colors.RESET}")
 
 
 def print_error(message: str) -> None:
     """Print error message in red."""
-    print(f"{Colors.RED}✗ {message}{Colors.RESET}")
+    print(f"{Colors.RED}FAIL {message}{Colors.RESET}")
 
 
 def print_info(message: str) -> None:
     """Print info message in cyan."""
-    print(f"{Colors.CYAN}ℹ {message}{Colors.RESET}")
+    print(f"{Colors.CYAN}INFO {message}{Colors.RESET}")
 
 
 def print_warning(message: str) -> None:
     """Print warning message in yellow."""
-    print(f"{Colors.YELLOW}⚠ {message}{Colors.RESET}")
+    print(f"{Colors.YELLOW}WARN {message}{Colors.RESET}")
 
 
 def print_section(message: str) -> None:
@@ -357,11 +357,11 @@ Examples:
     
     # Print banner
     print(f"""
-{Colors.CYAN}╔═══════════════════════════════════════════════════════════════╗
-║                                                               ║
-║         Reloaded Templates Rust - Local Test Runner           ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝{Colors.RESET}
+{Colors.CYAN}+---------------------------------------------------------------+
+|                                                               |
+|         Reloaded Templates Rust - Local Test Runner           |
+|                                                               |
++---------------------------------------------------------------+{Colors.RESET}
 """)
     
     # Get script directory
@@ -445,9 +445,9 @@ Examples:
             break
     
     if exit_code == 0:
-        print(f"\n{Colors.GREEN}✨ All tests passed! ✨{Colors.RESET}\n")
+        print(f"\n{Colors.GREEN}* All tests passed! *{Colors.RESET}\n")
     else:
-        print(f"\n{Colors.RED}❌ Some tests failed ❌{Colors.RESET}\n")
+        print(f"\n{Colors.RED}X Some tests failed X{Colors.RESET}\n")
     
     return exit_code
 
