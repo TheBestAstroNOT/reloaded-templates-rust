@@ -79,9 +79,7 @@ We welcome contributions! See the [Contributing Guide](https://reloaded-project.
 
 ## License
 
-Licensed under [{{license}}](./LICENSE).  
-
-[Learn more about Reloaded's general choice of licensing for projects.][reloaded-license].  
+Licensed under [{{license}}](./LICENSE).
 
 [codecov]: https://app.codecov.io
 [gh-actions-secrets]: https://github.com/{{gh_username}}/{{project-name}}/settings/secrets/actions
@@ -90,4 +88,3 @@ Licensed under [{{license}}](./LICENSE).
 [nuget-key]: https://www.nuget.org/account/apikeys
 {%- if mkdocs %}
 [docs]: https://{{gh_reponame}}.github.io/{{gh_reponame}} {%- endif %}
-[reloaded-license]: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/license/
