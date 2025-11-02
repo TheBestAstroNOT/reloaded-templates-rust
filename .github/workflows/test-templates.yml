@@ -35,7 +35,7 @@ jobs:
             no_std: "STD"
 
           # Test all features enabled
-          - config_name: all-on
+          - config_name: all_on
             mkdocs: true
             vscode: true
             xplat: true
@@ -51,7 +51,7 @@ jobs:
             no_std: "STD"
 
           # Test minimal features
-          - config_name: all-off
+          - config_name: all_off
             mkdocs: false
             vscode: false
             xplat: false
@@ -67,7 +67,7 @@ jobs:
             no_std: "STD"
 
           # Test C# bindings require C libs dependency
-          - config_name: c-bindings
+          - config_name: c_bindings
             mkdocs: true
             vscode: true
             xplat: true
@@ -83,7 +83,7 @@ jobs:
             no_std: "STD"
 
           # Test PGO requires bench AND build_c_libs
-          - config_name: pgo-enabled
+          - config_name: pgo_enabled
             mkdocs: true
             vscode: true
             xplat: true
@@ -99,7 +99,7 @@ jobs:
             no_std: "STD"
 
           # Test big_endian requires xplat
-          - config_name: big-endian
+          - config_name: big_endian
             mkdocs: true
             vscode: true
             xplat: true

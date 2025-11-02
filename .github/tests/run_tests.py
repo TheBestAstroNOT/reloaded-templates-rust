@@ -226,7 +226,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'License': 'GPL v3 (with Reloaded FAQ)',
             'NoStd': 'STD'
         },
-        'all-on': {
+        'all_on': {
             'DisplayName': 'All Features Enabled',
             'ProjectName': 'test_all_on',
             'Mkdocs': True,
@@ -243,7 +243,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'License': 'MIT',
             'NoStd': 'STD'
         },
-        'all-off': {
+        'all_off': {
             'DisplayName': 'Minimal Features (Quick Test)',
             'ProjectName': 'test_all_off',
             'Mkdocs': False,
@@ -260,7 +260,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'License': 'Apache 2.0',
             'NoStd': 'STD'
         },
-        'c-bindings': {
+        'c_bindings': {
             'DisplayName': 'C# Bindings with C Libraries',
             'ProjectName': 'test_c_bindings',
             'Mkdocs': True,
@@ -277,7 +277,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'License': 'GPL v3 (with Reloaded FAQ)',
             'NoStd': 'STD'
         },
-        'pgo-enabled': {
+        'pgo_enabled': {
             'DisplayName': 'Profile-Guided Optimization',
             'ProjectName': 'test_pgo',
             'Mkdocs': True,
@@ -294,7 +294,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'License': 'GPL v3 (with Reloaded FAQ)',
             'NoStd': 'STD'
         },
-        'big-endian': {
+        'big_endian': {
             'DisplayName': 'Big-Endian Support',
             'ProjectName': 'test_big_endian',
             'Mkdocs': True,
@@ -395,7 +395,7 @@ Examples:
     # Run integration tests
     test_configs = get_test_configurations()
     
-    for config_name in ['defaults', 'all-on', 'all-off', 'c-bindings', 'pgo-enabled', 'big-endian']:
+    for config_name in ['defaults', 'all_on', 'all_off', 'c_bindings', 'pgo_enabled', 'big_endian']:
         config_data = test_configs[config_name]
         results['integration_tests'][config_name] = run_integration_test(
             python_exe,

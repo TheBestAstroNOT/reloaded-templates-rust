@@ -19,11 +19,11 @@ This automatically:
 | Configuration | Description                                      |
 | ------------- | ------------------------------------------------ |
 | `defaults`    | Default configuration with most features enabled |
-| `all-on`      | All features enabled (comprehensive test)        |
-| `all-off`     | Minimal features (fastest test)                  |
-| `c-bindings`  | Tests C# bindings with C libraries               |
-| `pgo-enabled` | Tests Profile-Guided Optimization                |
-| `big-endian`  | Tests big-endian support                         |
+| `all_on`      | All features enabled (comprehensive test)        |
+| `all_off`     | Minimal features (fastest test)                  |
+| `c_bindings`  | Tests C# bindings with C libraries               |
+| `pgo_enabled` | Tests Profile-Guided Optimization                |
+| `big_endian`  | Tests big-endian support                         |
 
 Each test:
 - Generates a project from the template
