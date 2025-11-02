@@ -4,115 +4,15 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    # Run every Monday at 00:00 UTC
-    - cron: "0 0 * * 1"
+    # Run every Monday at 09:00 UTC
+    - cron: "0 9 * * 1"
   workflow_dispatch:
 
 jobs:
   test-template:
-    name: Test ${{ matrix.config_name }}
+    name: Test Template Generation
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          # Test default configuration
-          - config_name: defaults
-            mkdocs: true
-            vscode: true
-            xplat: true
-            big_endian: false
-            wine: true
-            bench: true
-            miri: false
-            build_c_libs: true
-            build_csharp_libs: false
-            build_c_libs_with_pgo: true
-            publish_crate_on_tag: true
-            license: "GPL v3 (with Reloaded FAQ)"
-            no_std: "STD"
-
-          # Test all features enabled
-          - config_name: all_on
-            mkdocs: true
-            vscode: true
-            xplat: true
-            big_endian: true
-            wine: true
-            bench: true
-            miri: true
-            build_c_libs: true
-            build_csharp_libs: true
-            build_c_libs_with_pgo: true
-            publish_crate_on_tag: true
-            license: "MIT"
-            no_std: "STD"
-
-          # Test minimal features
-          - config_name: all_off
-            mkdocs: false
-            vscode: false
-            xplat: false
-            big_endian: false
-            wine: false
-            bench: false
-            miri: false
-            build_c_libs: false
-            build_csharp_libs: false
-            build_c_libs_with_pgo: false
-            publish_crate_on_tag: false
-            license: "Apache 2.0"
-            no_std: "STD"
-
-          # Test C# bindings require C libs dependency
-          - config_name: c_bindings
-            mkdocs: true
-            vscode: true
-            xplat: true
-            big_endian: false
-            wine: true
-            bench: true
-            miri: false
-            build_c_libs: true
-            build_csharp_libs: true
-            build_c_libs_with_pgo: true
-            publish_crate_on_tag: true
-            license: "GPL v3 (with Reloaded FAQ)"
-            no_std: "STD"
-
-          # Test PGO requires bench AND build_c_libs
-          - config_name: pgo_enabled
-            mkdocs: true
-            vscode: true
-            xplat: true
-            big_endian: false
-            wine: true
-            bench: true
-            miri: false
-            build_c_libs: true
-            build_csharp_libs: false
-            build_c_libs_with_pgo: true
-            publish_crate_on_tag: true
-            license: "GPL v3 (with Reloaded FAQ)"
-            no_std: "STD"
-
-          # Test big_endian requires xplat
-          - config_name: big_endian
-            mkdocs: true
-            vscode: true
-            xplat: true
-            big_endian: true
-            wine: true
-            bench: true
-            miri: false
-            build_c_libs: true
-            build_csharp_libs: false
-            build_c_libs_with_pgo: true
-            publish_crate_on_tag: true
-            license: "GPL v3 (with Reloaded FAQ)"
-            no_std: "STD"
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
@@ -121,35 +21,11 @@ jobs:
       - name: Install Rust toolchain
         uses: actions-rust-lang/setup-rust-toolchain@v1
 
-      - name: Install cargo-generate
-        run: |
-          if ! command -v cargo-generate &> /dev/null; then
-            cargo install cargo-generate
-          fi
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.x"
 
-      - name: Install Python dependencies
+      - name: Run template tests
         run: |
-          pip3 install -r .github/tests/requirements.txt mkdocs-material
-
-      - name: Run template test
-        run: |
-          python3 .github/tests/test_template.py \
-            --project-name test_${{ matrix.config_name }} \
-            --mkdocs=${{ matrix.mkdocs }} \
-            --vscode=${{ matrix.vscode }} \
-            --xplat=${{ matrix.xplat }} \
-            --big-endian=${{ matrix.big_endian }} \
-            --wine=${{ matrix.wine }} \
-            --bench=${{ matrix.bench }} \
-            --miri=${{ matrix.miri }} \
-            --build-c-libs=${{ matrix.build_c_libs }} \
-            --build-csharp-libs=${{ matrix.build_csharp_libs }} \
-            --build-c-libs-with-pgo=${{ matrix.build_c_libs_with_pgo }} \
-            --publish-crate-on-tag=${{ matrix.publish_crate_on_tag }} \
-            --license="${{ matrix.license }}" \
-            --no-std="${{ matrix.no_std }}"
+          python3 .github/tests/run_tests.py
