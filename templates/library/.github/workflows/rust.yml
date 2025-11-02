@@ -44,6 +44,7 @@ jobs:
             use-pgo: false # no native runner
             {%- endif %}
             use-cross: true
+
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             {%- if build_c_libs %}
@@ -56,12 +57,7 @@ jobs:
             use-pgo: true
             {%- endif %}
             use-cross: false
-          - os: windows-latest
-            target: aarch64-pc-windows-msvc
-            {%- if build_c_libs %}
-            use-pgo: false # no native runner
-            {%- endif %}
-            use-cross: false
+
           - os: macos-15-intel # x86
             target: x86_64-apple-darwin
             {%- if build_c_libs %}
@@ -74,6 +70,20 @@ jobs:
             use-pgo: true
             {%- endif %}
             use-cross: false
+{%- if big_endian %}
+          - os: ubuntu-latest
+            target: powerpc-unknown-linux-gnu
+            {%- if build_c_libs %}
+            use-pgo: false # no native runner
+            {%- endif %}
+            use-cross: true
+          - os: ubuntu-latest
+            target: powerpc64-unknown-linux-gnu
+            {%- if build_c_libs %}
+            use-pgo: false # no native runner
+            {%- endif %}
+            use-cross: true
+{%- endif %}
 {%- endif %}
 
     {% raw %}runs-on: ${{ matrix.os }}{% endraw %}
@@ -92,17 +102,18 @@ jobs:
           use-cross: {% raw %}${{ matrix.use-cross }}{% endraw %}
           features: "c-exports"
           build-library: true
-          run-tests-and-coverage: {% raw %}${{ matrix.target != 'aarch64-pc-windows-msvc' }}{% endraw %}
+          run-tests-and-coverage: true
           codecov-token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
+          rust-project-path: src/{{project-name}}
+          workspace-path: src
+          pgo-project-path: src/{{project-name}}
 
 {%- else %}
 
       - name: Run Tests and Upload Coverage
         uses: Reloaded-Project/devops-rust-test-and-coverage@v1
-        # Currently unsupported due to no native runner.
-        # Native runner currently only available in enterprise.
-        if: matrix.target != 'aarch64-pc-windows-msvc'
         with:
+          rust-project-path: ./src
           upload-coverage: true
           codecov-token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
           target: {% raw %}${{ matrix.target }}{% endraw %}
@@ -115,6 +126,7 @@ jobs:
       # Note to reader. If adding this to a new repo, please clear cache.
       - name: Run cargo-semver-checks
         if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/')
+        working-directory: src
         shell: bash
         run: |
           SEARCH_RESULT=$(cargo search "^{{project-name}}$" --limit 1)
@@ -123,7 +135,7 @@ jobs:
               # Run semver checks on stable, because nightly sometimes gets borked in cargo-semver-checks.
               rustup +stable target add {% raw %}${{ matrix.target }}{% endraw %}
               # Note: binstall is available after devops-rust-test-and-coverage@v1 call
-              cargo binstall --no-confirm cargo-semver-checks
+              cargo +stable binstall --no-confirm cargo-semver-checks --force
               cargo +stable semver-checks --target {% raw %}${{ matrix.target }}{% endraw %} {% if build_c_libs %}--features c-exports{% endif %}
           else
               echo "No previous version found on crates.io. Skipping semver checks."
@@ -139,17 +151,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Note: Currently in cross, Wine tests break with debug info.
+      # https://github.com/cross-rs/cross/issues/1637#issuecomment-3275459974
       - name: Run Tests and Coverage on WINE
         uses: Reloaded-Project/devops-rust-test-and-coverage@v1
         with:
-          rust-toolchain: nightly
-          target: {% raw %}${{ matrix.target }}{% endraw %}
-          install-rust-toolchain: true
-          setup-rust-cache: true
+          rust-project-path: ./src
           upload-coverage: true
           codecov-token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
-          features: "c-exports"
+          target: {% raw %}${{ matrix.target }}{% endraw %}
           use-cross: true
+          additional-test-args: --release
 {%- endif %}
 
 {%- if build_c_libs %}
@@ -164,14 +176,16 @@ jobs:
       - name: Generate C++ bindings
         uses: Reloaded-Project/devops-rust-cbindgen@v1
         with:
-          config-file: cbindgen_cpp.toml
+          rust-project-path: ./src/{{project-name}}
+          config-file: ../../.github/cbindgen_cpp.toml
           output-header-file: bindings_cpp.hpp
           use-cache: 'true'
 
       - name: Generate C bindings
         uses: Reloaded-Project/devops-rust-cbindgen@v1
         with:
-          config-file: cbindgen_c.toml
+          rust-project-path: ./src/{{project-name}}
+          config-file: ../../.github/cbindgen_c.toml
           output-header-file: bindings_c.h
           use-cache: 'false' # Caching already included in Generate C++ bindings action
 {%- endif %}
@@ -188,7 +202,7 @@ jobs:
       - name: Build and Package .NET Wrapper
         uses: Reloaded-Project/devops-rust-c-library-to-dotnet@v1
         with:
-          csharp-project-path: bindings/csharp
+          csharp-project-path: src/bindings/csharp
 {%- endif %}
 
   publish-crate:

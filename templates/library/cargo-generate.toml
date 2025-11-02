@@ -1,7 +1,15 @@
 [template]
 cargo_generate_version = ">=0.18.3"
 ignore = ["pre-script.rhai"]
-exclude = ["assets/profile_example.png", ".github/workflows/auto-changelog.yml", ".github/workflows/deploy-mkdocs.yml"]
+exclude = [
+    ".github/workflows/auto-changelog.yml",
+    ".github/workflows/deploy-mkdocs.yml",
+    "doc/docs/vendor/Reloaded/Images/Nexus-Heart-40.avif",
+    "doc/docs/vendor/Reloaded/Images/Nexus-Icon-40.avif",
+    "doc/docs/vendor/Reloaded/Images/Reloaded-Heart-40.avif",
+    "doc/docs/vendor/Reloaded/Images/Reloaded-Icon-40.avif",
+    "src/bindings/csharp/nuget-icon.png",
+]
 
 [hooks]
 pre = ["pre-script.rhai"]
@@ -46,14 +54,18 @@ type = "bool"
 prompt = "Include Cross Platform Testing Instructions & GitHub Actions Test Runs"
 default = true
 
-[conditional.'xplat == false']
-ignore = ["scripts"]
+## Big Endian
+[conditional.'xplat == true'.placeholders]
+big_endian = { type = "bool", prompt = "Include Big Endian Target Support (PowerPC 32-bit and 64-bit)", default = false }
 
 ## Wine
 [placeholders.wine]
 type = "bool"
 prompt = "Run Automated Tests against Wine (x86 and x64)"
 default = true
+
+[conditional.'wine == false']
+ignore = ["flake.nix"]
 
 ## Benchmark
 [placeholders.bench]
@@ -64,6 +76,12 @@ default = true
 [conditional.'bench == false']
 ignore = ["benches/my_benchmark"]
 
+## Miri
+[placeholders.miri]
+type = "bool"
+prompt = "Will you write advanced, unsafe, or mission-critical code? (Adds Miri to detect undefined behaviour)"
+default = false
+
 ## Build C Libraries
 [placeholders.build_c_libs]
 type = "bool"
@@ -71,14 +89,19 @@ prompt = "Build C Libraries in CI? (Min Size, Nightly Rust, Panic Aborts)"
 default = true
 
 [conditional.'build_c_libs == false']
-ignore = ["src/exports.rs", "cbindgen_cpp.toml", "cbindgen_c.toml", "bindings/csharp"]
+ignore = [
+    "src/exports.rs",
+    ".github/cbindgen_cpp.toml",
+    ".github/cbindgen_c.toml",
+    "src/bindings/csharp",
+]
 
 ## Build C# Bindings
 [conditional.'build_c_libs == true'.placeholders]
 build_csharp_libs = { type = "bool", prompt = "Build C# Bindings?", default = false }
 
 [conditional.'build_csharp_libs == false']
-ignore = ["bindings/csharp"]
+ignore = ["src/bindings/csharp"]
 
 ## Add PGO to C Libraries
 [conditional.'bench == true && build_c_libs == true'.placeholders]

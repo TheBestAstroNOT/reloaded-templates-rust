@@ -12,7 +12,7 @@ inputs:
   csharp_project_path:
     description: 'Path to the C# project directory'
     required: false
-    default: 'bindings/csharp'
+    default: 'src/bindings/csharp'
   install_dotnet:
     description: 'If true, installs the .NET SDK with specified version'
     required: false

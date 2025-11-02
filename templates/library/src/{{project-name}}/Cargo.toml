@@ -1,0 +1,43 @@
+[package]
+name = "{{project-name}}"
+version = "0.1.0"
+edition = "2021"
+description = "{{project_description}}"
+repository = "https://github.com/{{gh_username}}/{{project-name}}"
+license-file = "LICENSE"
+include = ["src/**/*"]
+readme = "README.MD"
+
+[features]
+{% if std-by-default -%}
+default = ["std"]
+std = []
+{% endif -%}
+{% if build_c_libs-with-pgo -%}
+# See README.md for more information on using Profile-Guided Optimization.
+pgo = []
+{% endif -%}
+{% if build_c_libs -%}
+# Feature for enabling C library exports.
+c-exports = []
+{% endif -%}
+
+[dependencies]
+
+{% if build_csharp_libs %}
+# C# Bindings
+[build-dependencies]
+csbindgen = "1.9.0"
+{% endif %}
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dev-dependencies]
+{%- if bench %}
+criterion = "0.7.0"{%- endif %}
+
+{% if bench %}
+# Benchmark Stuff
+[[bench]]
+name = "my_benchmark"
+path = "benches/my_benchmark/main.rs"
+harness = false
+{%- endif %}

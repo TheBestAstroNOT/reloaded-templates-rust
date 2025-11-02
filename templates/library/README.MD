@@ -12,20 +12,17 @@ Additional setup might be required.
 Once you do the stuff under this text, delete this section.  
 
 ### Code Coverage
-To setup code coverage for this project. Login into [Codecov][codecov] and add this repository from your list of tracked repos.
+To setup code coverage for this project:
+
+1. Go to [Codecov][codecov], add your project.
+2. Go to [Settings -> Secrets and variables -> Actions][gh-actions-secrets] in your repo and add a repository secret named `CODECOV_TOKEN`.
+
+The instructions on the Codecov page will provide the token to use.
 
 {% if mkdocs -%}
 ### Setup Documentation
 
-If you don't have a `docs/Reloaded` folder, you might need to add it manually as submodule:
-
-```
-git submodule add https://github.com/Reloaded-Project/Reloaded.MkDocsMaterial.Themes.R2.git docs/Reloaded
-```
-
-After which you can follow the [Theme Documentation](https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/contributing.html#website-live-preview) to find out how to work with the docs.
-
-Before you make your first commit to GitHub, you'll need to go to `Settings -> Pages` and set
+Before you make your first commit to GitHub, you'll need to go to [Settings -> Pages][gh-pages] and set
 `Source` to `GitHub Actions` for the documentation builds to work.
 
 {% endif %}
@@ -34,15 +31,16 @@ Before you make your first commit to GitHub, you'll need to go to `Settings -> P
 
 You'll need to set up an API key to publish to `crates.io` on tag.
 
-- Go to `Settings -> Secrets -> Actions` in your repo and add environment secret named `CRATES_IO_TOKEN`.  
-- Paste your API key generated in [crates.io (Account Settings -> API Tokens)][crates-io-key].  
+- Generate your API key in [crates.io (Account Settings -> API Tokens)][crates-io-key].  
+- Go to [Settings -> Secrets and variables -> Actions][gh-actions-secrets] in your repo and add environment secret named `CRATES_IO_TOKEN`.  
+- Paste your API key.  
 
 {% if build_csharp_libs %}
 ### Setup API Key (NuGet)
 You'll need to set up an API key to publish to `NuGet` on tag.
 
-- Go to `Settings -> Secrets -> Actions` in your repo and add environment secret named `NUGET_KEY`.  
-- Paste your API key generated in [Api Keys][nuget-key].  
+- Generate your API key in [Api Keys][nuget-key].  
+- Go to [Settings -> Secrets and variables -> Actions][gh-actions-secrets] in your repo and add a repository secret named `NUGET_KEY`.  
 {% endif %}
 {% endif %}
 
@@ -61,9 +59,23 @@ other useful info.
 You can learn more about this project in the [dedicated documentation page][docs].
 {% endif %}
 
-## Development
+{% if mkdocs %}
+## Getting Started with VSCode
 
-For information on how to work with this codebase, see [README-DEV.MD](README-DEV.MD).
+Open the `src` folder in VSCode as your workspace for development.
+{% endif %}
+
+{% if mkdocs %}
+## Developer Manual
+
+For step-by-step development guidance, see the [Developer Manual](https://{{gh_username}}.github.io/{{gh_reponame}}/manual/).
+{% endif %}
+
+{% if mkdocs %}
+## Contributing
+
+We welcome contributions! See the [Contributing Guide](https://{{gh_username}}.github.io/{{gh_reponame}}/manual/#contributing) for details.
+{% endif %}
 
 ## License
 
@@ -71,7 +83,9 @@ Licensed under [{{license}}](./LICENSE).
 
 [Learn more about Reloaded's general choice of licensing for projects.][reloaded-license].  
 
-[codecov]: https://about.codecov.io/
+[codecov]: https://app.codecov.io
+[gh-actions-secrets]: https://github.com/{{gh_username}}/{{project-name}}/settings/secrets/actions
+[gh-pages]: https://github.com/{{gh_username}}/{{project-name}}/settings/pages
 [crates-io-key]: https://crates.io/settings/tokens
 [nuget-key]: https://www.nuget.org/account/apikeys
 {%- if mkdocs %}

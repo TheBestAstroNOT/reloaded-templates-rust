@@ -1,0 +1,84 @@
+site_name: Reloaded Rust Templates
+site_url: https://github.com/Reloaded-Project/reloaded-templates-rust
+
+repo_name: Reloaded-Project/reloaded-templates-rust
+repo_url: https://github.com/Reloaded-Project/reloaded-templates-rust
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Reloaded-Project
+
+extra_css:
+  - vendor/Reloaded/Stylesheets/reloaded.css
+
+markdown_extensions:
+  - admonition
+  - tables
+  - abbr
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tasklist
+  - def_list
+  - meta
+  - md_in_html
+  - attr_list
+  - footnotes
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.blocks.caption
+
+theme:
+  name: material
+  palette:
+    scheme: reloaded3-slate
+  features:
+    - navigation.instant
+    - content.tooltips
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+      cache_safe: true
+  - exclude-unused-files:
+      file_types_to_check: ["psd", "7z", "kra"]
+      file_types_override_mode: append
+      enabled: true
+
+not_in_nav: |
+  AGENTS-DOCS.md
+
+nav:
+  - Home: index.md
+  - Features:
+      - GitHub Templates: features/github-templates.md
+      - VSCode Integration: features/vscode-integration.md
+      - Automated Testing & Publishing: features/automated-testing-publishing.md
+      - Miri - Undefined Behavior Detection: features/miri-testing.md
+      - License Options: features/license-options.md
+      - Performance Benchmarking & Profiling: features/performance-benchmarking-profiling.md
+      - Cross Compilation: features/cross-compilation.md
+      - Profile Guided Optimization: features/profile-guided-optimization.md
+      - Bindings:
+          - C/C++ Bindings: features/bindings/cpp-bindings.md
+          - C# Bindings: features/bindings/csharp-bindings.md
+  - Manual: manual.md
+  - Migration Guides:
+      - Overview: migration/about.md
+      - To v1.0.0: migration/v1.0.0.md
+  - License: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/license.html
+  - How to Document: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/contributing.html

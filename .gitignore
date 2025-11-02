@@ -1,0 +1,28 @@
+# MkDocs build output
+dist/
+
+# Rust
+target/
+Cargo.lock
+
+# IDE
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# LLM Prompts
+PROMPT.md
+PROMPT-*.md
+PROMPT.MD
+PROMPT-*.MD
+
+# Python docs stuff
+venv/
+__pycache__/
+*.pyc
+site/
