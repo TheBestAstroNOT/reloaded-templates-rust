@@ -81,9 +81,16 @@ See [C/C++ Bindings - How to Export Functions](cpp-bindings.md#how-to-export-fun
 !!! info
     Your C# bindings are automatically generated and packaged when you build your project.
 
-When you build your project, bindings are generated with `csbindgen` and a NuGet package is created with precompiled binaries for all supported platforms.
+**Generate bindings locally:**
 
-The package includes the generated P/Invoke declarations and native libraries for Windows, Linux, and macOS.
+```bash
+cd src
+cargo build --features c-exports  # Generate C# bindings and NuGet package
+```
+
+Bindings are placed in `bindings/csharp/NativeMethods.g.cs`.
+
+When you build your project, bindings are generated with `csbindgen` and a NuGet package is created with precompiled binaries for all supported platforms. The package includes the generated P/Invoke declarations and native libraries for Windows, Linux, and macOS.
 
 The NuGet package is automatically published to `nuget.org` when you create a release tag.
 

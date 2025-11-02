@@ -11,6 +11,7 @@ The template provides the essential building blocks for benchmarking and profili
 Run your first benchmark with a single command:
 
 ```bash
+cd src
 cargo bench
 ```
 
@@ -32,6 +33,8 @@ Open the file in your web browser or right-click → "Show Preview" in VSCode.
 Below are some useful additional benchmark commands:
 
 ```bash
+cd src
+
 # Run a specific benchmark
 cargo bench "fib 20"
 
@@ -166,16 +169,17 @@ Violin plot generated from the "File Decompression" benchmark group, comparing t
 ### Generating Profile
 Generate performance profiles of your benchmarks using cargo flamegraph.
 
-Install cargo flamegraph:
+**Install globally (one-time setup):**
 
 ```bash
 cargo install cargo-flamegraph
 # if on Linux, ensure `perf` and `objdump` are available/installed
 ```
 
-Profile a benchmark:
+**Profile a benchmark:**
 
 ```bash
+cd src
 cargo flamegraph --bench my_benchmark --profile profile -- --bench --profile-time 10 can_decompress_file_Model
 # On Windows this requires `sudo cargo`, or administrator command prompt
 ```
@@ -228,7 +232,8 @@ Visual Studio 2022 Community Profiler showing CPU usage
 Build the benchmark binary without running it:
 
 ```bash
-cargo build --bench my_benchmark --profile profile
+cd src
+cargo bench
 ```
 
 Follow these steps to profile your benchmark in Visual Studio:
@@ -307,7 +312,12 @@ criterion_group!(benches, criterion_benchmark);
 criterion_main!(benches);
 ```
 
-Run with `cargo bench`.
+Run with:
+
+```bash
+cd src
+cargo bench
+```
 
 ### 4. Update .gitignore
 ```gitignore

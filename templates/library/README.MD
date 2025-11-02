@@ -59,9 +59,11 @@ other useful info.
 You can learn more about this project in the [dedicated documentation page][docs].
 {% endif %}
 
-## Development
+{% if mkdocs %}
+## Developer Manual
 
-For information on how to work with this codebase, see [README-DEV.MD](README-DEV.MD).
+For step-by-step development guidance, see the [Developer Manual](https://{{gh_username}}.github.io/{{gh_reponame}}/manual/guide/). You can filter the manual by features you selected: add `?bench=true&xplat=true&pgo=true&c-bindings=true&csharp-bindings=true` to show optional features.
+{% endif %}
 
 ## License
 

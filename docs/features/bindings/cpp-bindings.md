@@ -416,7 +416,16 @@ pub extern "C" fn perform_operation_is_error(result: OperationResultAlt) -> bool
 !!! info
     Your C/C++ headers are automatically generated when you push a tag to make a release.
 
-When you push a release tag, headers are generated with `cbindgen`, and attached to your GitHub release.See [Automated Testing & Publishing](../automated-testing-publishing.md) for details.
+When you push a release tag, headers are generated with `cbindgen`, and attached to your GitHub release. See [Automated Testing & Publishing](../automated-testing-publishing.md) for details.
+
+**Generate headers locally:**
+
+```bash
+cd src
+cargo build --features c-exports  # Generate C/C++ headers
+```
+
+Headers are placed in `target/headers/` directory.
 
 ![C Bindings Releases](../../assets/c-bindings-releases.avif)
 /// caption

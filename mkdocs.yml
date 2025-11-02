@@ -78,7 +78,9 @@ nav:
           - C# Bindings: features/bindings/csharp-bindings.md
   - Manual:
       - About: manual/about.md
-      - Migration Guides:
-          - v1.0.0: manual/migration/v1.0.0.md
+      - Guide: manual/guide.md
+  - Migration Guides:
+      - Overview: migration/about.md
+      - To v1.0.0: migration/v1.0.0.md
   - License: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/license.html
   - How to Document: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/contributing.html

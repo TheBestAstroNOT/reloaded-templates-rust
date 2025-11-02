@@ -62,12 +62,12 @@ Generate code coverage reports with `cargo-tarpaulin` and visualize them in your
 
 ![Run Coverage Task](../assets/run-coverage-task.avif)
 /// caption
-Run "Generate Code Coverage" task via Ctrl+Shift+P → "Run Task"
+Run "Auto Coverage on Save" task via Ctrl+Shift+P → "Run Task"
 ///
 
 ![Preview Coverage Report](../assets/coverage-report.avif)
 /// caption
-Preview coverage report via Ctrl+Shift+P → "Preview Coverage Report"
+Preview coverage report via Ctrl+Shift+P → "Coverage Gutters: Preview Coverage Report"
 ///
 
 ![Coverage Gutters](../assets/coverage-gutters.avif)

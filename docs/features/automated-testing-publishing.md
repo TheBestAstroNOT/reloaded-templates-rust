@@ -91,7 +91,9 @@ To exclude specific crates from coverage, use the `--workspace --exclude <crate-
 ```
 
 **VS Code Tasks**
+
 Update your `.vscode/tasks.json` to include the exclusion flags:
+
 ```diff
 {
   "label": "Auto Coverage on Save",
@@ -99,6 +101,8 @@ Update your `.vscode/tasks.json` to include the exclusion flags:
 + "command": "cargo install cargo-tarpaulin --quiet && cargo watch -x \"tarpaulin --skip-clean --out Xml --out Html --engine llvm --target-dir target/coverage-build --workspace --exclude my-cli-tool\" -w src/"
 }
 ```
+
+The task automatically runs in the `src/` directory, so you don't need to manually navigate when using VSCode tasks.
 
 ### Semantic Version Checks
 Automatically checks if your changes might break code for people who use your library. If you make changes that could break other people's code, you'll need to update your version number. This prevents accidental breaking changes from reaching your users.

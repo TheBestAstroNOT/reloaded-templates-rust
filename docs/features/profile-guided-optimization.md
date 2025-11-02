@@ -20,14 +20,18 @@ Before enabling PGO in CI, you should test it locally to ensure it provides actu
 
 ### Installation
 
-First, install the required tools:
+**Install globally (one-time setup):**
 
 ```bash
 cargo install cargo-pgo
 rustup component add llvm-tools-preview
 ```
 
-Verify that cargo pgo is installed correctly with `cargo pgo info`:
+Verify that cargo pgo is installed correctly:
+
+```bash
+cargo pgo info
+```
 
 ![cargo pgo info](../assets/pgo-cargo-pgo-info.avif)
 /// caption
@@ -43,6 +47,7 @@ The testing process involves three steps: baseline measurement, profiling collec
 Run an instrumented benchmark to collect profiling data:
 
 ```bash
+cd src
 cargo pgo instrument test -- --bench my_benchmark --features pgo
 ```
 
@@ -53,6 +58,7 @@ This may also run the regular tests.
 Establish a performance baseline without PGO:
 
 ```bash
+cd src
 cargo bench
 ```
 
@@ -66,6 +72,7 @@ Initial benchmark run to establish performance baseline
 Create the PGO-optimized build and compare results:
 
 ```bash
+cd src
 cargo pgo optimize bench
 ```
 
