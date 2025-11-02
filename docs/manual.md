@@ -70,9 +70,10 @@ cargo build --release  # for optimized release builds
 
 **Using VSCode:**
 
-Press `F5` or click the "Run and Debug" button to execute your project with debugging enabled.
+**While in a Rust file**, press `F5` or click the "Run and Debug" button to execute your project with debugging enabled.
 
-Select `CodeLLDB` if prompted with a list of languages/technologies.
+!!! question "Not seeing Rust-specific options?"
+    If prompted with a list of languages/technologies, select `CodeLLDB`.
 
 **From Command Line:**
 
