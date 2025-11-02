@@ -31,7 +31,30 @@
       },
       "problemMatcher": []
     }
+{%- if build_c_libs or miri or bench or xplat %},{% endif -%}
+{%- if build_c_libs %}
+    {
+      "label": "Generate C Bindings",
+      "type": "shell",
+      "command": "cargo install cbindgen --quiet && cbindgen --config ../.github/cbindgen_c.toml --output bindings/c/{{project-name}}.h {{project-name}}",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Generate C++ Bindings",
+      "type": "shell",
+      "command": "cargo install cbindgen --quiet && cbindgen --config ../.github/cbindgen_cpp.toml --output bindings/cpp/{{project-name}}.hpp {{project-name}}",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    }
 {%- if miri or bench or xplat %},{% endif -%}
+{%- endif %}
 {% if miri %}
     {
       "label": "Run Tests to Detect Undefined Behaviour",

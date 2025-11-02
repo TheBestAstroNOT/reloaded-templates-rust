@@ -411,6 +411,39 @@ pub extern "C" fn perform_operation_is_error(result: OperationResultAlt) -> bool
 }
 ```
 
+## Manual Header Generation
+
+!!! note "Manual generation is only needed when adjusting configuration."
+    
+    Headers are auto-generated in automated builds and published in releases.
+
+The template uses [cbindgen](https://github.com/mozilla/cbindgen) to generate C and C++ header files from your Rust code.
+
+Using VSCode, press `Ctrl+Shift+P` → "Run Task" → Select one of:
+
+- **Generate C Bindings** - Generate C headers only
+- **Generate C++ Bindings** - Generate C++ headers only
+
+Or from command line:
+
+```bash
+cd src
+
+# Install cbindgen (one-time setup)
+cargo install cbindgen
+
+# Generate C bindings
+cbindgen --config ../.github/cbindgen_c.toml --output bindings/c/your-project.h your-project
+
+# Generate C++ bindings
+cbindgen --config ../.github/cbindgen_cpp.toml --output bindings/cpp/your-project.hpp your-project
+```
+
+Replace `your-project` with your actual project name. Configuration files are located in `.github/`:
+
+- `.github/cbindgen_c.toml` - C bindings configuration
+- `.github/cbindgen_cpp.toml` - C++ bindings configuration
+
 ## Automatic Header Generation
 
 !!! info
