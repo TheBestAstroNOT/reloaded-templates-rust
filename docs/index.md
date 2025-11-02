@@ -61,14 +61,6 @@ Once you generate a template, further instructions might await in your project's
 
     Visit the manual generated in your project's README for editor setup details.
 
-## Is this Page Broken?
-
-You probably forgot to clone the theme submodule to `docs/Reloaded`, try this:
-
-```bash
-git submodule add https://github.com/Reloaded-Project/Reloaded.MkDocsMaterial.Themes.R2.git docs/Reloaded
-```
-
 ## Technical Questions
 
 If you have questions/bug reports/etc. feel free to [Open an Issue](https://github.com/Reloaded-Project/reloaded-templates-rust/issues/new).
