@@ -2,6 +2,8 @@
 
 MkDocs documentation for the {{ gh_reponame }} project.
 
+Open the `doc` folder in VSCode as your workspace for documentation editing.
+
 ## Prerequisites
 
 **Python 3.7+** is required to build and serve the documentation.

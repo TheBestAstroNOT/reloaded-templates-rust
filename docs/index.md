@@ -55,6 +55,12 @@ The experience running through the template should look something like this:
 
 Once you generate a template, further instructions might await in your project's README file 😉.
 
+!!! info "Code Editor Setup"
+
+    After generating a project, open the `src` folder in your code editor for development.
+
+    Visit the manual generated in your project's README for editor setup details.
+
 ## Is this Page Broken?
 
 You probably forgot to clone the theme submodule to `docs/Reloaded`, try this:

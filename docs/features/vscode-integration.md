@@ -6,17 +6,38 @@ The Reloaded Project Template provides sane defaults for VSCode (Visual Studio C
 including testing, code coverage, and professional Rust development workflows.
 
 ## Quick Start
+
 Install the recommended VSCode extensions:
 
-- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) - Rust language server for IDE features
+- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) - Essential Rust language server providing IDE features (required for VSCode development)
 - [Coverage Gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters) - Visualize code coverage in your editor
 - [Crates](https://marketplace.visualstudio.com/items?itemName=serayuzgur.crates) - Manage crate dependencies and versions
 
 !!! info
     Coverage tools are automatically installed when you first run coverage tasks.
 
+## Workspace Structure
+
+The Reloaded template is designed to work with separate VSCode workspaces for different purposes:
+
+### Source Code Development (`src`)
+
+Open the `src` folder in VSCode when doing Rust development work. This folder contains your `Cargo.toml`, source code, and tests. When opened as your workspace root, VSCode features work automatically:
+
+- CodeLLDB debug profiles generate automatically
+- Ctrl+Shift+B build task runs without configuration
+- rust-analyzer provides full IDE features
+- All development tasks are immediately available
+
+### Documentation Editing (`doc`)
+
+Open the `doc` folder in VSCode when editing documentation. This folder contains your MkDocs project and markdown files. The doc workspace uses different VSCode settings optimized for documentation work.
+
+!!! info
+    VSCode features like CodeLLDB debug profiles and the default build task (Ctrl+Shift+B) require the workspace root to be your Rust project root—where `Cargo.toml` is located. Open `src` for development and `doc` for documentation to ensure each tool works correctly.
+
 ## Debugging
-Install the `CodeLLDB` extension for native debugging support. Debug profiles are automatically created when the extension is installed.
+Install the `CodeLLDB` extension for native debugging support. Debug profiles are automatically created when the extension is installed and the `src` folder is opened as your workspace root.
 
 ![VSCode Debugging](../assets/vscode-debug.avif)
 /// caption
@@ -88,6 +109,6 @@ Copy the template configuration files to your project and install the recommende
 - [templates/library/.vscode/settings.json](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.vscode/settings.json) - VSCode settings with `rust-analyzer` and coverage configuration
 - [templates/library/.vscode/tasks.json](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.vscode/tasks.json) - Pre-configured development tasks
 
-Create a `.vscode` directory in your project root and copy these files to enable full functionality.
+Create a `.vscode` directory in your Rust project root (where `Cargo.toml` is located) and copy these files. Then open your project's folder in VSCode to enable full functionality.
 
 See the [main documentation](../index.md#getting-started) for more details.

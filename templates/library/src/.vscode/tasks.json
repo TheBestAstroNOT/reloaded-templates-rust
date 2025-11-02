@@ -4,28 +4,22 @@
     {
       "label": "Auto Test on Save",
       "type": "shell",
-      "command": "cargo install cargo-watch --quiet && cargo watch -x \"test\" -w src/",
+      "command": "cargo install cargo-watch --quiet && cargo watch -x \"test\" -w {{project-name}}/src",
       "group": "test",
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     },
     {
       "label": "Auto Coverage on Save",
       "type": "shell",
-      "command": "cargo install cargo-watch --quiet && cargo install cargo-tarpaulin --quiet && cargo watch -x \"tarpaulin --skip-clean --out Xml --out Html --engine llvm --target-dir target/coverage-build\" -w src/",
+      "command": "cargo install cargo-watch --quiet && cargo install cargo-tarpaulin --quiet && cargo watch -x \"tarpaulin --skip-clean --out Xml --out Html --engine llvm --target-dir target/coverage-build\" -w {{project-name}}/src",
       "group": "test",
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     },
     {
       "label": "Fix Clippy Lints",
@@ -35,10 +29,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     }
 {%- if miri or bench or xplat %},{% endif -%}
 {% if miri %}
@@ -50,10 +41,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     }
 {%- if bench or xplat %},{% endif -%}
 {% if xplat and big_endian %}
@@ -65,10 +53,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     }
 {%- if bench or xplat %},{% endif -%}
 {% endif -%}
@@ -81,10 +66,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     }
 {%- if xplat %},{% endif -%}
 {% endif -%}{% if xplat %}
@@ -96,10 +78,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     },
     {
       "label": "Test Cross-Compile: Linux (x86)",
@@ -109,10 +88,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     },
     {
       "label": "Test Cross-Compile: Windows (x64) [Test on Linux via Wine]",
@@ -122,10 +98,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     },
     {
       "label": "Test Cross-Compile: Windows (x86) [Test on Linux via Wine]",
@@ -135,10 +108,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     }
 {%- if big_endian %},{% endif -%}
 {% if big_endian %}
@@ -150,10 +120,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     },
     {
       "label": "Test Cross-Compile: Linux (PowerPC 64-bit)",
@@ -163,10 +130,7 @@
       "presentation": {
         "reveal": "always"
       },
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/src"
-      }
+      "problemMatcher": []
     }
 {%- endif -%}
 {%- endif %}

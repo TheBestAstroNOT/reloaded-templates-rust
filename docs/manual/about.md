@@ -30,6 +30,8 @@ The following feature toggles control what appears in the manual:
 - **`xplat`** - Cross-platform compilation
 - **`c-bindings`** - C/C++ bindings generation
 - **`csharp-bindings`** - C# bindings generation
+- **`mkdocs`** - Documentation development workflow
+- **`contributing`** - Contributing guidelines
 
 ### Try It Out
 
@@ -42,12 +44,15 @@ Click any link below to see how the manual changes with different feature combin
 - [Only Cross-Platform](guide.md?xplat=true)
 - [Only C/C++ Bindings](guide.md?c-bindings=true)
 - [Only C# Bindings](guide.md?csharp-bindings=true)
+- [Only MkDocs](guide.md?mkdocs=true)
+- [Only Contributing](guide.md?contributing=true)
+- [Hide Contributing](guide.md?bench=true&pgo=true&xplat=true&c-bindings=true&csharp-bindings=true) — Shows all features except contributing
 
 **Popular Combinations:**
 
 - [Performance Bundle](guide.md?bench=true&pgo=true) — Benchmarking + PGO
 - [Cross-Platform Bundle](guide.md?xplat=true&c-bindings=true&csharp-bindings=true) — All cross-platform tools and bindings
-- [Everything](guide.md?bench=true&pgo=true&xplat=true&c-bindings=true&csharp-bindings=true) — All features enabled
+- [Everything](guide.md?bench=true&pgo=true&xplat=true&c-bindings=true&csharp-bindings=true&contributing=true) — All features enabled
 - [View All Features](guide.md) — No filtering (all features shown)
 
 ### URL Template Format

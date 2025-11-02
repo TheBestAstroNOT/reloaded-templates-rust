@@ -1,14 +1,16 @@
 # Template Manual
 
-This manual is organized by common development tasks - "How to DO X" - following a typical workflow from getting started to advanced optimization. Content is concise with links to detailed feature pages.
-
-Instructions default to VSCode workflows with CLI alternatives provided.
+This guide walks you through common development tasks—from getting started to advanced optimization—with links to detailed documentation as needed.
 
 ## Getting Started
 
+Open the `src` folder in your code editor for source development.
+
+**For CLI users:** All commands below assume you're in the `src` directory.
+
 ### Setup
 
-Install the recommended VSCode extensions:
+If using VSCode, install these recommended extensions:
 
 - **rust-analyzer** - Rust language server for IDE features
 - **Coverage Gutters** - Visualize code coverage in your editor
@@ -86,6 +88,32 @@ Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
 
 !!! info "Detailed Documentation"
     See [VSCode Integration](../features/vscode-integration.md)
+
+<div data-feature="mkdocs" markdown="1">
+
+## Working on Documentation
+
+!!! info
+    Documentation lives in the `doc/` folder and uses [MkDocs](https://www.mkdocs.org/) for building static sites.
+
+**If using VSCode:**
+
+Open the `doc/` folder in a new VSCode window (File → Open Folder) for formatting rules to apply.
+
+**From Command Line:**
+
+To preview documentation locally:
+
+```bash
+cd doc
+python3 start_docs.py
+```
+
+This starts a local server at `http://localhost:8000` with live reload.
+
+See `doc/README.md` for more information.
+
+</div>
 
 ## Development Workflow
 
@@ -401,37 +429,91 @@ Find generated bindings in `bindings/csharp/` directory.
 
 </div>
 
+<div data-feature="contributing" markdown="1">
+
+## Contributing
+
+We welcome contributions! This guide will help you get started with development and submit your changes.
+
+## Getting Started
+
+Open the `src` folder in your code editor for development.
+
+If you're using the command line instead, make sure you're in the `src` directory when running Rust commands.
+
+## Reporting Issues
+
+Before reporting a bug on the issue tracker, please:
+
+1. **Check existing issues** - Search for related keywords to see if someone has already reported the same issue
+2. **Provide clear details** - Include steps to reproduce, expected behavior, and actual behavior
+3. **Discuss major changes** - If your contribution is not straightforward, create an issue first to discuss the design before starting work
+
+## Pull Requests
+
+### One Change Per PR
+
+Keep pull requests focused and atomic. Try to do one logical change per pull request rather than bundling multiple unrelated changes together.
+
+### Commit Names
+
+When writing commit messages, follow the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) style to help maintain clear project history:
+
+- **Added** - for new features
+- **Changed** - for changes in existing functionality
+- **Deprecated** - for soon-to-be removed features
+- **Removed** - for now removed features
+- **Fixed** - for any bug fixes
+- **Security** - in case of vulnerabilities
+
+Example commit messages:
+```
+Added support for async operations
+Fixed memory leak in parser
+Changed API parameter order (breaking change)
+```
+
+</div>
+
 <script>
 // Dynamic feature filtering based on URL parameters
 document.addEventListener('DOMContentLoaded', function() {
     // Optional features that can be filtered
-    const optionalFeatures = ['bench', 'pgo', 'xplat', 'c-bindings', 'csharp-bindings'];
+    const optionalFeatures = ['bench', 'pgo', 'xplat', 'c-bindings', 'csharp-bindings', 'contributing', 'mkdocs'];
     
     // Get URL parameters
     const params = new URLSearchParams(window.location.search);
     
-    // Check if any filter parameters are present
-    let hasFilters = false;
+    // Track if any true filters are present
+    let hasTrueFilters = false;
     for (const feature of optionalFeatures) {
-        if (params.has(feature)) {
-            hasFilters = true;
+        if (params.get(feature) === 'true') {
+            hasTrueFilters = true;
             break;
         }
     }
     
-    // Apply filtering only if parameters are present
-    if (hasFilters) {
-        // Hide all optional feature sections by default
+    // First, hide sections explicitly set to false
+    for (const feature of optionalFeatures) {
+        if (params.get(feature) === 'false') {
+            const featureDivs = document.querySelectorAll(`[data-feature="${feature}"]`);
+            featureDivs.forEach(div => {
+                div.style.display = 'none';
+            });
+        }
+    }
+    
+    // Then, if any true flags present, hide all unspecified sections and show only true ones
+    if (hasTrueFilters) {
+        // Hide all optional feature sections
         const allFeatureDivs = document.querySelectorAll('[data-feature]');
         allFeatureDivs.forEach(div => {
             div.style.display = 'none';
         });
         
-        // Show sections that match the URL parameters
+        // Show only sections that are explicitly true
         for (const feature of optionalFeatures) {
-            const value = params.get(feature);
-            // Show section if parameter is "true"
-            if (value === 'true') {
+            if (params.get(feature) === 'true') {
                 const featureDivs = document.querySelectorAll(`[data-feature="${feature}"]`);
                 featureDivs.forEach(div => {
                     div.style.display = 'block';
@@ -439,6 +521,32 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    // If no filters, show all sections (default behavior)
+    
+    // Project name substitution
+    const projectName = params.get('project');
+    if (projectName) {
+        // Find all elements in the contributing section and replace [Project Name]
+        const contributingSection = document.querySelector('[data-feature="contributing"]');
+        if (contributingSection) {
+            // Replace in text nodes
+            const walker = document.createTreeWalker(
+                contributingSection,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            const textNodesToReplace = [];
+            while (walker.nextNode()) {
+                if (walker.currentNode.textContent.includes('[Project Name]')) {
+                    textNodesToReplace.push(walker.currentNode);
+                }
+            }
+            
+            textNodesToReplace.forEach(node => {
+                node.textContent = node.textContent.replace(/\[Project Name\]/g, projectName);
+            });
+        }
+    }
 });
 </script>
