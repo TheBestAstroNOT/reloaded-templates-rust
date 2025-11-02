@@ -33,23 +33,26 @@ This guide walks you through common development tasks—from getting started to 
 
 Install these recommended extensions:
 
-- **rust-analyzer** - Rust language server for IDE features
-- **Coverage Gutters** - Visualize code coverage in your editor
-- **Crates** - Manage crate dependencies and versions
+- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) - Rust language server for IDE features
+- [Coverage Gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters) - Visualize code coverage in your editor
+- [Crates](https://marketplace.visualstudio.com/items?itemName=serayuzgur.crates) - Manage crate dependencies and versions
 
 VSCode will prompt you to install these when you open the project, or install manually via the Extensions panel (`Ctrl+Shift+X`).
 
-## Getting Started
+## What are you editing?
 
-### What are you editing?
+Choose what you want to work on:
 
-#### Editing Source Code
+- [Editing Code](#editing-code) - Build, run, test, optimize, and create bindings
+- [Editing Documentation](#editing-documentation) - Write and preview docs
+
+## Editing Code
 
 Open the `src` folder in your code editor for source development.
 
 **For CLI users:** All commands below assume you're in the `src` directory.
 
-##### How to Build
+### How to Build
 
 **Using VSCode:**
 
@@ -63,11 +66,13 @@ cargo build  # for debug builds
 cargo build --release  # for optimized release builds
 ```
 
-##### How to Run
+### How to Run
 
 **Using VSCode:**
 
 Press `F5` or click the "Run and Debug" button to execute your project with debugging enabled.
+
+Select `CodeLLDB` if prompted with a list of languages/technologies.
 
 **From Command Line:**
 
@@ -77,7 +82,9 @@ cargo run  # run debug build
 cargo run --release  # run optimized release build
 ```
 
-##### How to Debug
+### How to Debug
+
+**If using VSCode:**
 
 Install the `CodeLLDB` extension for native debugging support. Debug profiles are automatically created when the extension is installed.
 
@@ -85,6 +92,16 @@ Install the `CodeLLDB` extension for native debugging support. Debug profiles ar
 /// caption
 Debugging Rust applications with CodeLLDB in VSCode
 ///
+
+!!! tip "For more info, see [VSCode Integration](../features/vscode-integration.md)"
+
+### How to Test
+
+**Using VSCode:**
+
+Access pre-configured testing tasks via `Ctrl+Shift+P` → "Run Task":
+
+- **Auto Test on Save** - Automatically run tests when files change
 
 ![Run Task](../assets/run-task.avif)
 /// caption
@@ -96,74 +113,6 @@ Access tasks via Ctrl+Shift+P → "Run Task"
 Pre-configured development tasks for testing and coverage
 ///
 
-![Clippy Linting](../assets/clippy-lints.avif)
-/// caption
-Clippy integration by default provides advanced linting out of the box
-///
-
-![Run Coverage Task](../assets/run-coverage-task.avif)
-/// caption
-Run "Auto Coverage on Save" task via Ctrl+Shift+P → "Run Task"
-///
-
-![Preview Coverage Report](../assets/coverage-report.avif)
-/// caption
-Preview coverage report via Ctrl+Shift+P → "Coverage Gutters: Preview Coverage Report"
-///
-
-![Coverage Gutters](../assets/coverage-gutters.avif)
-/// caption
-Coverage show covered (green) and uncovered (red) lines in editor.<br/>
-Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
-///
-
-!!! tip "For more info, see [VSCode Integration](../features/vscode-integration.md)"
-
-<div data-feature="mkdocs" markdown="1">
-
-#### Editing Documentation
-
-!!! tip "Documentation lives in the doc/ folder"
-    It uses [MkDocs](https://www.mkdocs.org/) for building static sites.
-
-**If using VSCode:**
-
-Open the `doc/` folder in a new VSCode window (File → Open Folder) for formatting rules to apply.
-
-**From Command Line:**
-
-To preview documentation locally:
-
-```bash
-cd doc
-python3 start_docs.py
-```
-
-This starts a local server at `http://localhost:8000` with live reload.
-
-See `doc/README.md` for more information.
-
-</div>
-
-## Development Workflow
-
-!!! info "GitHub Workflows"
-    This template includes issue and PR templates in the `.github` folder. See [GitHub Templates](../features/github-templates.md) for details.
-
-### How to Test & Check Coverage
-
-**Using VSCode:**
-
-Access pre-configured testing tasks via `Ctrl+Shift+P` → "Run Task":
-
-- **Auto Test on Save** - Automatically run tests when files change
-- **Auto Coverage on Save** - Automatically generate coverage reports when files change
-
-Access Coverage Gutters extension commands via `Ctrl+Shift+P`:
-
-- **Coverage Gutters: Watch** - Live coverage visualization in editor
-- **Coverage Gutters: Preview Coverage Report** - View HTML coverage report in browser
-
 **From Command Line:**
 
 ```bash
@@ -171,9 +120,71 @@ cd src
 cargo test  # run all tests
 ```
 
-When you push code, GitHub Actions automatically runs tests on Linux, Windows, and macOS—check the "Actions" tab and use Codecov dashboard to track coverage trends and find untested code.
+When you push code, GitHub Actions automatically runs tests on Linux, Windows, and macOS—check the "Actions" tab to see results.
 
 ![PR Checks](../assets/pr-checks.avif)
+
+!!! tip "For more info, see [Automated Testing & Publishing](../features/automated-testing-publishing.md)"
+
+### How to Lint
+
+!!! question "What is linting?"
+    Linting automatically checks your code for common mistakes, style issues, and potential bugs.<br/>
+    It's like a spell-checker for code that catches problems before you run your program.
+
+**Using VSCode:**
+
+Linting runs automatically in VSCode with the `rust-analyzer` extension. You'll see warnings and suggestions directly in your editor as you type.
+
+![Clippy Linting](../assets/clippy-lints.avif)
+/// caption
+Clippy integration provides advanced linting out of the box
+///
+
+**From Command Line:**
+
+```bash
+cd src
+cargo clippy  # run linter checks
+```
+
+Clippy will show warnings and suggestions to improve your code quality.
+
+### How to Check Coverage
+
+!!! question "What is coverage?"
+    Coverage shows which parts of your code are tested (green) and which aren't (red).<br/>
+    This helps you find gaps in your tests and improve code quality.
+
+**Using VSCode:**
+
+Access pre-configured coverage tasks via `Ctrl+Shift+P` → "Run Task":
+
+- **Auto Coverage on Save** - Automatically generate coverage reports when files change
+
+![Run Coverage Task](../assets/run-coverage-task.avif)
+/// caption
+Run "Auto Coverage on Save" task via Ctrl+Shift+P → "Run Task"
+///
+
+You can preview coverage in the IDE directly with 'Coverage Gutters':
+
+- **Coverage Gutters: Preview Coverage Report** - View HTML coverage report in browser
+
+![Preview Coverage Report](../assets/coverage-report.avif)
+/// caption
+Preview coverage report via Ctrl+Shift+P → "Coverage Gutters: Preview Coverage Report"
+///
+
+- **Coverage Gutters: Watch** - Live coverage visualization in editor (shows green/red lines)
+
+![Coverage Gutters](../assets/coverage-gutters.avif)
+/// caption
+Coverage show covered (green) and uncovered (red) lines in editor.<br/>
+Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
+///
+
+When you push code, use the Codecov dashboard (click the coverage badge in your README) to track coverage trends and find untested code:
 
 ![Codecov Dashboard](../assets/coverage-codecov.avif)
 
@@ -181,7 +192,12 @@ When you push code, GitHub Actions automatically runs tests on Linux, Windows, a
 
 !!! tip "For more info, see [Automated Testing & Publishing](../features/automated-testing-publishing.md)"
 
-### How to Check for Unsafe Code Issues
+### How to Check for Unsafe Code Issues and Undefined Behaviour
+
+!!! question "What is Miri?"
+    Miri detects memory bugs and undefined behaviour that normal tests miss.<br/>
+    Critical for mission-critical applications, low-level code, and projects using `unsafe` blocks.<br/>
+    Examples: out-of-bounds access, misaligned memory, arithmetic overflow.
 
 **Using VSCode:**
 
@@ -205,55 +221,27 @@ cargo +nightly miri test
 cargo +nightly miri test test_name
 ```
 
-Use when developing unsafe code or FFI bindings to detect memory safety issues.
+!!! warning "Miri is MUCH slower than normal tests"
+    This is expected—Miri thoroughly checks every memory operation. Use it primarily for projects with unsafe code, FFI bindings, or mission-critical applications.
 
 !!! tip "For more info, see [Miri Testing](../features/miri-testing.md)"
 
-## Performance & Optimization
-
 <div data-feature="bench" markdown="1">
 
-### How to Benchmark & Profile
+### How to Benchmark
 
-**Running Benchmarks:**
+!!! question "What is benchmarking?"
+    Benchmarking measures how fast your code runs.<br/>
+    Helps you track performance improvements and compare different implementations.
+
+**Run benchmarks:**
 
 ```bash
 cd src
 cargo bench  # run all benchmarks
 ```
 
-This measures performance and generates detailed HTML reports in `target/criterion/report/index.html`.
-
-**Profiling with Flamegraph:**
-
-Install flamegraph globally (one-time setup):
-
-```bash
-cargo install flamegraph
-# if on Linux, ensure `perf` and `objdump` are available/installed
-```
-
-Generate flamegraph profiles in your project:
-
-**Linux:**
-
-```bash
-cd src
-cargo flamegraph --bench my_benchmark --profile profile -- --bench
-```
-
-**Windows:**
-
-```bash
-cd src
-# Requires administrator privileges - run in admin command prompt or with sudo
-sudo cargo flamegraph --bench my_benchmark --profile profile -- --bench
-```
-
-!!! warning "Windows Limitations"
-    On Windows, cargo-flamegraph has limitations and requires administrator privileges. For detailed profiling on Windows, use Visual Studio Profiler or other Windows-specific tools instead.
-
-This visualizes call stacks and identifies bottlenecks. Store benchmarks in the `benches/` directory as separate modules.
+This generates detailed HTML reports in `target/criterion/report/index.html`.
 
 ![Benchmark CLI Output](../assets/benchmark-cli.avif)
 /// caption
@@ -270,50 +258,154 @@ Example generated HTML report showing performance trends
 Violin plot comparing different files or implementations
 ///
 
+**Add benchmarks:**
+
+Create benchmark modules in `benches/` directory. Example structure:
+
+```
+benches/
+├── main.rs          # Entry point
+└── my_bench.rs      # Your benchmarks
+```
+
+In `main.rs`:
+
+```rust
+mod my_bench;
+use criterion::{criterion_group, criterion_main, Criterion};
+use my_bench::bench_my_function;
+
+fn criterion_benchmark(c: &mut Criterion) {
+    bench_my_function(c);
+}
+
+criterion_group!(benches, criterion_benchmark);
+criterion_main!(benches);
+```
+
+In `my_bench.rs`:
+
+```rust
+use criterion::Criterion;
+
+pub fn bench_my_function(c: &mut Criterion) {
+    c.bench_function("my_function", |b| {
+        b.iter(|| {
+            // Code to benchmark here
+        })
+    });
+}
+```
+
+!!! tip "For more info, see [Performance Benchmarking & Profiling](../features/performance-benchmarking-profiling.md)"
+
+### How to Profile
+
+!!! question "What is profiling?"
+    Profiling identifies which parts of your code are slow (bottlenecks).<br/>
+    Use after benchmarking shows performance issues.
+
+Install [cargo-flamegraph](https://github.com/flamegraph-rs/flamegraph) globally (one-time setup):
+
+```bash
+cargo install cargo-flamegraph
+# if on Linux, ensure `perf` and `objdump` are available/installed
+```
+
+Generate flamegraph:
+
+=== "Linux & macOS"
+
+    ```bash
+    cd src
+    cargo flamegraph --bench my_benchmark --profile profile -- --bench
+    ```
+
+=== "Windows"
+
+    ```bash
+    cd src
+    # Requires administrator privileges - run in admin command prompt or with sudo
+    sudo cargo flamegraph --bench my_benchmark --profile profile -- --bench
+    ```
+
+Open the generated `flamegraph.svg` in your web browser to explore the interactive visualization.
+
 ![Flamegraph Example](../assets/flamegraph.avif)
 /// caption
 Interactive flamegraph showing function call hierarchy and time spent
 ///
 
-![Linux Perf CLI](../assets/profiling-linux-perf.avif)
-/// caption
-Linux perf command-line analysis
-///
+**Platform-specific tools:**
 
-![Linux Hotspot](../assets/profiling-linux-hotspot.avif)
-/// caption
-Hotspot GUI tool for visualizing perf profile data
-///
+=== "Linux"
 
-![Visual Studio Profiler](../assets/profiling-windows-visualstudio.avif)
-/// caption
-Visual Studio 2022 Community Profiler showing CPU usage
-///
+    After running the flamegraph command, a `perf.data` file will be created in your `src/` directory.
+    
+    Analyze it with `perf report` or Hotspot GUI:
 
-![Visual Studio Start](../assets/profiling-windows-vs-tutorial-1.avif)
-/// caption
-Visual Studio start screen
-///
+    ```bash
+    perf report perf.data
+    ```
 
-![Performance Profiler Menu](../assets/profiling-windows-vs-tutorial-2.avif)
-/// caption
-Select Debug → Performance Profiler
-///
+    ![Linux Perf CLI](../assets/profiling-linux-perf.avif)
+    /// caption
+    Linux perf command-line analysis
+    ///
 
-![Select Executable](../assets/profiling-windows-vs-tutorial-3.avif)
-/// caption
-Select the benchmark executable
-///
+    ![Linux Hotspot](../assets/profiling-linux-hotspot.avif)
+    /// caption
+    Hotspot GUI tool for visualizing perf profile data
+    ///
 
-![Navigate to Binary](../assets/profiling-windows-vs-tutorial-4.avif)
-/// caption
-Navigate to target/profile/deps/
-///
+=== "Windows"
 
-![Start Profiling](../assets/profiling-windows-vs-tutorial-5.avif)
-/// caption
-Enable CPU Usage and start profiling
-///
+    Use Visual Studio Profiler for detailed analysis. First, build benchmarks:
+
+    ```bash
+    cd src
+    cargo bench
+    ```
+
+    Then in Visual Studio:
+
+    1. Open Visual Studio → "Continue without code"
+
+        ![Visual Studio Start](../assets/profiling-windows-vs-tutorial-1.avif)
+        /// caption
+        Visual Studio start screen
+        ///
+
+    2. Select `Debug` → `Performance Profiler`
+
+        ![Performance Profiler Menu](../assets/profiling-windows-vs-tutorial-2.avif)
+        /// caption
+        Select Debug → Performance Profiler
+        ///
+
+    3. Choose `Executable` → Navigate to `target/profile/deps/my_benchmark-....exe`
+
+        ![Select Executable](../assets/profiling-windows-vs-tutorial-3.avif)
+        /// caption
+        Select the benchmark executable
+        ///
+
+        ![Navigate to Binary](../assets/profiling-windows-vs-tutorial-4.avif)
+        /// caption
+        Navigate to target/profile/deps/
+        ///
+
+    4. Enable `CPU Usage` → Click `Start`
+
+        ![Start Profiling](../assets/profiling-windows-vs-tutorial-5.avif)
+        /// caption
+        Enable CPU Usage and start profiling
+        ///
+
+        ![Visual Studio Profiler](../assets/profiling-windows-visualstudio.avif)
+        /// caption
+        Visual Studio 2022 Community Profiler showing CPU usage
+        ///
 
 !!! tip "For more info, see [Performance Benchmarking & Profiling](../features/performance-benchmarking-profiling.md)"
 
@@ -321,9 +413,13 @@ Enable CPU Usage and start profiling
 
 <div data-feature="pgo" markdown="1">
 
-### How to Use Profile Guided Optimization
+### How to Use Profile Guided Optimization (PGO)
 
-**Install globally (one-time setup):**
+!!! question "What is PGO?"
+    Profile Guided Optimization uses runtime statistics to make your code run faster.<br/>
+    The compiler learns how your code actually runs, then optimizes based on that data.
+
+Install [cargo-pgo](https://github.com/Kobzol/cargo-pgo) globally (one-time setup):
 
 ```bash
 cargo install cargo-pgo
@@ -358,11 +454,13 @@ Results showing performance improvement from PGO
 
 </div>
 
-## Cross-Platform & Bindings
-
 <div data-feature="xplat" markdown="1">
 
 ### How to Build for Other Platforms
+
+!!! question "Why cross-compile?"
+    Sometimes you want to build for other platforms, e.g. test Windows builds on Linux.<br/>
+    Cross-compilation lets you do this without switching operating systems.
 
 **Install globally (one-time setup):**
 
@@ -378,7 +476,7 @@ cross build --target x86_64-pc-windows-gnu  # build for Windows
 cross test --target aarch64-unknown-linux-gnu --release  # test for ARM64 Linux
 ```
 
-The `cross` tool uses Docker or Podman containers to handle cross-compilation automatically. Simply replace `cargo` with `cross` and specify your target platform.
+The `cross` tool uses [Docker](https://www.docker.com/) or [Podman](https://podman.io/) containers to handle cross-compilation automatically. Simply replace `cargo` with `cross` and specify your target platform.
 
 !!! tip "For more info, see [Cross Compilation](../features/cross-compilation.md)"
 
@@ -387,6 +485,10 @@ The `cross` tool uses Docker or Podman containers to handle cross-compilation au
 <div data-feature="c-bindings" markdown="1">
 
 ### How to Create C/C++ Bindings
+
+!!! question "Why create bindings?"
+    Sometimes you may want to run your Rust code outside of Rust.<br/>
+    C/C++ bindings let you call your Rust functions from C, C++, or any language with C interop.
 
 **Export functions:**
 
@@ -427,17 +529,54 @@ Customize generation in `build.rs` using [csbindgen](https://github.com/Cysharp/
 
 </div>
 
+<div data-feature="mkdocs" markdown="1">
+
+## Editing Documentation
+
+!!! tip "Documentation lives in the doc/ folder"
+    It uses [MkDocs](https://www.mkdocs.org/) for building static sites.
+
+**If using VSCode:**
+
+Open the `doc/` folder in a new VSCode window (File → Open Folder) for formatting rules to apply.
+
+Open a terminal and run:
+
+```bash
+python3 start_docs.py
+```
+
+Ctrl+click the `http://localhost:8000` link in the terminal output to open the docs in your browser.
+
+**From Command Line:**
+
+To preview documentation locally:
+
+```bash
+cd doc
+python3 start_docs.py
+```
+
+This starts a local server at `http://localhost:8000` with live reload.
+
+See `doc/README.md` for more information.
+
+</div>
+
 <div data-feature="contributing" markdown="1">
 
 ## Contributing
 
-### Pull Requests
+!!! question "Want to contribute?"
+    Follow these guidelines to keep the project history clean and organized.<br/>
+    These practices make code review easier and help maintain project quality.<br/>
+    Not sure about something? Just ask—whether it's "is it okay to work on this?" or "how do I do this?"
 
-#### One Change Per PR
+### One Change Per PR
 
 Keep pull requests focused and atomic. Try to do one logical change per pull request rather than bundling multiple unrelated changes together.
 
-#### Commit Names
+### Commit Names
 
 When writing commit messages, follow the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) style to help maintain clear project history:
 
