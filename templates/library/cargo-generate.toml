@@ -2,7 +2,6 @@
 cargo_generate_version = ">=0.18.3"
 ignore = ["pre-script.rhai"]
 exclude = [
-    "assets/profile_example.png",
     ".github/workflows/auto-changelog.yml",
     ".github/workflows/deploy-mkdocs.yml",
     "doc/docs/vendor/Reloaded/Images/Nexus-Heart-40.avif",
