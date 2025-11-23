@@ -35,7 +35,8 @@ Open the `doc` folder in VSCode as your workspace for documentation editing.
 From the project root directory:
 
 ```bash
-python3 start_docs.py
+python start_docs.py
+# or `python3 start_docs.py`
 ```
 
 This script will:

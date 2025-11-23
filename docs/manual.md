@@ -551,7 +551,8 @@ Open the `doc/` folder in a new VSCode window (File → Open Folder) for formatt
 Open a terminal and run:
 
 ```bash
-python3 start_docs.py
+python start_docs.py
+# or `python3 start_docs.py`
 ```
 
 Ctrl+click the `http://localhost:8000` link in the terminal output to open the docs in your browser.
@@ -562,7 +563,8 @@ To preview documentation locally:
 
 ```bash
 cd doc
-python3 start_docs.py
+python start_docs.py
+# or `python3 start_docs.py`
 ```
 
 This starts a local server at `http://localhost:8000` with live reload.
