@@ -539,6 +539,46 @@ Customize generation in `build.rs` using [csbindgen](https://github.com/Cysharp/
 
 !!! tip "For more info, see [C# Bindings](features/bindings/csharp-bindings.md)"
 
+### How to Fuzz
+
+!!! question "What is fuzzing?"
+    Fuzzing automatically generates random inputs to find crashes, bugs, and security vulnerabilities.<br/>
+    It's especially useful for testing parsers, file format handlers, and untrusted input processing.<br/>
+    Examples: buffer overflows, panics on malformed data, edge case failures.
+
+**Using VSCode:**
+
+Press `Ctrl+Shift+P` → "Run Task" → Select `List Fuzz Targets` to see available targets.
+
+Then run a target from the command line using the command shown in the target file's header comment.
+
+**From Command Line:**
+
+First install cargo-fuzz (one-time setup):
+
+```bash
+cargo install cargo-fuzz
+```
+
+Run a fuzz target in your project:
+
+```bash
+cd src
+cargo +nightly fuzz run fuzz_example
+
+# List available fuzz targets
+cargo +nightly fuzz list
+```
+
+!!! warning "Fuzzing requires nightly Rust"
+    Fuzzing uses unstable compiler features. Use `cargo +nightly` to select the nightly toolchain.
+
+!!! info "Windows Users"
+    Follow the [Windows setup guide](https://rust-fuzz.github.io/book/cargo-fuzz/windows/setup.html) first.
+    Run fuzz commands from **Developer PowerShell for VS 20XX** or **x64 Native Tools Command Prompt for VS 20XX**.
+
+!!! tip "For more info, see [Fuzzing](features/fuzzing.md)"
+
 ## Editing Documentation
 
 !!! tip "Documentation lives in the doc/ folder"

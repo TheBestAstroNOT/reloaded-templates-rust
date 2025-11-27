@@ -163,6 +163,7 @@ def run_integration_test(
         print_info(f"  Big-Endian: {config['BigEndian']}")
         print_info(f"  C Libraries: {config['BuildCLibs']}")
         print_info(f"  C# Bindings: {config['BuildCSharpLibs']}")
+        print_info(f"  Fuzz: {config['Fuzz']}")
         print()
         
         # Build command line arguments
@@ -182,7 +183,8 @@ def run_integration_test(
             f"--build-c-libs-with-pgo={'true' if config['BuildCLibsWithPgo'] else 'false'}",
             f"--publish-crate-on-tag={'true' if config['PublishCrateOnTag'] else 'false'}",
             f"--license={config['License']}",
-            f"--no-std={config['NoStd']}"
+            f"--no-std={config['NoStd']}",
+            f"--fuzz={'true' if config['Fuzz'] else 'false'}"
         ]
         
         # Run the test
@@ -219,6 +221,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': False,
             'BuildCLibsWithPgo': True,
@@ -236,6 +239,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': True,
+            'Fuzz': True,
             'BuildCLibs': True,
             'BuildCSharpLibs': True,
             'BuildCLibsWithPgo': True,
@@ -253,6 +257,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': False,
             'Bench': False,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': False,
             'BuildCSharpLibs': False,
             'BuildCLibsWithPgo': False,
@@ -270,6 +275,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': True,
             'BuildCLibsWithPgo': True,
@@ -287,6 +293,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': False,
             'BuildCLibsWithPgo': True,
@@ -304,6 +311,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': False,
             'BuildCLibsWithPgo': True,

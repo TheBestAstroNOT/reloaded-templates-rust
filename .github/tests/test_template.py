@@ -58,6 +58,7 @@ class TemplateTestConfig:
         self.wine = args.wine
         self.bench = args.bench
         self.miri = args.miri
+        self.fuzz = args.fuzz
         self.build_c_libs = args.build_c_libs
         self.build_csharp_libs = args.build_csharp_libs
         self.build_c_libs_with_pgo = args.build_c_libs_with_pgo
@@ -127,6 +128,15 @@ class TemplateValidator:
             errors += self._check_exists("flake.nix", "Nix flake file")
         else:
             errors += self._check_not_exists("flake.nix", "Nix flake file")
+        
+        # Fuzz validation
+        if self.config.fuzz:
+            errors += self._check_exists("src/fuzz/Cargo.toml", "Fuzz Cargo.toml")
+            errors += self._check_exists("src/fuzz/fuzz_targets/fuzz_example.rs", "Fuzz example target")
+            errors += self._validate_fuzz_target_header()
+            errors += self._validate_fuzz_tasks()
+        else:
+            errors += self._check_not_exists("src/fuzz", "Fuzz directory")
         
         # License validation
         errors += self._check_exists("LICENSE", "Main license file")
@@ -223,6 +233,67 @@ class TemplateValidator:
             errors += self._check_not_exists(license_file, f"Unused {license_file}")
         
         return errors
+    
+    def _validate_fuzz_target_header(self) -> int:
+        """Validate fuzz target file has proper header comment."""
+        fuzz_target = self.project_path / "src/fuzz/fuzz_targets/fuzz_example.rs"
+        if not fuzz_target.exists():
+            logger.error("✗ Fuzz target file not found for header validation")
+            return 1
+        
+        try:
+            content = fuzz_target.read_text()
+            errors = 0
+            
+            # Check for tutorial URL
+            if "https://rust-fuzz.github.io/book/cargo-fuzz/tutorial.html" not in content:
+                logger.error("✗ Fuzz target missing cargo-fuzz tutorial URL in header")
+                errors += 1
+            
+            # Check for run command
+            if "cargo +nightly fuzz run fuzz_example" not in content:
+                logger.error("✗ Fuzz target missing run command in header")
+                errors += 1
+            
+            if errors == 0:
+                logger.debug("✓ Fuzz target header validation passed")
+            return errors
+        except Exception as e:
+            logger.error(f"✗ Error reading fuzz target file: {e}")
+            return 1
+    
+    def _validate_fuzz_tasks(self) -> int:
+        """Validate VSCode tasks for fuzzing."""
+        if not self.config.vscode:
+            return 0
+        
+        tasks_file = self.project_path / "src/.vscode/tasks.json"
+        if not tasks_file.exists():
+            logger.error("✗ VSCode tasks.json not found for fuzz task validation")
+            return 1
+        
+        try:
+            with open(tasks_file, 'r') as f:
+                content = f.read()
+            
+            errors = 0
+            
+            # Check that "Run Fuzzer" task is NOT present
+            if '"label": "Run Fuzzer"' in content:
+                logger.error("✗ tasks.json should not contain 'Run Fuzzer' task")
+                errors += 1
+            
+            # Check that "List Fuzz Targets" task IS present
+            if '"label": "List Fuzz Targets"' not in content:
+                logger.error("✗ tasks.json missing 'List Fuzz Targets' task")
+                errors += 1
+            
+            if errors == 0:
+                logger.debug("✓ Fuzz tasks validation passed")
+            return errors
+        except Exception as e:
+            logger.error(f"✗ Error reading tasks.json: {e}")
+            return 1
     
     def validate_file_formats(self) -> bool:
         """Validate all JSON, TOML, and YAML files are well-formed."""
@@ -430,6 +501,7 @@ def generate_project(config: TemplateTestConfig, temp_dir: Path) -> Tuple[bool, 
         "--define", f"wine={str(config.wine).lower()}",
         "--define", f"bench={str(config.bench).lower()}",
         "--define", f"miri={str(config.miri).lower()}",
+        "--define", f"fuzz={str(config.fuzz).lower()}",
         "--define", f"build_c_libs={str(config.build_c_libs).lower()}",
         "--define", f"publish_crate_on_tag={str(config.publish_crate_on_tag).lower()}",
         "--define", f"license={config.license}",
@@ -519,6 +591,12 @@ def parse_args() -> argparse.Namespace:
         type=lambda x: x.lower() == "true",
         default=False,
         help="Include Miri for unsafe code detection (default: false)"
+    )
+    parser.add_argument(
+        "--fuzz",
+        type=lambda x: x.lower() == "true",
+        default=False,
+        help="Include fuzz testing configuration (default: false)"
     )
     parser.add_argument(
         "--build-c-libs",

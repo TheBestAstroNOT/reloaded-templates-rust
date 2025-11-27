@@ -1,6 +1,9 @@
 [workspace]
 resolver = "2"
-members = ["{{project-name}}"]
+members = [
+    "{{project-name}}"{% if fuzz %},
+    "fuzz"{% endif %}
+]
 
 # Profile Build
 [profile.profile]

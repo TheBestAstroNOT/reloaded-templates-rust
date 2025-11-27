@@ -69,6 +69,7 @@ nav:
       - VSCode Integration: features/vscode-integration.md
       - Automated Testing & Publishing: features/automated-testing-publishing.md
       - Miri - Undefined Behavior Detection: features/miri-testing.md
+      - Fuzzing: features/fuzzing.md
       - License Options: features/license-options.md
       - Performance Benchmarking & Profiling: features/performance-benchmarking-profiling.md
       - Cross Compilation: features/cross-compilation.md

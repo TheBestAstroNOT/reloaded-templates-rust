@@ -31,7 +31,7 @@
       },
       "problemMatcher": []
     }
-{%- if build_c_libs or miri or bench or xplat %},{% endif -%}
+{%- if build_c_libs or miri or fuzz or bench or xplat %},{% endif -%}
 {%- if build_c_libs %}
     {
       "label": "Generate C Bindings",
@@ -53,7 +53,7 @@
       },
       "problemMatcher": []
     }
-{%- if miri or bench or xplat %},{% endif -%}
+{%- if miri or fuzz or bench or xplat %},{% endif -%}
 {%- endif %}
 {% if miri %}
     {
@@ -66,7 +66,7 @@
       },
       "problemMatcher": []
     }
-{%- if bench or xplat %},{% endif -%}
+{%- if fuzz or bench or xplat %},{% endif -%}
 {% if xplat and big_endian %}
     {
       "label": "Run Tests to Detect Undefined Behaviour (Big Endian)",
@@ -78,8 +78,20 @@
       },
       "problemMatcher": []
     }
-{%- if bench or xplat %},{% endif -%}
+{%- if fuzz or bench or xplat %},{% endif -%}
 {% endif -%}
+{% endif -%}{% if fuzz %}
+    {
+      "label": "List Fuzz Targets",
+      "type": "shell",
+      "command": "cargo install cargo-fuzz --quiet && cargo +nightly fuzz list",
+      "group": "test",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    }
+{%- if bench or xplat %},{% endif -%}
 {% endif -%}{% if bench %}
     {
       "label": "Run Benchmarks",
