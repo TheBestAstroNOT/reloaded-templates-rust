@@ -403,7 +403,9 @@ class TemplateValidator:
             ["cargo", "check"],
             cwd=src_dir,
             capture_output=True,
-            text=True
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         if result.returncode != 0:
             logger.error("✗ cargo check failed")
@@ -417,7 +419,9 @@ class TemplateValidator:
             ["cargo", "build"],
             cwd=src_dir,
             capture_output=True,
-            text=True
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         if result.returncode != 0:
             logger.error("✗ cargo build failed")
@@ -431,7 +435,9 @@ class TemplateValidator:
             ["cargo", "test"],
             cwd=src_dir,
             capture_output=True,
-            text=True
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         if result.returncode != 0:
             logger.error("✗ cargo test failed")
@@ -460,7 +466,9 @@ class TemplateValidator:
             [sys.executable, "-m", "mkdocs", "build", "--strict"],
             cwd=doc_dir,
             capture_output=True,
-            text=True
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         if result.returncode != 0:
             logger.error("✗ mkdocs build failed")
@@ -521,7 +529,7 @@ def generate_project(config: TemplateTestConfig, temp_dir: Path) -> Tuple[bool, 
     logger.debug(f"Running: {' '.join(cmd)}")
     
     # Run cargo-generate
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
     if result.returncode != 0:
         logger.error("✗ cargo-generate failed")
         logger.error(result.stderr)

@@ -67,7 +67,9 @@ def run_command(cmd: list, cwd: Optional[Path] = None, check: bool = True, verbo
             cwd=cwd,
             check=check,
             capture_output=not verbose,
-            text=True
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         return result
     except subprocess.CalledProcessError as e:
@@ -332,7 +334,10 @@ def check_prerequisites(verbose: bool = False) -> bool:
         subprocess.run(
             ["cargo", "install", "cargo-generate", "--quiet"],
             check=True,
-            capture_output=True
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         print_success("cargo-generate ready")
     except subprocess.CalledProcessError:
