@@ -19,3 +19,6 @@ path = "fuzz_targets/fuzz_example.rs"
 test = false
 doc = false
 bench = false
+
+# Declare as standalone workspace to avoid being pulled into parent workspace
+[workspace]
