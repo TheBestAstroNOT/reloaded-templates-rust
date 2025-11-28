@@ -61,7 +61,8 @@ class TemplateTestConfig:
         self.fuzz = args.fuzz
         self.build_c_libs = args.build_c_libs
         self.build_csharp_libs = args.build_csharp_libs
-        self.build_c_libs_with_pgo = args.build_c_libs_with_pgo
+        self.build_with_pgo = args.build_with_pgo
+        self.build_cli = args.build_cli
         self.publish_crate_on_tag = args.publish_crate_on_tag
         self.license = args.license
         self.no_std = args.no_std
@@ -137,6 +138,13 @@ class TemplateValidator:
             errors += self._validate_fuzz_tasks()
         else:
             errors += self._check_not_exists("src/fuzz", "Fuzz directory")
+        
+        # CLI validation
+        if self.config.build_cli:
+            errors += self._check_exists("src/cli/Cargo.toml", "CLI Cargo.toml")
+            errors += self._check_exists("src/cli/src/main.rs", "CLI main.rs")
+        else:
+            errors += self._check_not_exists("src/cli", "CLI directory")
         
         # License validation
         errors += self._check_exists("LICENSE", "Main license file")
@@ -511,6 +519,7 @@ def generate_project(config: TemplateTestConfig, temp_dir: Path) -> Tuple[bool, 
         "--define", f"miri={str(config.miri).lower()}",
         "--define", f"fuzz={str(config.fuzz).lower()}",
         "--define", f"build_c_libs={str(config.build_c_libs).lower()}",
+        "--define", f"build_cli={str(config.build_cli).lower()}",
         "--define", f"publish_crate_on_tag={str(config.publish_crate_on_tag).lower()}",
         "--define", f"license={config.license}",
         "--define", f"no_std_support={config.no_std}",
@@ -523,8 +532,8 @@ def generate_project(config: TemplateTestConfig, temp_dir: Path) -> Tuple[bool, 
     if config.build_c_libs:
         cmd.extend(["--define", f"build_csharp_libs={str(config.build_csharp_libs).lower()}"])
     
-    if config.bench and config.build_c_libs:
-        cmd.extend(["--define", f"build_c_libs-with-pgo={str(config.build_c_libs_with_pgo).lower()}"])
+    if config.bench and (config.build_c_libs or config.build_cli):
+        cmd.extend(["--define", f"build_with_pgo={str(config.build_with_pgo).lower()}"])
     
     logger.debug(f"Running: {' '.join(cmd)}")
     
@@ -619,10 +628,16 @@ def parse_args() -> argparse.Namespace:
         help="Build C# bindings (default: false)"
     )
     parser.add_argument(
-        "--build-c-libs-with-pgo",
+        "--build-with-pgo",
         type=lambda x: x.lower() == "true",
         default=True,
-        help="Build C libs with PGO (default: true)"
+        help="Enable PGO (Profile Guided Optimization) (default: true)"
+    )
+    parser.add_argument(
+        "--build-cli",
+        type=lambda x: x.lower() == "true",
+        default=False,
+        help="Include CLI executable wrapper project (default: false)"
     )
     parser.add_argument(
         "--publish-crate-on-tag",

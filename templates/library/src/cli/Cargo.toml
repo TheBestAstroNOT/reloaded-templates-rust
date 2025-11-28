@@ -1,0 +1,10 @@
+[package]
+name = "{{project-name}}-cli"
+version = "0.1.0"
+edition = "2021"
+description = "CLI for {{project_description}}"
+repository = "https://github.com/{{gh_username}}/{{project-name}}"
+license-file = "LICENSE"
+
+[dependencies]
+{{project-name}} = { path = "../{{project-name}}" }

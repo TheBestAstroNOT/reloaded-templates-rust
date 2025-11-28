@@ -165,6 +165,7 @@ def run_integration_test(
         print_info(f"  Big-Endian: {config['BigEndian']}")
         print_info(f"  C Libraries: {config['BuildCLibs']}")
         print_info(f"  C# Bindings: {config['BuildCSharpLibs']}")
+        print_info(f"  CLI: {config['BuildCli']}")
         print_info(f"  Fuzz: {config['Fuzz']}")
         print()
         
@@ -182,7 +183,8 @@ def run_integration_test(
             f"--miri={'true' if config['Miri'] else 'false'}",
             f"--build-c-libs={'true' if config['BuildCLibs'] else 'false'}",
             f"--build-csharp-libs={'true' if config['BuildCSharpLibs'] else 'false'}",
-            f"--build-c-libs-with-pgo={'true' if config['BuildCLibsWithPgo'] else 'false'}",
+            f"--build-with-pgo={'true' if config['BuildWithPgo'] else 'false'}",
+            f"--build-cli={'true' if config['BuildCli'] else 'false'}",
             f"--publish-crate-on-tag={'true' if config['PublishCrateOnTag'] else 'false'}",
             f"--license={config['License']}",
             f"--no-std={config['NoStd']}",
@@ -226,7 +228,8 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': False,
-            'BuildCLibsWithPgo': True,
+            'BuildWithPgo': True,
+            'BuildCli': False,
             'PublishCrateOnTag': True,
             'License': 'GPL v3 (with Reloaded FAQ)',
             'NoStd': 'STD'
@@ -244,7 +247,8 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Fuzz': True,
             'BuildCLibs': True,
             'BuildCSharpLibs': True,
-            'BuildCLibsWithPgo': True,
+            'BuildWithPgo': True,
+            'BuildCli': True,
             'PublishCrateOnTag': True,
             'License': 'MIT',
             'NoStd': 'STD'
@@ -262,7 +266,8 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Fuzz': False,
             'BuildCLibs': False,
             'BuildCSharpLibs': False,
-            'BuildCLibsWithPgo': False,
+            'BuildWithPgo': False,
+            'BuildCli': False,
             'PublishCrateOnTag': False,
             'License': 'Apache 2.0',
             'NoStd': 'STD'
@@ -280,7 +285,8 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': True,
-            'BuildCLibsWithPgo': True,
+            'BuildWithPgo': True,
+            'BuildCli': False,
             'PublishCrateOnTag': True,
             'License': 'GPL v3 (with Reloaded FAQ)',
             'NoStd': 'STD'
@@ -298,7 +304,8 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': False,
-            'BuildCLibsWithPgo': True,
+            'BuildWithPgo': True,
+            'BuildCli': False,
             'PublishCrateOnTag': True,
             'License': 'GPL v3 (with Reloaded FAQ)',
             'NoStd': 'STD'
@@ -316,7 +323,8 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': False,
-            'BuildCLibsWithPgo': True,
+            'BuildWithPgo': True,
+            'BuildCli': False,
             'PublishCrateOnTag': True,
             'License': 'GPL v3 (with Reloaded FAQ)',
             'NoStd': 'STD'
@@ -355,7 +363,7 @@ def main() -> int:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s                           # Run all 6 test configurations
+  %(prog)s                           # Run all test configurations
   %(prog)s --verbose                 # Show detailed output
         """
     )
