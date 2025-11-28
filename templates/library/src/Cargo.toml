@@ -1,3 +1,6 @@
+{% if fuzz %}
+# 'fuzz' is not included here as it will fail on Windows, requires nightly, and will confuse newbies
+{% endif %}
 [workspace]
 resolver = "2"
 members = ["{{project-name}}"]

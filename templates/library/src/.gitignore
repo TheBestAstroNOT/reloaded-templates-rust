@@ -1,5 +1,7 @@
 target
 /fuzz/hfuzz_target
+/fuzz/corpus
+/fuzz/artifacts
 
 # Profiling files
 perf.data.old

@@ -86,6 +86,15 @@ type = "bool"
 prompt = "Will you write advanced, unsafe, or mission-critical code? (Adds Miri to detect undefined behaviour)"
 default = false
 
+## Fuzz
+[placeholders.fuzz]
+type = "bool"
+prompt = "Include Fuzz Testing Configuration? (Requires nightly Rust)"
+default = false
+
+[conditional.'fuzz == false']
+ignore = ["src/fuzz"]
+
 ## Build C Libraries
 [placeholders.build_c_libs]
 type = "bool"

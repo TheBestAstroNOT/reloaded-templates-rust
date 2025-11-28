@@ -67,7 +67,9 @@ def run_command(cmd: list, cwd: Optional[Path] = None, check: bool = True, verbo
             cwd=cwd,
             check=check,
             capture_output=not verbose,
-            text=True
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         return result
     except subprocess.CalledProcessError as e:
@@ -163,6 +165,7 @@ def run_integration_test(
         print_info(f"  Big-Endian: {config['BigEndian']}")
         print_info(f"  C Libraries: {config['BuildCLibs']}")
         print_info(f"  C# Bindings: {config['BuildCSharpLibs']}")
+        print_info(f"  Fuzz: {config['Fuzz']}")
         print()
         
         # Build command line arguments
@@ -182,7 +185,8 @@ def run_integration_test(
             f"--build-c-libs-with-pgo={'true' if config['BuildCLibsWithPgo'] else 'false'}",
             f"--publish-crate-on-tag={'true' if config['PublishCrateOnTag'] else 'false'}",
             f"--license={config['License']}",
-            f"--no-std={config['NoStd']}"
+            f"--no-std={config['NoStd']}",
+            f"--fuzz={'true' if config['Fuzz'] else 'false'}"
         ]
         
         # Run the test
@@ -219,6 +223,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': False,
             'BuildCLibsWithPgo': True,
@@ -236,6 +241,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': True,
+            'Fuzz': True,
             'BuildCLibs': True,
             'BuildCSharpLibs': True,
             'BuildCLibsWithPgo': True,
@@ -253,6 +259,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': False,
             'Bench': False,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': False,
             'BuildCSharpLibs': False,
             'BuildCLibsWithPgo': False,
@@ -270,6 +277,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': True,
             'BuildCLibsWithPgo': True,
@@ -287,6 +295,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': False,
             'BuildCLibsWithPgo': True,
@@ -304,6 +313,7 @@ def get_test_configurations() -> Dict[str, Dict[str, Any]]:
             'Wine': True,
             'Bench': True,
             'Miri': False,
+            'Fuzz': False,
             'BuildCLibs': True,
             'BuildCSharpLibs': False,
             'BuildCLibsWithPgo': True,
@@ -324,7 +334,10 @@ def check_prerequisites(verbose: bool = False) -> bool:
         subprocess.run(
             ["cargo", "install", "cargo-generate", "--quiet"],
             check=True,
-            capture_output=True
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         print_success("cargo-generate ready")
     except subprocess.CalledProcessError:
