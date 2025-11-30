@@ -13,7 +13,7 @@ readme = "README.MD"
 default = ["std"]
 std = []
 {% endif -%}
-{% if build_c_libs-with-pgo -%}
+{% if build_with_pgo -%}
 # See README.md for more information on using Profile-Guided Optimization.
 pgo = []
 {% endif -%}

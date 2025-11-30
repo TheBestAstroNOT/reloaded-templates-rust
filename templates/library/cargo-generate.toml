@@ -109,6 +109,15 @@ ignore = [
     "src/bindings/csharp",
 ]
 
+## Build CLI Executable
+[placeholders.build_cli]
+type = "bool"
+prompt = "Include CLI executable wrapper project?"
+default = false
+
+[conditional.'build_cli == false']
+ignore = ["src/cli"]
+
 ## Build C# Bindings
 [conditional.'build_c_libs == true'.placeholders]
 build_csharp_libs = { type = "bool", prompt = "Build C# Bindings?", default = false }
@@ -116,9 +125,9 @@ build_csharp_libs = { type = "bool", prompt = "Build C# Bindings?", default = fa
 [conditional.'build_csharp_libs == false']
 ignore = ["src/bindings/csharp"]
 
-## Add PGO to C Libraries
-[conditional.'bench == true && build_c_libs == true'.placeholders]
-build_c_libs-with-pgo = { type = "bool", prompt = "Build C Libraries with PGO? (Profile Guided Optimization)", default = true }
+## Add PGO (Profile-Guided Optimization)
+[conditional.'bench == true && (build_c_libs == true || build_cli == true)'.placeholders]
+build_with_pgo = { type = "bool", prompt = "Enable PGO? (Profile Guided Optimization)", default = true }
 
 ## Publish Crate on crates.io
 [placeholders.publish_crate_on_tag]

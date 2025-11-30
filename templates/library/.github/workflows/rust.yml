@@ -9,9 +9,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-{% if build_c_libs %}
+{% if build_with_pgo %}
 env:
-  build-with-pgo: {% if build_c_libs-with-pgo %}true{% else %}false{% endif %}
+  build-with-pgo: {% if build_with_pgo %}true{% else %}false{% endif %}
 {%- endif %}
 
 jobs:
@@ -21,65 +21,65 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: true
             {%- endif %}
             use-cross: false
 {%- if xplat %}
           - os: ubuntu-latest
             target: i686-unknown-linux-gnu
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: true
             {%- endif %}
             use-cross: false
           - os: ubuntu-latest
             target: aarch64-unknown-linux-gnu
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: false # no native runner
             {%- endif %}
             use-cross: true
           - os: ubuntu-latest
             target: armv7-unknown-linux-gnueabihf
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: false # no native runner
             {%- endif %}
             use-cross: true
 
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: true
             {%- endif %}
             use-cross: false
           - os: windows-latest
             target: i686-pc-windows-msvc
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: true
             {%- endif %}
             use-cross: false
 
           - os: macos-15-intel # x86
             target: x86_64-apple-darwin
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: true
             {%- endif %}
             use-cross: false
           - os: macos-latest # M1
             target: aarch64-apple-darwin
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: true
             {%- endif %}
             use-cross: false
 {%- if big_endian %}
           - os: ubuntu-latest
             target: powerpc-unknown-linux-gnu
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: false # no native runner
             {%- endif %}
             use-cross: true
           - os: ubuntu-latest
             target: powerpc64-unknown-linux-gnu
-            {%- if build_c_libs %}
+            {%- if build_with_pgo %}
             use-pgo: false # no native runner
             {%- endif %}
             use-cross: true
@@ -119,6 +119,21 @@ jobs:
           target: {% raw %}${{ matrix.target }}{% endraw %}
           use-cross: {% raw %}${{ matrix.use-cross }}{% endraw %}
 
+{%- endif %}
+{%- if build_cli %}
+
+      - name: Build CLI Binary
+        uses: Reloaded-Project/devops-rust-lightweight-binary@v1
+        with:
+          crate-name: {{project-name}}-cli
+          target: {% raw %}${{ matrix.target }}{% endraw %}
+          use-pgo: {% raw %}${{ matrix.use-pgo && env.build-with-pgo }}{% endraw %}
+          use-cross: {% raw %}${{ matrix.use-cross }}{% endraw %}
+          build-library: false
+          run-tests-and-coverage: false
+          rust-project-path: src/cli
+          workspace-path: src
+          pgo-project-path: src/{{project-name}}
 {%- endif %}
       # Note: The GitHub Runner Images will contain an up to date Rust Stable Toolchain
       #       thus as per recommendation of cargo-semver-checks, we're using stable here.
