@@ -48,6 +48,11 @@ Choose what you want to work on:
 
 ## Editing Code
 
+!!! note "Optional Features"
+
+    Some features below (e.g. `benchmarks`, `fuzzing`, `bindings`) are only included in certain project configurations.<br/>
+    You can use the `Integrate with Non-Template Projects` section(s) under the `Features` pages to add them to an existing project.
+
 Open the `src` folder in your code editor for source development.
 
 **For CLI users:** All commands below assume you're in the `src` directory.
