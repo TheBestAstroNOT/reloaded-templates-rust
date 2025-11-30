@@ -233,7 +233,15 @@ Build the benchmark binary without running it:
 
 ```bash
 cd src
-cargo bench
+cargo bench --no-run
+```
+
+You will see the built binaries in the console log:
+
+```
+Executable benches src\lib.rs (target\release\deps\prs_rs-228ebe72bddc28dc.exe)
+Executable benches\my_benchmark\main.rs (target\release\deps\my_benchmark-9a1672a43f9d48fa.exe)
+Executable benches src\main.rs (target\release\deps\prs_rs_cli-1da5d3ab6bcc4d35.exe)
 ```
 
 Follow these steps to profile your benchmark in Visual Studio:
