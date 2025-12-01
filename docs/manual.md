@@ -340,6 +340,16 @@ Open the generated `flamegraph.svg` in your web browser to explore the interacti
 Interactive flamegraph showing function call hierarchy and time spent
 ///
 
+!!! tip "Profiled function not visible in flamegraph?"
+    The compiler may inline your benchmarked function into the benchmark runner. Wrap it with `#[no_mangle]` to make it visible:
+
+    ```rust
+    #[no_mangle]
+    fn my_function_wrapper(input: &[u8]) -> usize {
+        my_actual_function(input)
+    }
+    ```
+
 **Platform-specific tools:**
 
 === "Linux"

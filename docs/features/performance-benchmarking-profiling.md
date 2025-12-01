@@ -184,6 +184,19 @@ cargo flamegraph --bench my_benchmark --profile profile -- --bench --profile-tim
 # On Windows this requires `sudo cargo`, or administrator command prompt
 ```
 
+!!! tip "Profiled function not visible in flamegraph?"
+    The compiler may inline your benchmarked function into the benchmark runner, making it invisible in profiler output. To prevent this, wrap your code in a function with `#[no_mangle]` or `#[inline(never)]`:
+
+    ```rust
+    #[no_mangle]
+    fn my_function_wrapper(input: &[u8]) -> usize {
+        // Call your actual benchmarked function here
+        my_actual_function(input)
+    }
+    ```
+
+    Call the wrapper in your benchmark instead of the original function. The `#[no_mangle]` attribute forces the compiler to keep it as a distinct symbol in the profile.
+
 ### Inspecting Flamegraph
 
 !!! warning "The 'profile' profile is mandatory"
