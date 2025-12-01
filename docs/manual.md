@@ -470,6 +470,101 @@ Results showing performance improvement from PGO
 
 !!! tip "For more info, see [Profile Guided Optimization](features/profile-guided-optimization.md)"
 
+### How to Analyze Binary Size
+
+!!! question "What is cargo bloat?"
+    [cargo-bloat](https://github.com/RazrFalcon/cargo-bloat) identifies which crates and functions contribute most to your binary size.<br/>
+    Use it to find optimization opportunities and reduce your final binary footprint.
+
+Install globally (one-time setup):
+
+```bash
+cargo install cargo-bloat
+```
+
+**Use in your project:**
+
+=== "Bash (Linux & macOS)"
+
+    ```bash
+    RUSTFLAGS="-Z unstable-options -C panic=immediate-abort" cargo bloat --profile release -Z build-std=std --target x86_64-unknown-linux-gnu -p <project-name>
+    ```
+
+=== "PowerShell (Windows)"
+
+    ```powershell
+    $env:RUSTFLAGS="-Z unstable-options -C panic=immediate-abort"; cargo bloat --profile release -Z build-std=std --target x86_64-pc-windows-msvc -p <project-name>
+    ```
+
+=== "CMD (Windows)"
+
+    ```cmd
+    set RUSTFLAGS=-Z unstable-options -C panic=immediate-abort && cargo bloat --profile release -Z build-std=std --target x86_64-pc-windows-msvc -p <project-name>
+    ```
+
+!!! info "Change target to match your platform"
+    Remember to change the `--target` parameter to match your platform:
+    
+    - Linux: `x86_64-unknown-linux-gnu`
+    - macOS: `x86_64-apple-darwin` or `aarch64-apple-darwin`
+    - Windows: `x86_64-pc-windows-msvc`
+
+- `-p <project-name>`: Specifies which package to analyze
+- `--crates`: Shows per-crate size breakdown (omit for per-function breakdown)
+- `-n <count>`: Controls how many items are shown
+
+**Example output:**
+
+```
+ File  .text     Size Crate
+ 5.9%  25.5%  36.5KiB std
+ 3.5%  15.1%  21.7KiB rayon_core
+ 3.1%  13.4%  19.2KiB core
+ 2.0%   8.7%  12.4KiB walkdir
+ 1.8%   7.6%  10.9KiB prs_rs_cli
+ 1.3%   5.8%   8.3KiB argh_shared
+ 1.0%   4.3%   6.2KiB argh
+ 0.9%   3.9%   5.6KiB prs_rs
+ 0.8%   3.3%   4.7KiB alloc
+ 0.6%   2.7%   3.8KiB crossbeam_deque
+ 0.6%   2.4%   3.5KiB rust_fuzzy_search
+ 0.5%   2.3%   3.4KiB crossbeam_epoch
+ 0.5%   2.2%   3.1KiB rayon
+ 0.1%   0.6%     900B [Unknown]
+ 0.1%   0.5%     663B csbindgen
+ 0.0%   0.1%     201B same_file
+ 0.0%   0.1%      86B proc_macro
+ 0.0%   0.1%      77B __rustc
+23.3% 100.0% 143.3KiB .text section size, the file size is 616.0KiB
+```
+
+!!! warning "File size accuracy varies by platform"
+    - **Linux**: The file size shown includes debug symbols. Run `strip` on the binary for actual release size.
+    - **Windows**: Should be about the same on MSVC.
+
+**For accurate final binary size measurement, make a size optimized build:**
+
+=== "Bash (Linux & macOS)"
+
+    ```bash
+    RUSTFLAGS="-Z unstable-options -C panic=immediate-abort" cargo rustc --profile release -Z build-std=std --target x86_64-unknown-linux-gnu -p <project-name>
+    ```
+
+=== "PowerShell (Windows)"
+
+    ```powershell
+    $env:RUSTFLAGS="-Z unstable-options -C panic=immediate-abort"; cargo rustc --profile release -Z build-std=std --target x86_64-pc-windows-msvc -p <project-name>
+    ```
+
+=== "CMD (Windows)"
+
+    ```cmd
+    set RUSTFLAGS=-Z unstable-options -C panic=immediate-abort && cargo rustc --profile release -Z build-std=std --target x86_64-pc-windows-msvc -p <project-name>
+    ```
+
+!!! tip "Stripped binaries are significantly smaller"
+    The example above shows 616.0KiB because of debug symbols, but the final build size and stripped binary size is ~185.3kB. Remember, what you're optimizing is making `.text` smaller.
+
 ### How to Build for Other Platforms
 
 !!! question "Why cross-compile?"
