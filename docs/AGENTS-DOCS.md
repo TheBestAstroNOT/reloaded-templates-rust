@@ -1,7 +1,7 @@
 # Agent Guidelines: Documentation Folder
 
 ## Documentation Commands
-- `mkdocs build --strict` — Check build errors
+- `mkdocs build --strict` - Check build errors
 - NEVER run blocking commands like `mkdocs serve`
 - ALWAYS delete `dist/` folder immediately after `mkdocs build --strict`
 

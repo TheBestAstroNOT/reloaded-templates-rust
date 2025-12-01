@@ -1,6 +1,6 @@
 # Template Manual
 
-This guide walks you through common development tasks—from getting started to advanced optimization—with links to detailed documentation as needed.
+This guide walks you through common development tasks-from getting started to advanced optimization-with links to detailed documentation as needed.
 
 ## Prerequisites
 
@@ -126,7 +126,7 @@ cd src
 cargo test  # run all tests
 ```
 
-When you push code, GitHub Actions automatically runs tests on Linux, Windows, and macOS—check the "Actions" tab to see results.
+When you push code, GitHub Actions automatically runs tests on Linux, Windows, and macOS-check the "Actions" tab to see results.
 
 ![PR Checks](assets/pr-checks.avif)
 
@@ -228,7 +228,7 @@ cargo +nightly miri test test_name
 ```
 
 !!! warning "Miri is MUCH slower than normal tests"
-    This is expected—Miri thoroughly checks every memory operation. Use it primarily for projects with unsafe code, FFI bindings, or mission-critical applications.
+    This is expected-Miri thoroughly checks every memory operation. Use it primarily for projects with unsafe code, FFI bindings, or mission-critical applications.
 
 !!! tip "For more info, see [Miri Testing](features/miri-testing.md)"
 
@@ -639,7 +639,7 @@ See `doc/README.md` for more information.
 !!! question "Want to contribute?"
     Follow these guidelines to keep the project history clean and organized.<br/>
     These practices make code review easier and help maintain project quality.<br/>
-    Not sure about something? Just ask—whether it's "is it okay to work on this?" or "how do I do this?"
+    Not sure about something? Just ask-whether it's "is it okay to work on this?" or "how do I do this?"
 
 ### One Change Per PR
 

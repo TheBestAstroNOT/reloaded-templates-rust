@@ -34,7 +34,7 @@ Open the `src` folder in VSCode when doing Rust development work. This folder co
 Open the `doc` folder in VSCode when editing documentation. This folder contains your MkDocs project and markdown files. The doc workspace uses different VSCode settings optimized for documentation work.
 
 !!! info
-    VSCode features like CodeLLDB debug profiles and the default build task (Ctrl+Shift+B) require the workspace root to be your Rust project root—where `Cargo.toml` is located. Open `src` for development and `doc` for documentation to ensure each tool works correctly.
+    VSCode features like CodeLLDB debug profiles and the default build task (Ctrl+Shift+B) require the workspace root to be your Rust project root-where `Cargo.toml` is located. Open `src` for development and `doc` for documentation to ensure each tool works correctly.
 
 ## Debugging
 Install the `CodeLLDB` extension for native debugging support. Debug profiles are automatically created when the extension is installed and the `src` folder is opened as your workspace root.

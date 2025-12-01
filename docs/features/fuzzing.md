@@ -82,7 +82,7 @@ fuzz_target!(|data: &[u8]| {
 
 !!! tip "Writing Effective Fuzz Targets"
     - Start with simple byte slice input (`&[u8]`)
-    - Don't panic on invalid input—return early instead
+    - Don't panic on invalid input-return early instead
     - Test one entry point per fuzz target
     - Use `arbitrary` crate for structured input when needed
 
