@@ -96,7 +96,8 @@ jobs:
       - name: Build C Libraries and Run Tests
         uses: Reloaded-Project/devops-rust-lightweight-binary@v1
         with:
-          crate-name: {% raw %}${{ github.event.repository.name }}{% endraw %}
+          artifact-prefix: C-Library
+          upload-symbols-separately: false
           target: {% raw %}${{ matrix.target }}{% endraw %}
           use-pgo: {% raw %}${{ matrix.use-pgo && env.build-with-pgo }}{% endraw %}
           use-cross: {% raw %}${{ matrix.use-cross }}{% endraw %}
@@ -125,7 +126,6 @@ jobs:
       - name: Build CLI Binary
         uses: Reloaded-Project/devops-rust-lightweight-binary@v1
         with:
-          crate-name: {{project-name}}-cli
           target: {% raw %}${{ matrix.target }}{% endraw %}
           use-pgo: {% raw %}${{ matrix.use-pgo && env.build-with-pgo }}{% endraw %}
           use-cross: {% raw %}${{ matrix.use-cross }}{% endraw %}
@@ -229,18 +229,23 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - name: Publish Rust Crate and Artifacts  
-        uses: Reloaded-Project/devops-publish-action@v1
-        {%- if publish_crate_on_tag or build_csharp_libs %}
+      - name: Publish Rust Crate and Artifacts
+        uses: Reloaded-Project/devops-publish-action@v3
         with:
           {%- if publish_crate_on_tag %}
-          crates-io-token: {% raw %}${{ secrets.CRATES_IO_TOKEN }}{% endraw %}
+          rust-crates-io-token: {% raw %}${{ secrets.CRATES_IO_TOKEN }}{% endraw %}
           {%- endif %}
           {%- if build_csharp_libs %}
-          nuget-api-key: {% raw %}${{ secrets.NUGET_KEY }}{% endraw %}
+          csharp-nuget-api-key: {% raw %}${{ secrets.NUGET_KEY }}{% endraw %}
           {%- endif %}
           {%- if publish_crate_on_tag %}
-          rust-project-paths: |
-            .
+          rust-cargo-project-paths: src/{{project-name}}
           {%- endif %}
-        {%- endif %}
+          compression-tool: 7z
+          artifact-groups-file: .github/artifact-groups.yml
+          changelog-enabled: 'true'
+          changelog-template: .github/changelog.hbs
+          changelog-is-release: {% raw %}${{ startsWith(github.ref, 'refs/tags/') }}{% endraw %}
+          changelog-release-tag: {% raw %}${{ github.ref_name }}{% endraw %}
+          changelog-override-starting-version: 'true'
+          changelog-hide-credit: 'true'

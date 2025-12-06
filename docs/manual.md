@@ -742,7 +742,7 @@ Keep pull requests focused and atomic. Try to do one logical change per pull req
 
 ### Commit Names
 
-When writing commit messages, follow the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) style to help maintain clear project history:
+When writing commit messages, follow the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) style to help maintain clear project history:
 
 - **Added** - for new features
 - **Changed** - for changes in existing functionality
@@ -757,6 +757,39 @@ Added support for async operations
 Fixed memory leak in parser
 Changed API parameter order (breaking change)
 ```
+
+## Publishing Releases
+
+Publishing releases is largely automated through the CI workflow.
+
+### Customizing the Changelog
+
+First, customize the release notes by editing `.github/changelog.hbs`.<br/>
+The default template uses [Handlebars](https://handlebarsjs.com/guide/) syntax and includes:
+
+- Section for release notes (update before release)
+- Download links to artifacts
+- Auto-generated changelog from commits
+
+### Creating a Release
+
+!!! tip "When you're ready to publish a release, create and push a git tag."
+
+```bash
+git tag 1.0.0
+git push origin 1.0.0
+```
+
+This triggers the CI workflow which will:
+
+1. **Build and test** across all platforms (Linux, Windows, macOS)
+2. **Generate changelog** from commit history using the `.github/changelog.hbs` template
+3. **Create GitHub Release** with all built artifacts attached
+
+!!! info "Depending on template/project configuration, additional steps may occur."
+
+    - **Publish to crates.io**: Lets other Rust developers use your library with `cargo`.
+    - **Publish to NuGet**: Lets C# developers use your library.
 
 ## Miscellaneous
 
