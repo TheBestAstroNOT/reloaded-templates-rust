@@ -156,6 +156,8 @@ class TemplateValidator:
         errors += self._check_exists(f"src/{self.config.project_name}/Cargo.toml", "Package Cargo.toml")
         errors += self._check_exists(f"src/{self.config.project_name}/src/lib.rs", "Main library file")
         errors += self._check_exists(".github/workflows/rust.yml", "Rust CI workflow")
+        errors += self._check_exists(".github/artifact-groups.yml", "Artifact groups config")
+        errors += self._check_exists(".github/changelog.hbs", "Changelog template")
         
         if errors == 0:
             logger.info("✓ File structure validation passed")
