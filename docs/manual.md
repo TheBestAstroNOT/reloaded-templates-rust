@@ -147,14 +147,39 @@ Linting runs automatically in VSCode with the `rust-analyzer` extension. You'll 
 Clippy integration provides advanced linting out of the box
 ///
 
+!!! tip "Auto-fix lints with VSCode"
+    Use `Ctrl+Shift+P` → "Run Task" → "Fix Clippy Lints" to automatically fix many common lint warnings.
+
 **From Command Line:**
 
 ```bash
 cd src
-cargo clippy  # run linter checks
+cargo clippy --workspace --all-features -- -D warnings
 ```
 
-Clippy will show warnings and suggestions to improve your code quality.
+The `-D warnings` flag treats warnings as errors, matching CI behaviour.
+
+To auto-fix many lint issues:
+
+```bash
+cargo clippy --fix --allow-dirty --allow-staged
+```
+
+### How to Format
+
+!!! question "What is formatting?"
+    Formatting ensures consistent code style (indentation, spacing, line breaks) across your project.
+
+**Using VSCode:**
+
+The template is configured to auto-format on save when using VSCode. No manual action needed.
+
+**From Command Line:**
+
+```bash
+cd src
+cargo fmt
+```
 
 ### How to Check Coverage
 
@@ -765,8 +790,8 @@ Changed API parameter order (breaking change)
 In addition, PRs trigger automated quality checks that don't run on direct pushes:
 
 - **Documentation**: Verifies `cargo doc` compiles without errors
-- **Linter**: Treats `cargo clippy` warnings as errors  
-- **Formatter**: Ensures code matches `rustfmt` standards
+- **Linter**: Treats `cargo clippy` warnings as errors (see [How to Lint](#how-to-lint))
+- **Formatter**: Ensures code matches `rustfmt` standards (see [How to Format](#how-to-format))
 
 !!! tip "Releases (Tags) also run these checks"
     Publishing is blocked until quality standards are met.
