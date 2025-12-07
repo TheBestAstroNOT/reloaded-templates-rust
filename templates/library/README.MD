@@ -16,6 +16,7 @@ To setup code coverage for this project:
 
 1. Go to [Codecov][codecov], add your project.
 2. Go to [Settings -> Secrets and variables -> Actions][gh-actions-secrets] in your repo and add a repository secret named `CODECOV_TOKEN`.
+3. Do the same in [Settings -> Secrets and variables -> Dependabot][gh-actions-dependabot].
 
 The instructions on the Codecov page will provide the token to use.
 
@@ -73,6 +74,7 @@ Licensed under [{{license}}](./LICENSE).
 
 [codecov]: https://app.codecov.io
 [gh-actions-secrets]: https://github.com/{{gh_username}}/{{project-name}}/settings/secrets/actions
+[gh-actions-dependabot]: https://github.com/{{gh_username}}/{{project-name}}/settings/secrets/dependabot
 [gh-pages]: https://github.com/{{gh_username}}/{{project-name}}/settings/pages
 [crates-io-key]: https://crates.io/settings/tokens
 [nuget-key]: https://www.nuget.org/account/apikeys
