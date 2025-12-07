@@ -59,23 +59,13 @@ other useful info.
 You can learn more about this project in the [dedicated documentation page][docs].
 {% endif %}
 
-{% if mkdocs %}
-## Getting Started with VSCode
-
-Open the `src` folder in VSCode as your workspace for development.
-{% endif %}
-
-{% if mkdocs %}
 ## Developer Manual
 
 For step-by-step development guidance, see the [Developer Manual](https://reloaded-project.github.io/reloaded-templates-rust/manual/).
-{% endif %}
 
-{% if mkdocs %}
 ## Contributing
 
 We welcome contributions! See the [Contributing Guide](https://reloaded-project.github.io/reloaded-templates-rust/manual/#contributing) for details.
-{% endif %}
 
 ## License
 
