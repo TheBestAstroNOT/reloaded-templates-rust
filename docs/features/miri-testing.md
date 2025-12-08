@@ -187,7 +187,7 @@ Add these task configurations to your `.vscode/tasks.json` (create the file if i
     {
       "label": "Run Tests to Detect Undefined Behaviour",
       "type": "shell",
-      "command": "rustup +nightly component add miri --quiet && cargo +nightly miri test",
+      "command": "rustup +nightly component add miri && cargo +nightly miri test",
       "group": "test",
       "presentation": {
         "reveal": "always"
@@ -200,7 +200,7 @@ Add these task configurations to your `.vscode/tasks.json` (create the file if i
     {
       "label": "Run Tests to Detect Undefined Behaviour (Big Endian)",
       "type": "shell",
-      "command": "rustup +nightly component add miri --quiet && cargo +nightly miri test --target powerpc64-unknown-linux-gnu",
+      "command": "rustup +nightly component add miri && cargo +nightly miri test --target powerpc64-unknown-linux-gnu",
       "group": "test",
       "presentation": {
         "reveal": "always"
