@@ -5,7 +5,7 @@
 [![CI](https://github.com/{{gh_username}}/{{gh_reponame}}/actions/workflows/rust.yml/badge.svg)](https://github.com/{{gh_username}}/{{gh_reponame}}/actions)
 
 <!-- 
-    This README is displayed on crates.io. 
+    This README is displayed on crates.io & docs.rs
     Write detailed documentation here for crate users.
 -->
 

@@ -6,6 +6,11 @@
 
 Command-line interface for [{{project-name}}](../{{project-name}}/README.MD).
 
+<!-- 
+    This README is displayed on crates.io & docs.rs
+    Write detailed documentation here for users.
+-->
+
 ## Installation
 
 ```bash
