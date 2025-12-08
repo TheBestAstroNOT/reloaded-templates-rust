@@ -28,14 +28,28 @@ Add this to your `Cargo.toml`:
 {{project-name}} = "0.1.0"
 ```
 
+{%- if std-by-default or build_with_pgo or build_c_libs %}
+### Feature Flags
+
+| Feature | Description |
+| ------- | ----------- |
+{%- if std-by-default %}
+| `std` | Enable standard library support (disabled by default for `no_std` compatibility) |
+{%- endif %}
+{%- if build_with_pgo %}
+| `pgo` | Enable Profile-Guided Optimization for performance tuning |
+{%- endif %}
+{%- if build_c_libs %}
+| `c-exports` | Enable C FFI exports for C/C++ interoperability |
+{%- endif %}
+{%- else %}
 <!-- TODO: Document any feature flags if applicable
 ### Feature Flags
 
-| Feature | Description                                          |
-| ------- | ---------------------------------------------------- |
-| `std`   | Enable standard library support (enabled by default) |
-| `alloc` | Enable alloc support for no_std environments         |
+| Feature | Description |
+| ------- | ----------- |
 -->
+{%- endif %}
 
 ## Usage
 
