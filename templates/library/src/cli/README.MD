@@ -26,10 +26,6 @@ cargo build --release -p {{project-name}}-cli
 {{project-name}}-cli --help
 ```
 
-## Documentation
-
-For detailed documentation, see [docs.rs](https://docs.rs/{{project-name}}-cli).
-
 ## License
 
-Licensed under [{{license}}](../../LICENSE).
+Licensed under {{license}}

@@ -31,10 +31,10 @@ Add this to your `Cargo.toml`:
 <!-- TODO: Document any feature flags if applicable
 ### Feature Flags
 
-| Feature | Description |
-|---------|-------------|
-| `std` | Enable standard library support (enabled by default) |
-| `alloc` | Enable alloc support for no_std environments |
+| Feature | Description                                          |
+| ------- | ---------------------------------------------------- |
+| `std`   | Enable standard library support (enabled by default) |
+| `alloc` | Enable alloc support for no_std environments         |
 -->
 
 ## Usage
@@ -53,10 +53,6 @@ Add this to your `Cargo.toml`:
 // TODO: Add a more advanced example here
 ```
 
-## Documentation
-
-For detailed API documentation, see [docs.rs](https://docs.rs/{{project-name}}).
-
 ## License
 
-Licensed under [{{license}}](../../LICENSE).
+Licensed under {{license}}
