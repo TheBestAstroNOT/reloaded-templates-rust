@@ -1,15 +1,11 @@
 # {{project-name}}
 
-[![Crates.io](https://img.shields.io/crates/v/{{project-name}}.svg)](https://crates.io/crates/{{project-name}})
-[![Docs.rs](https://docs.rs/{{project-name}}/badge.svg)](https://docs.rs/{{project-name}})
-[![CI](https://github.com/{{gh_username}}/{{project-name}}/actions/workflows/rust.yml/badge.svg)](https://github.com/{{gh_username}}/{{project-name}}/actions)
-
------------------------
-
 ## Additional Setup Required!!
 
-Additional setup might be required.  
-Once you do the stuff under this text, delete this section.  
+<!-- DELETE THIS SECTION AFTER COMPLETING SETUP -->
+
+Additional setup might be required.
+Once you do the stuff under this text, delete this section.
 
 ### Code Coverage
 To setup code coverage for this project:
@@ -32,33 +28,59 @@ Before you make your first commit to GitHub, you'll need to go to [Settings -> P
 
 You'll need to set up an API key to publish to `crates.io` on tag.
 
-- Generate your API key in [crates.io (Account Settings -> API Tokens)][crates-io-key].  
-- Go to [Settings -> Secrets and variables -> Actions][gh-actions-secrets] in your repo and add environment secret named `CRATES_IO_TOKEN`.  
-- Paste your API key.  
+- Generate your API key in [crates.io (Account Settings -> API Tokens)][crates-io-key].
+- Go to [Settings -> Secrets and variables -> Actions][gh-actions-secrets] in your repo and add environment secret named `CRATES_IO_TOKEN`.
+- Paste your API key.
 
 {% if build_csharp_libs %}
 ### Setup API Key (NuGet)
 You'll need to set up an API key to publish to `NuGet` on tag.
 
-- Generate your API key in [Api Keys][nuget-key].  
-- Go to [Settings -> Secrets and variables -> Actions][gh-actions-secrets] in your repo and add a repository secret named `NUGET_KEY`.  
+- Generate your API key in [Api Keys][nuget-key].
+- Go to [Settings -> Secrets and variables -> Actions][gh-actions-secrets] in your repo and add a repository secret named `NUGET_KEY`.
 {% endif %}
 {% endif %}
 
-### Fill in Crate Description
+### Fill in README Documentation
 
-This readme file (under the dashed line) is used for the crate description on GitHub and
-crates.io (if uploaded). Consider filling in this readme with examples for end users and any
-other useful info.
+This repository uses a two-level README structure:
+
+| File | Purpose | What to Write |
+|------|---------|---------------|
+| `README.MD` (this file) | GitHub landing page | Project overview, quick start example, badges |
+| [`src/{{project-name}}/README.MD`](./src/{{project-name}}/README.MD) | crates.io page | Detailed features, installation, comprehensive usage examples |
 
 -----------------------
 
-## About
+[![Crates.io](https://img.shields.io/crates/v/{{project-name}}.svg)](https://crates.io/crates/{{project-name}})
+[![Docs.rs](https://docs.rs/{{project-name}}/badge.svg)](https://docs.rs/{{project-name}})
+[![CI](https://github.com/{{gh_username}}/{{project-name}}/actions/workflows/rust.yml/badge.svg)](https://github.com/{{gh_username}}/{{project-name}}/actions)
 
 {{project_description}}
-{% if mkdocs %}
-You can learn more about this project in the [dedicated documentation page][docs].
-{% endif %}
+
+## Quick Start
+
+```toml
+[dependencies]
+{{project-name}} = "0.1.0"
+```
+
+```rust
+// TODO: Add a minimal example showing the most common use case
+```
+
+{%- if mkdocs %}
+For detailed usage guides, see the [documentation][docs].
+{%- else %}
+See the [{{project-name}} crate documentation](./src/{{project-name}}/README.MD) for detailed usage.
+{%- endif %}
+
+## Crates
+
+- [{{project-name}}](./src/{{project-name}}/README.MD): Core library <!-- TODO: Update description -->
+{%- if build_cli %}
+- [cli](./src/cli/README.MD): Command-line interface <!-- TODO: Update description -->
+{%- endif %}
 
 ## Developer Manual
 

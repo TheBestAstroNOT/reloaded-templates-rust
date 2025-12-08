@@ -5,6 +5,7 @@ edition = "2021"
 description = "CLI for {{project_description}}"
 repository = "https://github.com/{{gh_username}}/{{project-name}}"
 license-file = "LICENSE"
+readme = "README.MD"
 
 [dependencies]
 {{project-name}} = { path = "../{{project-name}}" }
