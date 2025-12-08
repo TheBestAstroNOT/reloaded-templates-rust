@@ -11,6 +11,10 @@ Command-line interface for [{{project-name}}](../{{project-name}}/README.MD).
     Write detailed documentation here for users.
 -->
 
+{%- if mkdocs %}
+For additional documentation, visit our [documentation][docs].
+{%- endif %}
+
 ## Installation
 
 ```bash
@@ -34,3 +38,7 @@ cargo build --release -p {{project-name}}-cli
 ## License
 
 Licensed under {{license}}
+
+{%- if mkdocs %}
+[docs]: https://{{gh_reponame}}.github.io/{{gh_reponame}}
+{%- endif %}

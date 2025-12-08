@@ -11,6 +11,10 @@
 
 {{project_description}}
 
+{%- if mkdocs %}
+For additional documentation, visit our [documentation][docs].
+{%- endif %}
+
 ## Features
 
 <!-- TODO: Replace with actual features of your crate -->
@@ -70,3 +74,7 @@ Add this to your `Cargo.toml`:
 ## License
 
 Licensed under {{license}}
+
+{%- if mkdocs %}
+[docs]: https://{{gh_reponame}}.github.io/{{gh_reponame}}
+{%- endif %}
