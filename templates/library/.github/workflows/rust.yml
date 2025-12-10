@@ -89,7 +89,7 @@ jobs:
     {% raw %}runs-on: ${{ matrix.os }}{% endraw %}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
 {%- if build_c_libs %}
 
@@ -182,7 +182,7 @@ jobs:
         target: [x86_64-pc-windows-gnu, i686-pc-windows-gnu]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       # Note: Currently in cross, Wine tests break with debug info.
       # https://github.com/cross-rs/cross/issues/1637#issuecomment-3275459974
@@ -202,7 +202,7 @@ jobs:
   build-c-headers:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
 
@@ -230,7 +230,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Build and Package .NET Wrapper
         uses: Reloaded-Project/devops-rust-c-library-to-dotnet@v1
