@@ -34,7 +34,7 @@ These templates provide various features for getting up and running with cross p
 
 This repository contains two sub-templates:
 
-- `library`: for generating a rust library, webserver, or binary/executable project
+- `general`: for generating a rust library, webserver, or binary/executable project
 - `reloaded3`: for generating a [Reloaded-III](https://reloaded-project.github.io/Reloaded-III/) mod written in Rust. ~~2024~~, ~~2025~~, god knows
 
 ## Getting Started

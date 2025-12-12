@@ -4,13 +4,13 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{808186BE-9BD0-DD1D-D574-36EEAD1E7F8F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "library", "library", "{9BE48AF4-609A-9A7C-25A1-067F3852CB4B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "general", "general", "{9BE48AF4-609A-9A7C-25A1-067F3852CB4B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D3076678-EA90-D3C4-3E13-17B0BFE7AA5C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bindings", "bindings", "{1E90F5BE-3F0F-5163-F25B-18CA725C8E33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp", "templates\library\src\bindings\csharp\csharp.csproj", "{146DB041-3182-15FD-2A8F-5E94ACEC898C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp", "templates\general\src\bindings\csharp\csharp.csproj", "{146DB041-3182-15FD-2A8F-5E94ACEC898C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
