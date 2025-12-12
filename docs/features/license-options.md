@@ -45,11 +45,11 @@ When you generate a project:
 !!! info
     If your project was not built on Reloaded template, here's how you can recreate the license parts.
 
-Copy the license file you need from `templates/library/`:
+Copy the license file you need from `templates/general/`:
 
 ```bash
 # Example: Copy MIT license
-cp templates/library/LICENSE-MIT ./LICENSE
+cp templates/general/LICENSE-MIT ./LICENSE
 ```
 
 Available files:<br/>

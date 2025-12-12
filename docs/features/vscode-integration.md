@@ -106,8 +106,8 @@ Activate with `Ctrl+Shift+P` → `Coverage Gutter: Watch`
 
 Copy the template configuration files to your project and install the recommended extensions:
 
-- [templates/library/.vscode/settings.json](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.vscode/settings.json) - VSCode settings with `rust-analyzer` and coverage configuration
-- [templates/library/.vscode/tasks.json](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.vscode/tasks.json) - Pre-configured development tasks
+- [templates/general/.vscode/settings.json](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/general/.vscode/settings.json) - VSCode settings with `rust-analyzer` and coverage configuration
+- [templates/general/.vscode/tasks.json](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/general/.vscode/tasks.json) - Pre-configured development tasks
 
 Create a `.vscode` directory in your Rust project root (where `Cargo.toml` is located) and copy these files. Then open your project's folder in VSCode to enable full functionality.
 

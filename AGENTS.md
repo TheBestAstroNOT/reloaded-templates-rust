@@ -4,7 +4,7 @@
 This repository provides opinionated Rust project generators for libraries and binaries using cargo-generate. It's used by Sewer's Projects and the Reloaded-III framework for cross-platform Rust library and mod development.
 
 ## Repository Structure
-- `templates/library/` - Rust library template with documentation
+- `templates/general/` - General-purpose Rust template for libraries, binaries, and web servers
 - `templates/reloaded3/` - Reloaded-III mod template
 - `docs/` - MkDocs documentation site with assets and pages
 - `mkdocs.yml` - Main MkDocs configuration

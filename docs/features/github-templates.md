@@ -18,8 +18,8 @@ Pre-configured bug report template with structured fields.
 ///
 
 ## What's Included
-- **[Bug Report Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/bug_report.yml)** - Example structured bug reporting with reproduction steps
-- **[Feature Request Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/library/.github/ISSUE_TEMPLATE/feature_request.yml)** - Example standardized feature suggestions
+- **[Bug Report Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/general/.github/ISSUE_TEMPLATE/bug_report.yml)** - Example structured bug reporting with reproduction steps
+- **[Feature Request Template](https://github.com/Reloaded-Project/reloaded-templates-rust/blob/main/templates/general/.github/ISSUE_TEMPLATE/feature_request.yml)** - Example standardized feature suggestions
 
 !!! tip
     For programs run by less technical end users, consider [YAML-based issue forms](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms) to ensure users give you the information you need.
@@ -28,6 +28,6 @@ Pre-configured bug report template with structured fields.
 !!! info
     For adding to existing non-template projects.
 
-Copy the [`.github/ISSUE_TEMPLATE/`](https://github.com/Reloaded-Project/reloaded-templates-rust/tree/main/templates/library/.github/ISSUE_TEMPLATE) folder to your project root and customize the variables.
+Copy the [`.github/ISSUE_TEMPLATE/`](https://github.com/Reloaded-Project/reloaded-templates-rust/tree/main/templates/general/.github/ISSUE_TEMPLATE) folder to your project root and customize the variables.
 
 See the [main documentation](../index.md#getting-started) for more details.

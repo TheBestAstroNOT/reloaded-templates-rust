@@ -497,7 +497,7 @@ def generate_project(config: TemplateTestConfig, temp_dir: Path) -> Tuple[bool, 
     # Get repository root (two levels up from .github/tests/)
     script_dir = Path(__file__).parent
     repo_root = script_dir.parent.parent
-    template_path = repo_root / "templates" / "library"
+    template_path = repo_root / "templates" / "general"
     
     if not template_path.exists():
         logger.error(f"Template path not found: {template_path}")

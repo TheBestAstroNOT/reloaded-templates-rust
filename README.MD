@@ -22,7 +22,7 @@ cargo generate --git https://github.com/Reloaded-Project/reloaded-templates-rust
 
 ## 📋 Available Templates
 
-- **`library`**: Rust libraries, web servers, and binary/executable projects
+- **`general`**: Rust libraries, web servers, and binary/executable projects
 - **`reloaded3`**: Reloaded-III mods written in Rust (~~2024~~, ~~2025~~, god knows)
 
 ## 📄 License
