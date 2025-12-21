@@ -41,6 +41,8 @@
 
 # Post-Change Verification
 
+All must pass without warnings:
+
 ```bash
 cargo build --workspace --all-features --all-targets --quiet
 cargo test --workspace --all-features --quiet
@@ -49,5 +51,3 @@ cargo doc --workspace --all-features --quiet
 cargo fmt --all --quiet
 cargo publish --dry-run --quiet
 ```
-
-All must pass before submitting.
