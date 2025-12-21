@@ -12,3 +12,4 @@ This is the documentation for the Reloaded Rust templates.
 For information about migrating between template versions, see the following guides:
 
 - **[v1.0.0](v1.0.0.md)** - Migrate from pre-v1 versions to v1.0.0
+- **[v1.0.1](v1.0.1.md)** - Update AGENTS.md post-change verification commands

@@ -42,11 +42,12 @@
 # Post-Change Verification
 
 ```bash
-cargo test --workspace --all-features
-cargo clippy --workspace --all-features -- -D warnings
-cargo doc --workspace --all-features
-cargo fmt --all
-cargo publish --dry-run
+cargo build --workspace --all-features --all-targets --quiet
+cargo test --workspace --all-features --quiet
+cargo clippy --workspace --all-features --quiet -- -D warnings
+cargo doc --workspace --all-features --quiet
+cargo fmt --all --quiet
+cargo publish --dry-run --quiet
 ```
 
 All must pass before submitting.
