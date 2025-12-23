@@ -20,6 +20,33 @@ cargo install cargo-generate
 cargo generate --git https://github.com/Reloaded-Project/reloaded-templates-rust.git
 ```
 
+The above command requires user input. For avoiding user input (important for automated usage), try something like:
+
+```bash
+cargo generate \
+  --git https://github.com/Reloaded-Project/reloaded-templates-rust.git \
+  templates/general \
+  --name my-project \
+  --destination . \
+  --define gh_username=YourUsername \
+  --define gh_reponame=my-project \
+  --define "project_description=A brief description of your project" \
+  --define mkdocs=false \
+  --define vscode=true \
+  --define xplat=false \
+  --define wine=false \
+  --define bench=false \
+  --define miri=false \
+  --define fuzz=false \
+  --define build_c_libs=false \
+  --define build_cli=false \
+  --define publish_crate_on_tag=true \
+  --define license=MIT \
+  --define no_std_support=STD
+```
+
+> **Note:** The `--destination` folder must already exist; it will not be auto-created.
+
 ## 📋 Available Templates
 
 - **`general`**: Rust libraries, web servers, and binary/executable projects
